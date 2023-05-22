@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SiFresh</string>
+    <string name="bottom_navBar_home">Home</string>
+    <string name="bottom_navBar_cart">My Cart</string>
+    <string name="bottom_navBar_order">My Order</string>
+    <string name="bottom_navBar_profile">Profile</string>
 </resources>
