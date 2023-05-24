@@ -23,4 +23,17 @@
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
+
+    <!-- FAB circle -->
+    <style name="ShapeAppearanceOverlay.FloatingActionButton.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- Use 50% to create a perfect circle -->
+    </style>
+
+    <!-- Toggle Button -->
+    <style name="Widget.MaterialComponents.Button.Toggle" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/design_default_color_primary</item>
+        <item name="android:background">#BFBFBF</item>
+        <item name="android:textAppearance">@style/Widget.MaterialComponents.Button.Toggle</item>
+    </style>
 </resources>
