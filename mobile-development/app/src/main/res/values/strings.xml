@@ -4,4 +4,10 @@
     <string name="bottom_navBar_cart">My Cart</string>
     <string name="bottom_navBar_order">My Order</string>
     <string name="bottom_navBar_profile">Profile</string>
+    <string name="button_login_toRegister">Don\'t have an account? <b>Sign up</b></string>
+    <string name="title_login">Hello,\nWelcome Back</string>
+    <string name="button_login_confirm">Login to your account</string>
+    <string name="input_email">Email</string>
+    <string name="input_password">Password</string>
+    <string name="button_login_forgotPassword">Forgot Password?</string>
 </resources>
