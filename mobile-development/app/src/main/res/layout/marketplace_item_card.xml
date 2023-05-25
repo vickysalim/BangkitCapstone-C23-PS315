@@ -7,13 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/marketplace_item_container"
-    android:paddingBottom="20dp"
-    android:layout_margin="12dp">
+    android:paddingBottom="12dp"
+    android:layout_margin="4dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_item_photo"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="130dp"
         android:contentDescription=""
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,9 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="12dp"
-        android:text="Anak Bangkit"
-        android:textSize="30sp"
+        android:layout_marginTop="8dp"
+        android:text="Watermelon"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -41,9 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="Rp. 50.000"
-        android:textSize="20sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,18 +54,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="8dp"
-        android:padding="12dp"
+        android:layout_marginTop="4dp"
+        android:padding="8dp"
         app:icon="@drawable/ic_shopping_cart_24"
         app:cornerRadius="10dp"
         app:iconGravity="textStart"
         android:text="Add to Cart"
         android:textAllCaps="false"
-        android:textSize="20sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_price"
         app:layout_constraintStart_toStartOf="@+id/tv_item_price"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_price" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
