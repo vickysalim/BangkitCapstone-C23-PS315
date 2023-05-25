@@ -10,4 +10,22 @@
     <string name="input_email">Email</string>
     <string name="input_password">Password</string>
     <string name="button_login_forgotPassword">Forgot Password?</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="text_finish">Finish</string>
+    <string name="btn_register_toLogin">Already have an account? <b>Sign in</b></string>
+    <string name="title_register_info">Let\'s create your account!</string>
+    <string name="subtitle_register_info">Let\'s help you setup your account,\nit won\'t take long.</string>
+    <string name="input_name">Full Name</string>
+    <string name="input_phone">Phone Number</string>
+    <string name="btn_continue">Continue</string>
+    <string name="title_register_address">Let\'s enter your address!</string>
+    <string name="subtitle_register_address">Nearly there,\nit\'s the last step to setup your account</string>
+    <string name="input_province">Province</string>
+    <string name="input_city">City</string>
+    <string name="input_district">District</string>
+    <string name="input_postal">Postal Code</string>
+    <string name="input_address">Address</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_register">Register</string>
 </resources>
