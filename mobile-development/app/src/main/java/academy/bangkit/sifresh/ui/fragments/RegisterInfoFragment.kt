@@ -1,14 +1,14 @@
-package academy.bangkit.sifresh
+package academy.bangkit.sifresh.ui.fragments
 
+import academy.bangkit.sifresh.R
+import academy.bangkit.sifresh.RegisterViewModel
 import academy.bangkit.sifresh.databinding.FragmentRegisterInfoBinding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 
 class RegisterInfoFragment : Fragment() {

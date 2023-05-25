@@ -1,9 +1,10 @@
 package academy.bangkit.sifresh
 
 import academy.bangkit.sifresh.databinding.ActivityRegisterBinding
+import academy.bangkit.sifresh.ui.fragments.RegisterAddressFragment
+import academy.bangkit.sifresh.ui.fragments.RegisterInfoFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 
 class RegisterActivity : AppCompatActivity() {
