@@ -1,4 +1,4 @@
-package academy.bangkit.sifresh
+package academy.bangkit.sifresh.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 

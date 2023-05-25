@@ -1,7 +1,7 @@
 package academy.bangkit.sifresh.ui.fragments
 
 import academy.bangkit.sifresh.R
-import academy.bangkit.sifresh.RegisterViewModel
+import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
 import academy.bangkit.sifresh.databinding.FragmentRegisterInfoBinding
 import android.os.Bundle
 import androidx.fragment.app.Fragment

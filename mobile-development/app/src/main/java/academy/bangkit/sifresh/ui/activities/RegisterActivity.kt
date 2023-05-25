@@ -1,5 +1,6 @@
-package academy.bangkit.sifresh
+package academy.bangkit.sifresh.ui.activities
 
+import academy.bangkit.sifresh.R
 import academy.bangkit.sifresh.databinding.ActivityRegisterBinding
 import academy.bangkit.sifresh.ui.fragments.RegisterAddressFragment
 import academy.bangkit.sifresh.ui.fragments.RegisterInfoFragment

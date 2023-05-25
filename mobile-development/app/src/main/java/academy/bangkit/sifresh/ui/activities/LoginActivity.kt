@@ -1,4 +1,4 @@
-package academy.bangkit.sifresh
+package academy.bangkit.sifresh.ui.activities
 
 import academy.bangkit.sifresh.databinding.ActivityLoginBinding
 import android.content.Intent
