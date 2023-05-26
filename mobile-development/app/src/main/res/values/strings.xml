@@ -28,4 +28,7 @@
     <string name="input_address">Address</string>
     <string name="btn_previous">Previous</string>
     <string name="btn_register">Register</string>
+    <string name="text_nutrition">Nutrition:</string>
+    <string name="text_tips">Tips to keep it fresh:</string>
+    <string name="btn_recheck">Re-check</string>
 </resources>
