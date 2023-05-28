@@ -1,5 +1,7 @@
 package academy.bangkit.sifresh.data
 
+import academy.bangkit.sifresh.data.response.Product
+
 object ProductDataDummy {
     val productList = listOf(
         Product(
@@ -77,7 +79,7 @@ object ProductDataDummy {
             "Tomato",
             "Rp. 4.000",
             "https://upload.wikimedia.org/wikipedia/commons/8/89/Tomato_je.jpg"
-        ),Product(
+        ), Product(
             "Carrot",
             "Rp. 7.000",
             "https://upload.wikimedia.org/wikipedia/commons/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg"

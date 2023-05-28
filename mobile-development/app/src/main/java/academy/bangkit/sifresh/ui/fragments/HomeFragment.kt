@@ -10,7 +10,6 @@ import academy.bangkit.sifresh.data.ProductDataDummy
 import academy.bangkit.sifresh.databinding.FragmentHomeBinding
 import academy.bangkit.sifresh.ui.adapter.ListProductAllAdapter
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.constants.AnimationTypes
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -41,8 +40,8 @@ class HomeFragment : Fragment() {
 
         // Category
         binding.rbCategoryAll.isChecked = true
+        binding.rvMarketplaceItem.layoutManager = GridLayoutManager(requireActivity(), 2)
         if (binding.rbCategoryAll.isChecked){
-            binding.rvMarketplaceItem.layoutManager = GridLayoutManager(requireActivity(), 2)
             val adapter = ListProductAllAdapter(ProductDataDummy.productList)
             binding.rvMarketplaceItem.adapter = adapter
         }
@@ -50,19 +49,16 @@ class HomeFragment : Fragment() {
             when(checkedId) {
                 R.id.rb_category_all -> {
                     // Display all product
-                    binding.rvMarketplaceItem.layoutManager = GridLayoutManager(requireActivity(), 2)
                     val adapter = ListProductAllAdapter(ProductDataDummy.productList)
                     binding.rvMarketplaceItem.adapter = adapter
                 }
                 R.id.rb_category_fruit -> {
                     // Display fruit product
-                    binding.rvMarketplaceItem.layoutManager = GridLayoutManager(requireActivity(), 2)
                     val adapter = ListProductAllAdapter(ProductDataDummy.productFruit)
                     binding.rvMarketplaceItem.adapter = adapter
                 }
                 R.id.rb_category_vegetable -> {
                     // Display vegetable product
-                    binding.rvMarketplaceItem.layoutManager = GridLayoutManager(requireActivity(), 2)
                     val adapter = ListProductAllAdapter(ProductDataDummy.productVegetable)
                     binding.rvMarketplaceItem.adapter = adapter
                 }

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.CameraActivity">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewCamera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="18dp"
+        android:background="#4F2A95C8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription=""
+            android:src="@drawable/ic_arrow_back_24"
+            app:tint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btn_info"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription=""
+            android:src="@drawable/ic_outline_info_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4F2A95C8"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_gallery"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription=""
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_bottom"
+            app:layout_constraintEnd_toStartOf="@+id/btn_take_photo"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_image_24"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_take_photo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription=""
+            app:layout_constraintBottom_toBottomOf="@+id/btn_gallery"
+            app:layout_constraintEnd_toStartOf="@+id/btn_switch"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_gallery"
+            app:layout_constraintTop_toTopOf="@+id/btn_gallery"
+            app:srcCompat="@drawable/ic_camera_alt_24"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/btn_switch"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription=""
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_take_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_take_photo"
+            app:layout_constraintTop_toTopOf="@+id/btn_take_photo"
+            app:srcCompat="@drawable/ic_cameraswitch_24"
+            app:tint="@color/white" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

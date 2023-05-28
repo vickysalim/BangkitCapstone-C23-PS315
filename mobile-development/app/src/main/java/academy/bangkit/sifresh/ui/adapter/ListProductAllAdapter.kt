@@ -1,6 +1,6 @@
 package academy.bangkit.sifresh.ui.adapter
 
-import academy.bangkit.sifresh.data.Product
+import academy.bangkit.sifresh.data.response.Product
 import academy.bangkit.sifresh.databinding.MarketplaceItemCardBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup

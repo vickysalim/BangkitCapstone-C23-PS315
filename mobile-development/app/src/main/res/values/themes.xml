@@ -24,6 +24,18 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <!-- All Rounded Corner -->
+    <style name="ShapeAppearance.MyApp.MediumComponent.AllRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+    </style>
+
     <!-- FAB circle -->
     <style name="ShapeAppearanceOverlay.FloatingActionButton.Circle" parent="">
         <item name="cornerFamily">rounded</item>
@@ -35,5 +47,25 @@
         <item name="android:textColor">@color/design_default_color_primary</item>
         <item name="android:background">#BFBFBF</item>
         <item name="android:textAppearance">@style/Widget.MaterialComponents.Button.Toggle</item>
+    </style>
+
+    <!-- Only Left Corner -->
+    <style name="ShapeAppearance.MyApp.MediumComponent.LeftRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+    </style>
+
+    <!-- Only Right Corner -->
+    <style name="ShapeAppearance.MyApp.MediumComponent.RightRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 </resources>

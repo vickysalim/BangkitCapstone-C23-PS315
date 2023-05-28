@@ -1,4 +1,4 @@
-package academy.bangkit.sifresh.data
+package academy.bangkit.sifresh.data.response
 
 data class Product (
     val productName: String,
