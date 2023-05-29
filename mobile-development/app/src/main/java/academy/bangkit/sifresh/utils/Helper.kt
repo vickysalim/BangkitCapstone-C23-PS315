@@ -13,6 +13,7 @@ import android.os.Environment
 import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import java.io.*
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -94,4 +95,10 @@ object Helper {
             context,
             permission
         ) == PackageManager.PERMISSION_GRANTED
+
+    fun formatCurrency(number: Double): String {
+        val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
+        formatter.currency = Currency.getInstance("IDR")
+        return formatter.format(number)
+    }
 }
