@@ -7,6 +7,7 @@ import academy.bangkit.sifresh.data.response.Review
 import academy.bangkit.sifresh.databinding.ActivityConfirmOrderBinding
 import academy.bangkit.sifresh.ui.adapter.ListItemCartAdapter
 import academy.bangkit.sifresh.ui.adapter.ListProductReviewAdapter
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,12 @@ class ConfirmOrderActivity : AppCompatActivity() {
         binding.rvCartItem.layoutManager = layoutManager
 
         setCartAdapter(MyCartDataDummy.myCartDummy[0].productCart)
+
+        binding.btnConfirmPayment.setOnClickListener {
+            val intent = Intent(this, OrderSuccessActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setCartAdapter(cartList: List<ProductCart>) {
