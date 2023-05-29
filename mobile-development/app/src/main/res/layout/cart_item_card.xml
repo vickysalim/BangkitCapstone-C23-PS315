@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@+id/iv_item_photo" />
 
     <TextView
-        android:id="@+id/tv_item_price"
+        android:id="@+id/tv_item_total_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -37,44 +37,56 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_item_photo"
         app:layout_constraintStart_toEndOf="@+id/iv_item_photo" />
 
+    <TextView
+        android:id="@+id/tv_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp. 8.000"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"
+        app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quantity_min"
             style="?attr/materialIconButtonFilledStyle"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_weight="1"
+            app:icon="@drawable/ic_minus_24"
             app:iconGravity="textEnd"
             app:iconSize="16dp"
-            app:icon="@drawable/ic_minus_24"
             app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.LeftRounded" />
 
         <TextView
             android:id="@+id/tv_item_quantity"
             android:layout_width="40dp"
             android:layout_height="22.5dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
-            android:paddingHorizontal="10dp"
-            android:gravity="center"
+            android:layout_weight="1"
             android:background="#E8E8E8"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
             android:text="1"
-            android:textColor="#BFBFBF"/>
+            android:textColor="#252525" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_quantity_plus"
             style="?attr/materialIconButtonFilledStyle"
             android:layout_width="40dp"
             android:layout_height="30dp"
             android:layout_weight="1"
+            app:icon="@drawable/ic_plus_24"
             app:iconGravity="textEnd"
             app:iconSize="16dp"
-            app:icon="@drawable/ic_plus_24"
             app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.RightRounded" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

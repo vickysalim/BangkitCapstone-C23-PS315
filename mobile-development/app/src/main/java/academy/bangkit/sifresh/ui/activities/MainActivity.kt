@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        switchFragment(HomeFragment())
+        switchFragment(getCurrentFragment())
 
         binding.apply {
             bottomNavigationView.apply {
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             fabScan.setOnClickListener {
-                // Go to Camera Activity
                 if (Helper.isPermissionGranted(this@MainActivity, Manifest.permission.CAMERA)) {
                     val intent = Intent(this@MainActivity, CameraActivity::class.java)
                     startActivity(intent)
@@ -72,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.content_frame, fragment)
             .commit()
+    }
+
+    private fun getCurrentFragment(): Fragment {
+        return supportFragmentManager.findFragmentById(R.id.content_frame) ?: HomeFragment()
     }
 
     companion object {
