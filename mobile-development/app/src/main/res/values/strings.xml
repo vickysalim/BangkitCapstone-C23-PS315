@@ -34,4 +34,8 @@
     <string name="text_add_to_cart">Add to Cart</string>
     <string name="text_product_description">Product Description</string>
     <string name="text_see_profile">See Profile</string>
+    <string name="text_confirm">Confirm Order</string>
+    <string name="text_note_seller">Note for Seller</string>
+    <string name="text_payment_detail">Payment Detail</string>
+    <string name="text_confirm_payment">Confirm Payment</string>
 </resources>

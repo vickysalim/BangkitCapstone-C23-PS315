@@ -2,6 +2,8 @@ package academy.bangkit.sifresh.ui.adapter
 
 import academy.bangkit.sifresh.data.response.Seller
 import academy.bangkit.sifresh.databinding.CartSectionBinding
+import academy.bangkit.sifresh.ui.activities.ConfirmOrderActivity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,11 @@ class ListSellerCartAdapter(private val listSeller: List<Seller>) : RecyclerView
         viewHolder.binding.rvCartItem.layoutManager = LinearLayoutManager(viewHolder.binding.root.context)
         viewHolder.binding.rvCartItem.adapter = ListItemCartAdapter(seller.productCart)
         viewHolder.binding.tvTotalPrice.text = seller.totalPrice
+
+        viewHolder.binding.btnAddToCart.setOnClickListener {
+            val intent = Intent(viewHolder.binding.root.context, ConfirmOrderActivity::class.java)
+            viewHolder.binding.root.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = listSeller.size
