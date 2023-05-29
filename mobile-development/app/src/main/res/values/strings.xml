@@ -31,4 +31,7 @@
     <string name="text_nutrition">Nutrition:</string>
     <string name="text_tips">Tips to keep it fresh:</string>
     <string name="btn_recheck">Re-check</string>
+    <string name="text_add_to_cart">Add to Cart</string>
+    <string name="text_product_description">Product Description</string>
+    <string name="text_see_profile">See Profile</string>
 </resources>

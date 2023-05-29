@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.sifresh.R
 import academy.bangkit.sifresh.data.ProductDataDummy
+import academy.bangkit.sifresh.data.response.Product
 import academy.bangkit.sifresh.databinding.FragmentHomeBinding
+import academy.bangkit.sifresh.ui.activities.ProductDetailActivity
 import academy.bangkit.sifresh.ui.adapter.ListProductAllAdapter
+import android.content.Intent
 import androidx.recyclerview.widget.GridLayoutManager
 import com.denzcoskun.imageslider.constants.AnimationTypes
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -44,6 +47,13 @@ class HomeFragment : Fragment() {
         if (binding.rbCategoryAll.isChecked){
             val adapter = ListProductAllAdapter(ProductDataDummy.productList)
             binding.rvMarketplaceItem.adapter = adapter
+
+            adapter.setOnItemClickCallback(object : ListProductAllAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: Product) {
+                    val intent = Intent(activity, ProductDetailActivity::class.java)
+                    startActivity(intent)
+                }
+            })
         }
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId) {
@@ -51,16 +61,37 @@ class HomeFragment : Fragment() {
                     // Display all product
                     val adapter = ListProductAllAdapter(ProductDataDummy.productList)
                     binding.rvMarketplaceItem.adapter = adapter
+
+                    adapter.setOnItemClickCallback(object : ListProductAllAdapter.OnItemClickCallback {
+                        override fun onItemClicked(data: Product) {
+                            val intent = Intent(activity, ProductDetailActivity::class.java)
+                            startActivity(intent)
+                        }
+                    })
                 }
                 R.id.rb_category_fruit -> {
                     // Display fruit product
                     val adapter = ListProductAllAdapter(ProductDataDummy.productFruit)
                     binding.rvMarketplaceItem.adapter = adapter
+
+                    adapter.setOnItemClickCallback(object : ListProductAllAdapter.OnItemClickCallback {
+                        override fun onItemClicked(data: Product) {
+                            val intent = Intent(activity, ProductDetailActivity::class.java)
+                            startActivity(intent)
+                        }
+                    })
                 }
                 R.id.rb_category_vegetable -> {
                     // Display vegetable product
                     val adapter = ListProductAllAdapter(ProductDataDummy.productVegetable)
                     binding.rvMarketplaceItem.adapter = adapter
+
+                    adapter.setOnItemClickCallback(object : ListProductAllAdapter.OnItemClickCallback {
+                        override fun onItemClicked(data: Product) {
+                            val intent = Intent(activity, ProductDetailActivity::class.java)
+                            startActivity(intent)
+                        }
+                    })
                 }
             }
         }
