@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import conn from "../../config/db";
 
 const router = express.Router();
@@ -122,40 +122,40 @@ function getUserByPhone(phone: string) {
   return {};
 }
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   const users = getAllUsers();
 
-  res.json({
+  res.status(200).json({
     users,
   });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   const user = getUserById(id as string);
 
-  res.json({
+  res.status(200).json({
     user,
   });
 });
 
-router.get("/email/:email", (req, res) => {
+router.get("/email/:email", (req: Request, res: Response) => {
   const { email } = req.params;
 
   const user = getUserByEmail(email as string);
 
-  res.json({
+  res.status(200).json({
     user,
   });
 });
 
-router.get("/phone/:phone", (req, res) => {
+router.get("/phone/:phone", (req: Request, res: Response) => {
   const { phone } = req.params;
 
   const user = getUserByPhone(phone as string);
 
-  res.json({
+  res.status(200).json({
     user,
   });
 });

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import conn from "../../config/db";
 
 const router = express.Router();
@@ -40,12 +40,12 @@ function deleteUser(id: string) {
   return [];
 }
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   const user = deleteUser(id);
 
-  res.json(user);
+  res.status(200).json(user);
 });
 
 export default router;
