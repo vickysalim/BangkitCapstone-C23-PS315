@@ -4,7 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 
 import * as middlewares from "./middlewares";
-import api from "./api";
+import api from "./api/index";
 import MessageResponse from "./interfaces/MessageResponse";
 
 import dotenv from "dotenv";
