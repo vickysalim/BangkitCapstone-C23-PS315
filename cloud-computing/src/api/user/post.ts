@@ -1,9 +1,9 @@
 import express from "express";
-import conn from "server/config/db";
-import { UUID } from "uuidjs";
+import conn from "../../config/db";
+import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { emailExists, idExists, phoneExists } from "server/lib/helper";
+import { emailExists, idExists, phoneExists } from "../../lib/helper";
 
 const router = express.Router();
 
@@ -24,14 +24,21 @@ const router = express.Router();
 // kecamatan: varchar(75)
 // kodePos: varchar(10)
 
-function addUser(fullName: string, email: string, password: string, phone: string, isSeller: boolean, profilePicUrl?: string) {
-  const id = UUID.genV4().toString();
+function addUser(
+  fullName: string,
+  email: string,
+  password: string,
+  phone: string,
+  isSeller: boolean,
+  profilePicUrl?: string,
+) {
+  const id = uuidv4();
   const hashedPassword = bcrypt.hashSync(password, 10);
 
   let user = null;
   let error: {
-    code: string | null,
-    message: string | null,
+    code: string | null;
+    message: string | null;
   } | null = {
     code: null,
     message: null,
@@ -56,10 +63,14 @@ function addUser(fullName: string, email: string, password: string, phone: strin
       (?, ?, ?, ?, ?, ?)
   `;
 
-  conn.execute(sql, [id, fullName, email, hashedPassword, phone, isSeller, profilePicUrl], (err, result) => {
-    if (err) throw err;
-    user = result;
-  });
+  conn.execute(
+    sql,
+    [id, fullName, email, hashedPassword, phone, isSeller, profilePicUrl],
+    (err: any, result: any) => {
+      if (err) throw err;
+      user = result;
+    },
+  );
 
   if (user) return user;
 
@@ -67,11 +78,18 @@ function addUser(fullName: string, email: string, password: string, phone: strin
 }
 
 // MUST USE ID FROM USER TABLE
-function addUserAddress(id: string, address: string, province: string, city: string, kecamatan: string, kodePos: string) {
+function addUserAddress(
+  id: string,
+  address: string,
+  province: string,
+  city: string,
+  kecamatan: string,
+  kodePos: string,
+) {
   let userAddress = null;
   const error: {
-    code: string | null,
-    message: string | null,
+    code: string | null;
+    message: string | null;
   } = {
     code: null,
     message: null,
@@ -90,17 +108,28 @@ function addUserAddress(id: string, address: string, province: string, city: str
       (?, ?, ?, ?, ?, ?)
   `;
 
-  conn.execute(sql, [id, address, province, city, kecamatan, kodePos], (err, result) => {
-    if (err) throw err;
-    userAddress = result;
-  });
+  conn.execute(
+    sql,
+    [id, address, province, city, kecamatan, kodePos],
+    (err: any, result: any) => {
+      if (err) throw err;
+      userAddress = result;
+    },
+  );
 
   if (userAddress) return userAddress;
 
   return {};
 }
 
-function updateUser(id: string, fullName: string, email: string, phone: string, isSeller: boolean, profilePicUrl?: string) {
+function updateUser(
+  id: string,
+  fullName: string,
+  email: string,
+  phone: string,
+  isSeller: boolean,
+  profilePicUrl?: string,
+) {
   let user = null;
 
   const sql = `
@@ -116,17 +145,28 @@ function updateUser(id: string, fullName: string, email: string, phone: string, 
       id = ?
   `;
 
-  conn.execute(sql, [fullName, email, phone, isSeller, profilePicUrl, id], (err, result) => {
-    if (err) throw err;
-    user = result;
-  });
+  conn.execute(
+    sql,
+    [fullName, email, phone, isSeller, profilePicUrl, id],
+    (err: any, result: any) => {
+      if (err) throw err;
+      user = result;
+    },
+  );
 
   if (user) return user;
 
   return {};
 }
 
-function updateUserAddress(id: string, address: string, province: string, city: string, kecamatan: string, kodePos: string) {
+function updateUserAddress(
+  id: string,
+  address: string,
+  province: string,
+  city: string,
+  kecamatan: string,
+  kodePos: string,
+) {
   let userAddress = null;
 
   const sql = `
@@ -142,10 +182,14 @@ function updateUserAddress(id: string, address: string, province: string, city: 
       id = ?
   `;
 
-  conn.execute(sql, [address, province, city, kecamatan, kodePos, id], (err, result) => {
-    if (err) throw err;
-    userAddress = result;
-  });
+  conn.execute(
+    sql,
+    [address, province, city, kecamatan, kodePos, id],
+    (err: any, result: any) => {
+      if (err) throw err;
+      userAddress = result;
+    },
+  );
 
   if (userAddress) return userAddress;
 
@@ -155,8 +199,8 @@ function updateUserAddress(id: string, address: string, province: string, city: 
 function updatePassword(id: string, password: string, newPassword: string) {
   let user: any = null;
   const error: {
-    code: string | null,
-    message: string | null,
+    code: string | null;
+    message: string | null;
   } = {
     code: null,
     message: null,
@@ -171,7 +215,7 @@ function updatePassword(id: string, password: string, newPassword: string) {
       id = ?
   `;
 
-  conn.execute(compare, [id], (err, result) => {
+  conn.execute(compare, [id], (err: any, result: any) => {
     if (err) throw err;
     user = result;
   });
@@ -189,7 +233,7 @@ function updatePassword(id: string, password: string, newPassword: string) {
           id = ?
       `;
 
-      conn.execute(sql, [hashedPassword, id], (err, result) => {
+      conn.execute(sql, [hashedPassword, id], (err: any, result: any) => {
         if (err) throw err;
         user = result;
       });
@@ -211,15 +255,15 @@ function updatePassword(id: string, password: string, newPassword: string) {
 
 function login(email: string, password: string) {
   let user: {
-    cred: any
-    jwt: string | null
+    cred: any;
+    jwt: string | null;
   } = {
     cred: null,
     jwt: null,
   };
   const error: {
-    code: string | null,
-    message: string | null,
+    code: string | null;
+    message: string | null;
   } = {
     code: null,
     message: null,
@@ -234,14 +278,17 @@ function login(email: string, password: string) {
       email = ?
   `;
 
-  conn.execute(sql, [email], (err, result) => {
+  conn.execute(sql, [email], (err: any, result: any) => {
     if (err) throw err;
     user.cred = result;
   });
 
   if (user) {
     if (bcrypt.compareSync(password, user.cred.password)) {
-      user.jwt = jwt.sign({ id: user.cred.id }, process.env.JWT_SECRET_KEY as string);
+      user.jwt = jwt.sign(
+        { id: user.cred.id },
+        process.env.JWT_SECRET_KEY as string,
+      );
 
       return user;
     } else {
@@ -257,22 +304,37 @@ function login(email: string, password: string) {
 }
 
 router.post("/add", (req, res) => {
-  const { fullName, email, password, phone, isSeller, profilePicUrl } = req.body;
+  const { fullName, email, password, phone, isSeller, profilePicUrl } =
+    req.body;
 
-  const user = addUser(fullName, email, password, phone, isSeller, profilePicUrl);
+  const user = addUser(
+    fullName,
+    email,
+    password,
+    phone,
+    isSeller,
+    profilePicUrl,
+  );
 
   res.json(user);
 });
 
-router.post("/addAddress", (req, res) => {
+router.post("/add-address", (req, res) => {
   const { id, address, province, city, kecamatan, kodePos } = req.body;
 
-  const userAddress = addUserAddress(id, address, province, city, kecamatan, kodePos);
+  const userAddress = addUserAddress(
+    id,
+    address,
+    province,
+    city,
+    kecamatan,
+    kodePos,
+  );
 
   res.json(userAddress);
 });
 
-router.post("/update", (req, res) => {
+router.put("/update", (req, res) => {
   const { id, fullName, email, phone, isSeller, profilePicUrl } = req.body;
 
   const user = updateUser(id, fullName, email, phone, isSeller, profilePicUrl);
@@ -280,15 +342,22 @@ router.post("/update", (req, res) => {
   res.json(user);
 });
 
-router.post("/updateAddress", (req, res) => {
+router.put("/update-address", (req, res) => {
   const { id, address, province, city, kecamatan, kodePos } = req.body;
 
-  const userAddress = updateUserAddress(id, address, province, city, kecamatan, kodePos);
+  const userAddress = updateUserAddress(
+    id,
+    address,
+    province,
+    city,
+    kecamatan,
+    kodePos,
+  );
 
   res.json(userAddress);
 });
 
-router.post("/updatePassword", (req, res) => {
+router.put("/update-pass", (req, res) => {
   const { id, password, newPassword } = req.body;
 
   const user = updatePassword(id, password, newPassword);
@@ -296,7 +365,7 @@ router.post("/updatePassword", (req, res) => {
   res.json(user);
 });
 
-router.post("/auth", (req, res) => {
+router.post("/authenticate", (req, res) => {
   const { email, password } = req.body;
 
   const user = login(email, password);
