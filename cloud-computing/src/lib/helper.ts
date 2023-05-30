@@ -1,4 +1,4 @@
-import conn from "server/config/db";
+import conn from "../config/db";
 
 export function emailExists(email: string) {
   let user = null;
