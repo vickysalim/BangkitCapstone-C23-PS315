@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import conn from "../../config/db";
 
 const router = express.Router();
@@ -83,34 +83,34 @@ function getProductsByType(type: string) {
   return [];
 }
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   const products = getAllProducts();
 
-  res.json(products);
+  res.status(200).json(products);
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   const product = getProductById(id);
 
-  res.json(product);
+  res.status(200).json(product);
 });
 
-router.get("/seller/:sellerId", (req, res) => {
+router.get("/seller/:sellerId", (req: Request, res: Response) => {
   const { sellerId } = req.params;
 
   const products = getProductsBySellerId(sellerId);
 
-  res.json(products);
+  res.status(200).json(products);
 });
 
-router.get("/type/:type", (req, res) => {
+router.get("/type/:type", (req: Request, res: Response) => {
   const { type } = req.params;
 
   const products = getProductsByType(type);
 
-  res.json(products);
+  res.status(200).json(products);
 });
 
 export default router;

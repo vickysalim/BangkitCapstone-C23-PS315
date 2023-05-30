@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import conn from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
 
@@ -96,7 +96,7 @@ function updateProduct(
   );
 }
 
-router.post("/", (req, res) => {
+router.post("/", (req: Request, res: Response) => {
   const {
     sellerId,
     name,
@@ -121,12 +121,12 @@ router.post("/", (req, res) => {
     publishedAt,
   );
 
-  res.json({
+  res.status(201).json({
     id,
   });
 });
 
-router.put("/", (req, res) => {
+router.put("/", (req: Request, res: Response) => {
   const {
     id,
     sellerId,
@@ -153,7 +153,7 @@ router.put("/", (req, res) => {
     publishedAt,
   );
 
-  res.json({
+  res.status(201).json({
     id,
   });
 });
