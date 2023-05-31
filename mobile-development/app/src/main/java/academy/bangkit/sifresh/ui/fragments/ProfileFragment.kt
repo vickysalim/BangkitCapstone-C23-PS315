@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.databinding.FragmentProfileBinding
+import academy.bangkit.sifresh.ui.activities.EditProfileActivity
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import android.content.Context
@@ -38,6 +39,8 @@ class ProfileFragment : Fragment() {
         binding.apply {
             btnEditProfile.setOnClickListener {
                 // Go to Edit Profile
+                val intent = Intent(requireContext(), EditProfileActivity::class.java)
+                startActivity(intent)
             }
             btnLogOut.setOnClickListener {
                 // Log out (Back to Login Activity)

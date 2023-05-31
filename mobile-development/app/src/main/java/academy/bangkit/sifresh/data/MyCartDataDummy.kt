@@ -28,29 +28,25 @@ object MyCartDataDummy {
                     1
                 )
             ),
-            "Rp. 34.000"
+            34000.00
         ),
         Seller(
             "Toko Buah Sukamundur",
             listOf(
                 ProductCart(
                     Product(
-                        ProductDataDummy.productList[1].productName,
-                        ProductDataDummy.productList[1].productPrice,
-                        ProductDataDummy.productList[1].productImageUrl
+                        ProductDataDummy.productList[1].productName, ProductDataDummy.productList[1].productPrice, ProductDataDummy.productList[1].productImageUrl
                     ),
                     2
                 ),
                 ProductCart(
                     Product(
-                        ProductDataDummy.productList[6].productName,
-                        ProductDataDummy.productList[6].productPrice,
-                        ProductDataDummy.productList[6].productImageUrl
+                        ProductDataDummy.productList[6].productName, ProductDataDummy.productList[6].productPrice, ProductDataDummy.productList[6].productImageUrl
                     ),
                     3
                 )
             ),
-            "Rp. 39.000"
+            39000.00
         )
     )
 }

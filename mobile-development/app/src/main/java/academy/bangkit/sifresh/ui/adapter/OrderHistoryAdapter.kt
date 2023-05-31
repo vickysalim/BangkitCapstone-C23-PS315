@@ -15,13 +15,19 @@ class OrderHistoryAdapter(private val listOrder: List<OrderHistory>) : RecyclerV
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val order = listOrder[position]
-        viewHolder.binding.tvOrderId.text = order.orderId
-        viewHolder.binding.tvOrderDate.text = order.orderDate
-        viewHolder.binding.tvOrderTotalPrice.text = order.orderTotalPrice
-        viewHolder.binding.tvOrderStatus.text = order.orderStatus
+        viewHolder.bind(order)
     }
 
     override fun getItemCount() = listOrder.size
 
-    class ViewHolder (var binding: OrderHistoryCardBinding) : RecyclerView.ViewHolder(binding.root)
+    class ViewHolder (var binding: OrderHistoryCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind (order: OrderHistory) {
+            with(binding) {
+                tvOrderId.text = order.orderId
+                tvOrderDate.text = order.orderDate
+                tvOrderTotalPrice.text = order.orderTotalPrice
+                tvOrderStatus.text = order.orderStatus
+            }
+        }
+    }
 }
