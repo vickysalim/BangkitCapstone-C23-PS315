@@ -1,5 +1,5 @@
 import express from "express";
-import conn from "server/config/db";
+import conn from "../../config/db";
 
 const router = express.Router();
 
@@ -34,7 +34,7 @@ function getAllUsers() {
       User.id = UserAddress.id
   `;
 
-  conn.execute(sql, (err, result) => {
+  conn.execute(sql, (err: any, result: any) => {
     if (err) throw err;
     users = result;
   });
@@ -60,7 +60,7 @@ function getUserById(id: string) {
       User.id = ?
   `;
 
-  conn.execute(sql, [id], (err, result) => {
+  conn.execute(sql, [id], (err: any, result: any) => {
     if (err) throw err;
     user = result;
   });
@@ -86,7 +86,7 @@ function getUserByEmail(email: string) {
       User.email = ?
   `;
 
-  conn.execute(sql, [email], (err, result) => {
+  conn.execute(sql, [email], (err: any, result: any) => {
     if (err) throw err;
     user = result;
   });
@@ -112,7 +112,7 @@ function getUserByPhone(phone: string) {
       User.phone = ?
   `;
 
-  conn.execute(sql, [phone], (err, result) => {
+  conn.execute(sql, [phone], (err: any, result: any) => {
     if (err) throw err;
     user = result;
   });
@@ -122,7 +122,7 @@ function getUserByPhone(phone: string) {
   return {};
 }
 
-router.get("/getAll", (req, res) => {
+router.get("/", (req, res) => {
   const users = getAllUsers();
 
   res.json({
@@ -130,8 +130,8 @@ router.get("/getAll", (req, res) => {
   });
 });
 
-router.get("/getById", (req, res) => {
-  const { id } = req.query;
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
 
   const user = getUserById(id as string);
 
@@ -140,8 +140,8 @@ router.get("/getById", (req, res) => {
   });
 });
 
-router.get("/getByEmail", (req, res) => {
-  const { email } = req.query;
+router.get("/email/:email", (req, res) => {
+  const { email } = req.params;
 
   const user = getUserByEmail(email as string);
 
@@ -150,8 +150,8 @@ router.get("/getByEmail", (req, res) => {
   });
 });
 
-router.get("/getByPhone", (req, res) => {
-  const { phone } = req.query;
+router.get("/phone/:phone", (req, res) => {
+  const { phone } = req.params;
 
   const user = getUserByPhone(phone as string);
 

@@ -1,5 +1,5 @@
 import express from "express";
-import conn from "server/config/db";
+import conn from "../../config/db";
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ function deleteUser(id: string) {
       id = ?
   `;
 
-  conn.execute(sql, [id], (err, result) => {
+  conn.execute(sql, [id], (err: any, result: any) => {
     if (err) throw err;
     user = result;
   });
@@ -41,7 +41,7 @@ function deleteUser(id: string) {
 }
 
 router.delete("/:id", (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
   const user = deleteUser(id);
 

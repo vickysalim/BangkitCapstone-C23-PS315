@@ -1,8 +1,8 @@
 import express from "express";
 
 import MessageResponse from "../interfaces/MessageResponse";
-import emojis from "./emojis";
-import userRouter from "./user";
+import userRouter from "./user/index";
+import locationRouter from "./location/index";
 
 const router = express.Router();
 
@@ -12,8 +12,7 @@ router.get<{}, MessageResponse>("/", (req, res) => {
   });
 });
 
-router.use("/emojis", emojis);
-
 router.use("/user", userRouter);
+router.use("/location", locationRouter);
 
 export default router;
