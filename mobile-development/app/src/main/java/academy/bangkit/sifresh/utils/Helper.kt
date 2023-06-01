@@ -99,6 +99,7 @@ object Helper {
     fun formatCurrency(number: Double): String {
         val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
         formatter.currency = Currency.getInstance("IDR")
-        return formatter.format(number)
+        formatter.maximumFractionDigits = 0
+        return formatter.format(number).replace("Rp", "Rp ")
     }
 }
