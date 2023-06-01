@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 
 const router = express.Router();
 
@@ -29,30 +29,30 @@ async function getDistricts(cityId: string) {
   return districts;
 }
 
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   const provinces = await getProvinces();
 
-  res.json({
+  res.status(200).json({
     provinces,
   });
 });
 
-router.get("/:provinceId", async (req, res) => {
+router.get("/:provinceId", async (req: Request, res: Response) => {
   const { provinceId } = req.params;
 
   const cities = await getCities(provinceId as string);
 
-  res.json({
+  res.status(200).json({
     cities,
   });
 });
 
-router.get("/:provinceId/:cityId", async (req, res) => {
+router.get("/:provinceId/:cityId", async (req: Request, res: Response) => {
   const { cityId } = req.params;
 
   const districts = await getDistricts(cityId as string);
 
-  res.json({
+  res.status(200).json({
     districts,
   });
 });

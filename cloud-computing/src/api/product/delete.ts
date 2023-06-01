@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import conn from "../../config/db";
 
 const router = express.Router();
@@ -26,12 +26,12 @@ function deleteProductById(id: string) {
   });
 }
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req: Request, res: Response) => {
   const { id } = req.params;
 
   const result = deleteProductById(id);
 
-  res.send(result);
+  res.status(200).send(result);
 });
 
 export default router;

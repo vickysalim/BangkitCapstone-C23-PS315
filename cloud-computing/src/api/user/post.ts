@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import conn from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
@@ -303,7 +303,7 @@ function login(email: string, password: string) {
   }
 }
 
-router.post("/add", (req, res) => {
+router.post("/add", (req: Request, res: Response) => {
   const { fullName, email, password, phone, isSeller, profilePicUrl } =
     req.body;
 
@@ -316,10 +316,10 @@ router.post("/add", (req, res) => {
     profilePicUrl,
   );
 
-  res.json(user);
+  res.status(201).json(user);
 });
 
-router.post("/add-address", (req, res) => {
+router.post("/add-address", (req: Request, res: Response) => {
   const { id, address, province, city, kecamatan, kodePos } = req.body;
 
   const userAddress = addUserAddress(
@@ -331,18 +331,18 @@ router.post("/add-address", (req, res) => {
     kodePos,
   );
 
-  res.json(userAddress);
+  res.status(201).json(userAddress);
 });
 
-router.put("/update", (req, res) => {
+router.put("/update", (req: Request, res: Response) => {
   const { id, fullName, email, phone, isSeller, profilePicUrl } = req.body;
 
   const user = updateUser(id, fullName, email, phone, isSeller, profilePicUrl);
 
-  res.json(user);
+  res.status(201).json(user);
 });
 
-router.put("/update-address", (req, res) => {
+router.put("/update-address", (req: Request, res: Response) => {
   const { id, address, province, city, kecamatan, kodePos } = req.body;
 
   const userAddress = updateUserAddress(
@@ -354,10 +354,10 @@ router.put("/update-address", (req, res) => {
     kodePos,
   );
 
-  res.json(userAddress);
+  res.status(201).json(userAddress);
 });
 
-router.put("/update-pass", (req, res) => {
+router.put("/update-pass", (req: Request, res: Response) => {
   const { id, password, newPassword } = req.body;
 
   const user = updatePassword(id, password, newPassword);
@@ -365,12 +365,12 @@ router.put("/update-pass", (req, res) => {
   res.json(user);
 });
 
-router.post("/authenticate", (req, res) => {
+router.post("/authenticate", (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const user = login(email, password);
 
-  res.json(user);
+  res.status(201).json(user);
 });
 
 export default router;
