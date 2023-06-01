@@ -39,4 +39,5 @@
     <string name="text_payment_detail">Payment Detail</string>
     <string name="text_confirm_payment">Confirm Payment</string>
     <string name="text_return_home">Return to Home</string>
+    <string name="text_add_product_image">Add Product Image</string>
 </resources>
