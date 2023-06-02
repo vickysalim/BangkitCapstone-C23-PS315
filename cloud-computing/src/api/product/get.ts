@@ -44,7 +44,7 @@ async function getProductById(id: string) {
 
   const [rows] = await conn.execute(sql, [id]);
 
-  product = rows[0];
+  product = rows[0 as keyof typeof rows];
 
   await conn.end();
 
