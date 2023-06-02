@@ -22,7 +22,8 @@
       "error",
       "double",
       { "allowTemplateLiterals": true }
-    ]
+    ],
+    "import/no-extraneous-dependencies": 0
   },
   "settings": {
     "import/parsers": {

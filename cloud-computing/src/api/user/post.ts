@@ -64,10 +64,15 @@ async function addUser(
       (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const [rows] = await conn.execute(
-    sql,
-    [id, fullName, email, hashedPassword, phone, isSeller, profilePicUrl],
-  );
+  const [rows] = await conn.execute(sql, [
+    id,
+    fullName,
+    email,
+    hashedPassword,
+    phone,
+    isSeller,
+    profilePicUrl,
+  ]);
 
   user = rows;
 
@@ -97,10 +102,14 @@ async function addUserAddress(
       (?, ?, ?, ?, ?, ?)
   `;
 
-  const [rows] = await conn.execute(
-    sql,
-    [id, address, province, city, kecamatan, kodePos],
-  );
+  const [rows] = await conn.execute(sql, [
+    id,
+    address,
+    province,
+    city,
+    kecamatan,
+    kodePos,
+  ]);
 
   userAddress = rows;
 
@@ -135,10 +144,14 @@ async function updateUser(
       id = ?
   `;
 
-  const [rows] = await conn.execute(
-    sql,
-    [fullName, email, phone, isSeller, profilePicUrl, id],
-  );
+  const [rows] = await conn.execute(sql, [
+    fullName,
+    email,
+    phone,
+    isSeller,
+    profilePicUrl,
+    id,
+  ]);
 
   user = rows;
 
@@ -173,10 +186,14 @@ async function updateUserAddress(
       id = ?
   `;
 
-  const [rows] = await conn.execute(
-    sql,
-    [address, province, city, kecamatan, kodePos, id],
-  );
+  const [rows] = await conn.execute(sql, [
+    address,
+    province,
+    city,
+    kecamatan,
+    kodePos,
+    id,
+  ]);
 
   userAddress = rows;
 
@@ -187,7 +204,11 @@ async function updateUserAddress(
   return {};
 }
 
-async function updatePassword(id: string, password: string, newPassword: string) {
+async function updatePassword(
+  id: string,
+  password: string,
+  newPassword: string,
+) {
   const conn = await connection();
   let user: any = null;
   const error: {
@@ -332,7 +353,14 @@ router.post("/add-address", async (req: Request, res: Response) => {
 router.put("/update", async (req: Request, res: Response) => {
   const { id, fullName, email, phone, isSeller, profilePicUrl } = req.body;
 
-  const user = await updateUser(id, fullName, email, phone, isSeller, profilePicUrl);
+  const user = await updateUser(
+    id,
+    fullName,
+    email,
+    phone,
+    isSeller,
+    profilePicUrl,
+  );
 
   res.status(201).json(user);
 });

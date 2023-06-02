@@ -43,4 +43,3 @@ export async function phoneExists(phone: string) {
 
   return false;
 }
-

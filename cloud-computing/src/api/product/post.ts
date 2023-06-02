@@ -35,21 +35,18 @@ async function addProduct(
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `;
 
-  const [rows] = await conn.execute(
-    sql,
-    [
-      id,
-      sellerId,
-      name,
-      sellerName,
-      type,
-      price,
-      isAvailable,
-      description,
-      JSON.stringify(productPicUrls),
-      publishedAt,
-    ],
-  );
+  const [rows] = await conn.execute(sql, [
+    id,
+    sellerId,
+    name,
+    sellerName,
+    type,
+    price,
+    isAvailable,
+    description,
+    JSON.stringify(productPicUrls),
+    publishedAt,
+  ]);
 
   await conn.end();
 
@@ -75,21 +72,18 @@ async function updateProduct(
     WHERE id = ?;
   `;
 
-  const [rows] = await conn.execute(
-    sql,
-    [
-      sellerId,
-      name,
-      sellerName,
-      type,
-      price,
-      isAvailable,
-      description,
-      JSON.stringify(productPicUrls),
-      publishedAt,
-      id,
-    ],
-  );
+  const [rows] = await conn.execute(sql, [
+    sellerId,
+    name,
+    sellerName,
+    type,
+    price,
+    isAvailable,
+    description,
+    JSON.stringify(productPicUrls),
+    publishedAt,
+    id,
+  ]);
 
   await conn.end();
 
