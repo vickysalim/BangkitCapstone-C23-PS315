@@ -9,10 +9,7 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "server/*": ["src/*"],
-      "test/*": ["test/*"]
-    }
+    "moduleResolution": "node"
   },
   "include": ["./*.js", "src/**/*.ts", "test/**/*.ts"]
 }

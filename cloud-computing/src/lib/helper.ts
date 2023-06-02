@@ -1,6 +1,7 @@
-import conn from "../config/db";
+import connection from "../config/db";
 
-export function emailExists(email: string) {
+export async function emailExists(email: string) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -12,17 +13,17 @@ export function emailExists(email: string) {
       email = ?
   `;
 
-  conn.execute(sql, [email], (err, result) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(sql, [email]);
+
+  user = rows;
 
   if (user) return true;
 
   return false;
 }
 
-export function phoneExists(phone: string) {
+export async function phoneExists(phone: string) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -34,34 +35,12 @@ export function phoneExists(phone: string) {
       phone = ?
   `;
 
-  conn.execute(sql, [phone], (err, result) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(sql, [phone]);
+
+  user = rows;
 
   if (user) return true;
 
   return false;
 }
 
-export function idExists(id: string) {
-  let user = null;
-
-  const sql = `
-    SELECT
-      id
-    FROM
-      User
-    WHERE
-      id = ?
-  `;
-
-  conn.execute(sql, [id], (err, result) => {
-    if (err) throw err;
-    user = result;
-  });
-
-  if (user) return true;
-
-  return false;
-}

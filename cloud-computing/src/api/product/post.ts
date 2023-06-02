@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import conn from "../../config/db";
+import connection from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
@@ -16,7 +16,7 @@ const router = express.Router();
 // productPicUrls: varchar(255) (array of strings)
 // publishedAt: date
 
-function addProduct(
+async function addProduct(
   sellerId: string,
   name: string,
   sellerName: string,
@@ -27,6 +27,7 @@ function addProduct(
   productPicUrls: string[],
   publishedAt: Date,
 ) {
+  const conn = await connection();
   const id = uuidv4();
 
   const sql = `
@@ -34,7 +35,7 @@ function addProduct(
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `;
 
-  conn.execute(
+  const [rows] = await conn.execute(
     sql,
     [
       id,
@@ -48,16 +49,14 @@ function addProduct(
       JSON.stringify(productPicUrls),
       publishedAt,
     ],
-    (err: any, result: any) => {
-      if (err) throw err;
-      return result;
-    },
   );
 
-  return id;
+  await conn.end();
+
+  return rows;
 }
 
-function updateProduct(
+async function updateProduct(
   id: string,
   sellerId: string,
   name: string,
@@ -69,13 +68,14 @@ function updateProduct(
   productPicUrls: string[],
   publishedAt: Date,
 ) {
+  const conn = await connection();
   const sql = `
     UPDATE Product
     SET sellerId = ?, name = ?, sellerName = ?, type = ?, price = ?, isAvailable = ?, description = ?, productPicUrls = ?, publishedAt = ?
     WHERE id = ?;
   `;
 
-  conn.execute(
+  const [rows] = await conn.execute(
     sql,
     [
       sellerId,
@@ -89,14 +89,14 @@ function updateProduct(
       publishedAt,
       id,
     ],
-    (err: any, result: any) => {
-      if (err) throw err;
-      return result;
-    },
   );
+
+  await conn.end();
+
+  return rows;
 }
 
-router.post("/", (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   const {
     sellerId,
     name,
@@ -109,7 +109,7 @@ router.post("/", (req: Request, res: Response) => {
     publishedAt,
   } = req.body;
 
-  const id = addProduct(
+  const id = await addProduct(
     sellerId,
     name,
     sellerName,
@@ -126,7 +126,7 @@ router.post("/", (req: Request, res: Response) => {
   });
 });
 
-router.put("/", (req: Request, res: Response) => {
+router.put("/", async (req: Request, res: Response) => {
   const {
     id,
     sellerId,
@@ -140,7 +140,7 @@ router.put("/", (req: Request, res: Response) => {
     publishedAt,
   } = req.body;
 
-  updateProduct(
+  await updateProduct(
     id,
     sellerId,
     name,

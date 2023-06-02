@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import conn from "../../config/db";
+import connection from "../../config/db";
 
 const router = express.Router();
 
@@ -15,100 +15,108 @@ const router = express.Router();
 // productPicUrls: varchar(255) (array of strings)
 // publishedAt: date
 
-function getAllProducts() {
+async function getAllProducts() {
+  const conn = await connection();
   let products = null;
 
   const sql = `
     SELECT * FROM Product;
   `;
 
-  conn.execute(sql, (err: any, result: any) => {
-    if (err) throw err;
-    products = result;
-  });
+  const [rows] = await conn.execute(sql);
+
+  products = rows;
+
+  await conn.end();
 
   if (products) return products;
 
   return [];
 }
 
-function getProductById(id: string) {
+async function getProductById(id: string) {
+  const conn = await connection();
   let product = null;
 
   const sql = `
     SELECT * FROM Product WHERE id = ?;
   `;
 
-  conn.execute(sql, [id], (err: any, result: any) => {
-    if (err) throw err;
-    product = result;
-  });
+  const [rows] = await conn.execute(sql, [id]);
+
+  product = rows[0 as keyof typeof rows];
+
+  await conn.end();
 
   if (product) return product;
 
   return [];
 }
 
-function getProductsBySellerId(sellerId: string) {
+async function getProductsBySellerId(sellerId: string) {
+  const conn = await connection();
   let products = null;
 
   const sql = `
     SELECT * FROM Product WHERE sellerId = ?;
   `;
 
-  conn.execute(sql, [sellerId], (err: any, result: any) => {
-    if (err) throw err;
-    products = result;
-  });
+  const [rows] = await conn.execute(sql, [sellerId]);
+
+  products = rows;
+
+  await conn.end();
 
   if (products) return products;
 
   return [];
 }
 
-function getProductsByType(type: string) {
+async function getProductsByType(type: string) {
+  const conn = await connection();
   let products = null;
 
   const sql = `
     SELECT * FROM Product WHERE type = ?;
   `;
 
-  conn.execute(sql, [type], (err: any, result: any) => {
-    if (err) throw err;
-    products = result;
-  });
+  const [rows] = await conn.execute(sql, [type]);
+
+  products = rows;
+
+  await conn.end();
 
   if (products) return products;
 
   return [];
 }
 
-router.get("/", (req: Request, res: Response) => {
-  const products = getAllProducts();
+router.get("/", async (req: Request, res: Response) => {
+  const products = await getAllProducts();
 
   res.status(200).json(products);
 });
 
-router.get("/:id", (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const product = getProductById(id);
+  const product = await getProductById(id);
 
   res.status(200).json(product);
 });
 
-router.get("/seller/:sellerId", (req: Request, res: Response) => {
+router.get("/seller/:sellerId", async (req: Request, res: Response) => {
   const { sellerId } = req.params;
 
-  const products = getProductsBySellerId(sellerId);
+  const products = await getProductsBySellerId(sellerId);
 
   res.status(200).json(products);
 });
 
-router.get("/type/:type", (req: Request, res: Response) => {
+router.get("/type/:type", async (req: Request, res: Response) => {
   const { type } = req.params;
 
-  const products = getProductsByType(type);
+  const products = await getProductsByType(type);
 
   res.status(200).json(products);
 });

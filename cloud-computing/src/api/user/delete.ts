@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import conn from "../../config/db";
+import connection from "../../config/db";
 
 const router = express.Router();
 
@@ -20,7 +20,8 @@ const router = express.Router();
 // kecamatan: varchar(75)
 // kodePos: varchar(10)
 
-function deleteUser(id: string) {
+async function deleteUser(id: string) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -30,20 +31,21 @@ function deleteUser(id: string) {
       id = ?
   `;
 
-  conn.execute(sql, [id], (err: any, result: any) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(sql, [id]);
+
+  user = rows;
+
+  await conn.end();
 
   if (user) return user;
 
   return [];
 }
 
-router.delete("/:id", (req: Request, res: Response) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const user = deleteUser(id);
+  const user = await deleteUser(id);
 
   res.status(200).json(user);
 });
