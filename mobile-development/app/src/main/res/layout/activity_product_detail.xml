@@ -160,7 +160,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/text_see_profile"/>
 
-            <View
+            <!--<View
                 android:id="@+id/divider_2"
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_review_title"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_review_title"/>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

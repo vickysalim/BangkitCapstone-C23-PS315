@@ -46,7 +46,7 @@
             android:src="@drawable/ic_keyboard_arrow_right_24" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <!--<androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/setting_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>-->
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/setting_dark_mode"
