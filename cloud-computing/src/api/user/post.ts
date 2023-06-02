@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
-import conn from "../../config/db";
+import connection from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { emailExists, idExists, phoneExists } from "../../lib/helper";
+import { emailExists, phoneExists } from "../../lib/helper";
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ const router = express.Router();
 // kecamatan: varchar(75)
 // kodePos: varchar(10)
 
-function addUser(
+async function addUser(
   fullName: string,
   email: string,
   password: string,
@@ -32,6 +32,7 @@ function addUser(
   isSeller: boolean,
   profilePicUrl?: string,
 ) {
+  const conn = await connection();
   const id = uuidv4();
   const hashedPassword = bcrypt.hashSync(password, 10);
 
@@ -44,13 +45,13 @@ function addUser(
     message: null,
   };
 
-  if (emailExists(email)) {
+  if (await emailExists(email)) {
     error.code = "EMAIL_EXISTS_ERROR";
     error.message = "Email already exists";
     return error;
   }
 
-  if (phoneExists(phone)) {
+  if (await phoneExists(phone)) {
     error.code = "PHONE_EXISTS_ERROR";
     error.message = "Phone already exists";
     return error;
@@ -60,17 +61,17 @@ function addUser(
     INSERT INTO
       User
     VALUES
-      (?, ?, ?, ?, ?, ?)
+      (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  conn.execute(
+  const [rows] = await conn.execute(
     sql,
     [id, fullName, email, hashedPassword, phone, isSeller, profilePicUrl],
-    (err: any, result: any) => {
-      if (err) throw err;
-      user = result;
-    },
   );
+
+  user = rows;
+
+  await conn.end();
 
   if (user) return user;
 
@@ -78,7 +79,7 @@ function addUser(
 }
 
 // MUST USE ID FROM USER TABLE
-function addUserAddress(
+async function addUserAddress(
   id: string,
   address: string,
   province: string,
@@ -86,20 +87,8 @@ function addUserAddress(
   kecamatan: string,
   kodePos: string,
 ) {
+  const conn = await connection();
   let userAddress = null;
-  const error: {
-    code: string | null;
-    message: string | null;
-  } = {
-    code: null,
-    message: null,
-  };
-
-  if (!idExists(id)) {
-    error.code = "ID_NOT_FOUND_ERROR";
-    error.message = "ID not found";
-    return error;
-  }
 
   const sql = `
     INSERT INTO
@@ -108,21 +97,21 @@ function addUserAddress(
       (?, ?, ?, ?, ?, ?)
   `;
 
-  conn.execute(
+  const [rows] = await conn.execute(
     sql,
     [id, address, province, city, kecamatan, kodePos],
-    (err: any, result: any) => {
-      if (err) throw err;
-      userAddress = result;
-    },
   );
+
+  userAddress = rows;
+
+  await conn.end();
 
   if (userAddress) return userAddress;
 
   return {};
 }
 
-function updateUser(
+async function updateUser(
   id: string,
   fullName: string,
   email: string,
@@ -130,6 +119,7 @@ function updateUser(
   isSeller: boolean,
   profilePicUrl?: string,
 ) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -145,21 +135,21 @@ function updateUser(
       id = ?
   `;
 
-  conn.execute(
+  const [rows] = await conn.execute(
     sql,
     [fullName, email, phone, isSeller, profilePicUrl, id],
-    (err: any, result: any) => {
-      if (err) throw err;
-      user = result;
-    },
   );
+
+  user = rows;
+
+  await conn.end();
 
   if (user) return user;
 
   return {};
 }
 
-function updateUserAddress(
+async function updateUserAddress(
   id: string,
   address: string,
   province: string,
@@ -167,6 +157,7 @@ function updateUserAddress(
   kecamatan: string,
   kodePos: string,
 ) {
+  const conn = await connection();
   let userAddress = null;
 
   const sql = `
@@ -182,21 +173,22 @@ function updateUserAddress(
       id = ?
   `;
 
-  conn.execute(
+  const [rows] = await conn.execute(
     sql,
     [address, province, city, kecamatan, kodePos, id],
-    (err: any, result: any) => {
-      if (err) throw err;
-      userAddress = result;
-    },
   );
+
+  userAddress = rows;
+
+  await conn.end();
 
   if (userAddress) return userAddress;
 
   return {};
 }
 
-function updatePassword(id: string, password: string, newPassword: string) {
+async function updatePassword(id: string, password: string, newPassword: string) {
+  const conn = await connection();
   let user: any = null;
   const error: {
     code: string | null;
@@ -215,10 +207,9 @@ function updatePassword(id: string, password: string, newPassword: string) {
       id = ?
   `;
 
-  conn.execute(compare, [id], (err: any, result: any) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(compare, [id]);
+
+  user = rows[0 as keyof typeof rows];
 
   if (user) {
     if (bcrypt.compareSync(password, user.password)) {
@@ -233,10 +224,11 @@ function updatePassword(id: string, password: string, newPassword: string) {
           id = ?
       `;
 
-      conn.execute(sql, [hashedPassword, id], (err: any, result: any) => {
-        if (err) throw err;
-        user = result;
-      });
+      const [rowsB] = await conn.execute(sql, [hashedPassword, id]);
+
+      user = rowsB;
+
+      await conn.end();
 
       if (user) return user;
 
@@ -244,16 +236,19 @@ function updatePassword(id: string, password: string, newPassword: string) {
     } else {
       error.code = "PASSWORD_NOT_MATCH_ERROR";
       error.message = "Password not match";
+      await conn.end();
       return error;
     }
   } else {
     error.code = "ID_NOT_FOUND_ERROR";
     error.message = "ID not found";
+    await conn.end();
     return error;
   }
 }
 
-function login(email: string, password: string) {
+async function login(email: string, password: string) {
+  const conn = await connection();
   let user: {
     cred: any;
     jwt: string | null;
@@ -278,10 +273,10 @@ function login(email: string, password: string) {
       email = ?
   `;
 
-  conn.execute(sql, [email], (err: any, result: any) => {
-    if (err) throw err;
-    user.cred = result;
-  });
+  const [rows] = await conn.execute(sql, [email]);
+
+  user = rows[0 as keyof typeof rows];
+  await conn.end();
 
   if (user) {
     if (bcrypt.compareSync(password, user.cred.password)) {
@@ -303,11 +298,11 @@ function login(email: string, password: string) {
   }
 }
 
-router.post("/add", (req: Request, res: Response) => {
+router.post("/add", async (req: Request, res: Response) => {
   const { fullName, email, password, phone, isSeller, profilePicUrl } =
     req.body;
 
-  const user = addUser(
+  const user = await addUser(
     fullName,
     email,
     password,
@@ -319,10 +314,10 @@ router.post("/add", (req: Request, res: Response) => {
   res.status(201).json(user);
 });
 
-router.post("/add-address", (req: Request, res: Response) => {
+router.post("/add-address", async (req: Request, res: Response) => {
   const { id, address, province, city, kecamatan, kodePos } = req.body;
 
-  const userAddress = addUserAddress(
+  const userAddress = await addUserAddress(
     id,
     address,
     province,
@@ -334,18 +329,18 @@ router.post("/add-address", (req: Request, res: Response) => {
   res.status(201).json(userAddress);
 });
 
-router.put("/update", (req: Request, res: Response) => {
+router.put("/update", async (req: Request, res: Response) => {
   const { id, fullName, email, phone, isSeller, profilePicUrl } = req.body;
 
-  const user = updateUser(id, fullName, email, phone, isSeller, profilePicUrl);
+  const user = await updateUser(id, fullName, email, phone, isSeller, profilePicUrl);
 
   res.status(201).json(user);
 });
 
-router.put("/update-address", (req: Request, res: Response) => {
+router.put("/update-address", async (req: Request, res: Response) => {
   const { id, address, province, city, kecamatan, kodePos } = req.body;
 
-  const userAddress = updateUserAddress(
+  const userAddress = await updateUserAddress(
     id,
     address,
     province,
@@ -357,18 +352,18 @@ router.put("/update-address", (req: Request, res: Response) => {
   res.status(201).json(userAddress);
 });
 
-router.put("/update-pass", (req: Request, res: Response) => {
+router.put("/update-pass", async (req: Request, res: Response) => {
   const { id, password, newPassword } = req.body;
 
-  const user = updatePassword(id, password, newPassword);
+  const user = await updatePassword(id, password, newPassword);
 
   res.json(user);
 });
 
-router.post("/authenticate", (req: Request, res: Response) => {
+router.post("/authenticate", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = login(email, password);
+  const user = await login(email, password);
 
   res.status(201).json(user);
 });

@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import conn from "../../config/db";
+import connection from "../../config/db";
 
 const router = express.Router();
 
@@ -20,7 +20,8 @@ const router = express.Router();
 // kecamatan: varchar(75)
 // kodePos: varchar(10)
 
-function getAllUsers() {
+async function getAllUsers() {
+  const conn = await connection();
   let users = null;
 
   const sql = `
@@ -34,17 +35,19 @@ function getAllUsers() {
       User.id = UserAddress.id
   `;
 
-  conn.execute(sql, (err: any, result: any) => {
-    if (err) throw err;
-    users = result;
-  });
+  const [rows] = await conn.execute(sql);
+
+  users = rows;
+
+  await conn.end();
 
   if (users) return users;
 
   return [];
 }
 
-function getUserById(id: string) {
+async function getUserById(id: string) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -60,17 +63,19 @@ function getUserById(id: string) {
       User.id = ?
   `;
 
-  conn.execute(sql, [id], (err: any, result: any) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(sql, [id]);
+
+  user = rows;
+
+  await conn.end();
 
   if (user) return user;
 
   return {};
 }
 
-function getUserByEmail(email: string) {
+async function getUserByEmail(email: string) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -86,17 +91,19 @@ function getUserByEmail(email: string) {
       User.email = ?
   `;
 
-  conn.execute(sql, [email], (err: any, result: any) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(sql, [email]);
+
+  user = rows;
+
+  await conn.end();
 
   if (user) return user;
 
   return {};
 }
 
-function getUserByPhone(phone: string) {
+async function getUserByPhone(phone: string) {
+  const conn = await connection();
   let user = null;
 
   const sql = `
@@ -112,48 +119,55 @@ function getUserByPhone(phone: string) {
       User.phone = ?
   `;
 
-  conn.execute(sql, [phone], (err: any, result: any) => {
-    if (err) throw err;
-    user = result;
-  });
+  const [rows] = await conn.execute(sql, [phone]);
+
+  user = rows;
+
+  await conn.end();
 
   if (user) return user;
 
   return {};
 }
 
-router.get("/", (req: Request, res: Response) => {
-  const users = getAllUsers();
+router.get("/", async (req: Request, res: Response) => {
+  const users = await getAllUsers();
 
   res.status(200).json({
     users,
   });
 });
 
-router.get("/:id", (req: Request, res: Response) => {
+router.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const user = getUserById(id as string);
+  const user = await getUserById(id as string);
+
+  if (!user) {
+    res.status(404).json({
+      message: "User not found",
+    });
+  }
 
   res.status(200).json({
     user,
   });
 });
 
-router.get("/email/:email", (req: Request, res: Response) => {
+router.get("/email/:email", async (req: Request, res: Response) => {
   const { email } = req.params;
 
-  const user = getUserByEmail(email as string);
+  const user = await getUserByEmail(email as string);
 
   res.status(200).json({
     user,
   });
 });
 
-router.get("/phone/:phone", (req: Request, res: Response) => {
+router.get("/phone/:phone", async (req: Request, res: Response) => {
   const { phone } = req.params;
 
-  const user = getUserByPhone(phone as string);
+  const user = await getUserByPhone(phone as string);
 
   res.status(200).json({
     user,

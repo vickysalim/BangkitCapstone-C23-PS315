@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import conn from "../../config/db";
+import connection from "../../config/db";
 
 const router = express.Router();
 
@@ -15,21 +15,23 @@ const router = express.Router();
 // productPicUrls: varchar(255) (array of strings)
 // publishedAt: date
 
-function deleteProductById(id: string) {
+async function deleteProductById(id: string) {
+  const conn = await connection();
   const sql = `
     DELETE FROM Product WHERE id = ?;
   `;
 
-  conn.execute(sql, [id], (err: any, result: any) => {
-    if (err) throw err;
-    return result;
-  });
+  const [rows] = await conn.execute(sql, [id]);
+
+  await conn.end();
+
+  return rows;
 }
 
-router.delete("/:id", (req: Request, res: Response) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const result = deleteProductById(id);
+  const result = await deleteProductById(id);
 
   res.status(200).send(result);
 });
