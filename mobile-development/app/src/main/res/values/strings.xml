@@ -5,22 +5,22 @@
     <string name="bottom_navBar_order">My Order</string>
     <string name="bottom_navBar_profile">Profile</string>
     <string name="button_login_toRegister">Don\'t have an account? <b>Sign up</b></string>
-    <string name="title_login">Hello,\nWelcome Back</string>
+    <string name="title_login">Hello, Welcome Back</string>
     <string name="button_login_confirm">Login to your account</string>
-    <string name="input_email">Email</string>
-    <string name="input_password">Password</string>
+    <string name="input_email" translatable="false">Email</string>
+    <string name="input_password" translatable="false">Password</string>
     <string name="button_login_forgotPassword">Forgot Password?</string>
-    <string name="number_1">1</string>
-    <string name="number_2">2</string>
+    <string name="number_1" translatable="false">1</string>
+    <string name="number_2" translatable="false">2</string>
     <string name="text_finish">Finish</string>
     <string name="btn_register_toLogin">Already have an account? <b>Sign in</b></string>
     <string name="title_register_info">Let\'s create your account!</string>
-    <string name="subtitle_register_info">Let\'s help you setup your account,\nit won\'t take long.</string>
+    <string name="subtitle_register_info">Let\'s help you setup your account, it won\'t take long.</string>
     <string name="input_name">Full Name</string>
     <string name="input_phone">Phone Number</string>
     <string name="btn_continue">Continue</string>
     <string name="title_register_address">Let\'s enter your address!</string>
-    <string name="subtitle_register_address">Nearly there,\nit\'s the last step to setup your account</string>
+    <string name="subtitle_register_address">Nearly there, it\'s the last step to setup your account</string>
     <string name="input_province">Province</string>
     <string name="input_city">City</string>
     <string name="input_district">District</string>

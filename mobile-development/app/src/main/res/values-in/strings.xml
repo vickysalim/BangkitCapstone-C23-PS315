@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SiFresh</string>
+    <string name="bottom_navBar_home">Beranda</string>
+    <string name="bottom_navBar_cart">Keranjang</string>
+    <string name="bottom_navBar_order">Pesanan</string>
+    <string name="bottom_navBar_profile">Profil</string>
+    <string name="button_login_toRegister">Tidak punya akun? <b>Daftar</b></string>
+    <string name="title_login">Halo, Selamat Datang Kembali</string>
+    <string name="button_login_confirm">Login ke akun kamu</string>
+    <string name="button_login_forgotPassword">Lupa Password?</string>
+    <string name="text_finish">Selesai</string>
+    <string name="btn_register_toLogin">Sudah punya akun? <b>Masuk</b></string>
+    <string name="title_register_info">Ayo buat akun kamu!</string>
+    <string name="subtitle_register_info">Yuk kami bantu atur akun kamu, ga lama kok.</string>
+    <string name="input_name">Nama Lengkap</string>
+    <string name="input_phone">Nomor HP</string>
+    <string name="btn_continue">Selanjutnya</string>
+    <string name="title_register_address">Masukkin alamat kamu!</string>
+    <string name="subtitle_register_address">Dikit lagi kok, tinggal tahap terakhir untuk buat akun</string>
+    <string name="input_province">Provinsi</string>
+    <string name="input_city">Kota</string>
+    <string name="input_district">Kecamatan</string>
+    <string name="input_postal">Kode Pos</string>
+    <string name="input_address">Alamat</string>
+    <string name="btn_previous">Sebelumnya</string>
+    <string name="btn_register">Daftar</string>
+    <string name="text_nutrition">Nutrisi:</string>
+    <string name="text_tips">Tips supaya tetap segar:</string>
+    <string name="btn_recheck">Cek ulang</string>
+    <string name="text_add_to_cart">Tambah ke Keranjang</string>
+    <string name="text_product_description">Deskripsi Produk</string>
+    <string name="text_see_profile">Lihat Profil</string>
+    <string name="text_confirm">Konfirmasi Pesanan</string>
+    <string name="text_note_seller">Pesan untuk Penjual</string>
+    <string name="text_payment_detail">Detail Pembayaran</string>
+    <string name="text_confirm_payment">Konfirmasi Pembayaran</string>
+    <string name="text_return_home">Kembali ke Beranda</string>
+    <string name="text_add_product_image">Tambah Foto Produk</string>
+</resources>
