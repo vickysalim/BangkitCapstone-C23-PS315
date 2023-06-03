@@ -17,6 +17,9 @@
         android:theme="@style/Theme.SiFresh"
         tools:targetApi="31">
         <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.AddProductActivity"
             android:exported="false" />
         <activity
