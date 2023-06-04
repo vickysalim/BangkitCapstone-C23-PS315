@@ -17,7 +17,7 @@
         android:theme="@style/Theme.SiFresh"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".ui.activities.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activities.AddProductActivity"
@@ -48,6 +48,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

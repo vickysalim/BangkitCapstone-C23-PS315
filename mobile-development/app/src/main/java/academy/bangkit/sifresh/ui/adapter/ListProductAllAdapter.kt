@@ -4,12 +4,10 @@ import academy.bangkit.sifresh.data.response.Product
 import academy.bangkit.sifresh.databinding.MarketplaceItemCardBinding
 import academy.bangkit.sifresh.ui.activities.ProductDetailActivity
 import academy.bangkit.sifresh.utils.Helper
-import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -33,9 +31,6 @@ class ListProductAllAdapter(private val listItem: List<Product>) : RecyclerView.
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val product = listItem[position]
         viewHolder.bind(product)
-//        viewHolder.itemView.setOnClickListener {
-//            onItemClickCallback.onItemClicked(listItem[viewHolder.adapterPosition])
-//        }
     }
 
     override fun getItemCount() = listItem.size

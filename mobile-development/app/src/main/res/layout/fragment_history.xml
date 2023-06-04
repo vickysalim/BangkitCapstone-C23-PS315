@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".ui.fragments.OrderFragment">
+    tools:context=".ui.fragments.HistoryFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
             android:gravity="center"
-            android:text="Riwayat Pesanan"
+            android:text="Riwayat"
             android:textStyle="bold"
             android:textSize="35sp" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -30,7 +30,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/rb_onProcess"
+            android:id="@+id/rb_transaction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -38,11 +38,11 @@
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
-            android:text="Dalam Proses"
+            android:text="Transaksi"
             android:textStyle="bold" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/rb_onComplete"
+            android:id="@+id/rb_detect"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
-            android:text="Selesai"
+            android:text="Deteksi"
             android:textStyle="bold" />
     </RadioGroup>
 
@@ -65,7 +65,7 @@
             android:paddingBottom="120dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_order_history"
+                android:id="@+id/rv_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="8dp"

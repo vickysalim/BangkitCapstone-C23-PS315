@@ -3,7 +3,7 @@
     <string name="app_name">SiFresh</string>
     <string name="bottom_navBar_home">Beranda</string>
     <string name="bottom_navBar_cart">Keranjang</string>
-    <string name="bottom_navBar_order">Pesanan</string>
+    <string name="bottom_navBar_order">Riwayat</string>
     <string name="bottom_navBar_profile">Profil</string>
     <string name="button_login_toRegister">Tidak punya akun? <b>Daftar</b></string>
     <string name="title_login">Halo, Selamat Datang Kembali</string>

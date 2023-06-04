@@ -10,14 +10,21 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingVertical="10dp">
 
-        <com.google.android.material.search.SearchBar
+        <androidx.appcompat.widget.SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search Product">
-        </com.google.android.material.search.SearchBar>
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/marketplace_item_container"
+            app:queryHint="Cari Produk"
+            app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
@@ -31,20 +38,20 @@
             android:id="@+id/imageSlider_banner"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:iss_corner_radius="20"
             app:iss_auto_cycle="true"
-            app:iss_period="5000"
+            app:iss_corner_radius="20"
             app:iss_delay="5000"
-            app:iss_placeholder="@drawable/placeholder_image"
-            app:iss_error_image="@drawable/placeholder_image"/>
+            app:iss_error_image="@drawable/placeholder_image"
+            app:iss_period="5000"
+            app:iss_placeholder="@drawable/placeholder_image" />
     </androidx.cardview.widget.CardView>
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -99,13 +106,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="8dp"
-                tools:listitem="@layout/marketplace_item_card"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="2"
+                tools:listitem="@layout/marketplace_item_card" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

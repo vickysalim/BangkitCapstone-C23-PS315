@@ -4,7 +4,7 @@ import academy.bangkit.sifresh.R
 import academy.bangkit.sifresh.databinding.ActivityMainBinding
 import academy.bangkit.sifresh.ui.fragments.CartFragment
 import academy.bangkit.sifresh.ui.fragments.HomeFragment
-import academy.bangkit.sifresh.ui.fragments.OrderFragment
+import academy.bangkit.sifresh.ui.fragments.HistoryFragment
 import academy.bangkit.sifresh.ui.fragments.ProfileFragment
 import academy.bangkit.sifresh.utils.Helper
 import android.Manifest
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                             true
                         }
                         R.id.nav_order -> {
-                            switchFragment(OrderFragment())
+                            switchFragment(HistoryFragment())
                             true
                         }
                         R.id.nav_profile -> {

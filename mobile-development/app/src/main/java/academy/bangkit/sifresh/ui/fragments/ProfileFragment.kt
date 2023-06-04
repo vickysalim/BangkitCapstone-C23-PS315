@@ -53,9 +53,9 @@ class ProfileFragment : Fragment() {
                 settingsGroup.tvLanguageDisplay.text =
                     Locale.getDefault().getDisplayLanguage(Locale.getDefault())
             }
-            settingsGroup.switchNotification.setOnCheckedChangeListener { _, isChecked ->
-                // Turn on/off notification
-            }
+//            settingsGroup.switchNotification.setOnCheckedChangeListener { _, isChecked ->
+//                // Turn on/off notification
+//            }
             val preferences = SettingPreferences.getInstance(requireContext().dataStore)
             val preferencesViewModel =
                 ViewModelProvider(

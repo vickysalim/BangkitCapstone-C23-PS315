@@ -51,15 +51,15 @@ class ProductDetailActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvReviews.layoutManager = layoutManager
-        setReviewAdapter(ProductReviewDummy.reviewList)
+//
+//        val layoutManager = LinearLayoutManager(this)
+//        binding.rvReviews.layoutManager = layoutManager
+//        setReviewAdapter(ProductReviewDummy.reviewList)
     }
 
     private fun setReviewAdapter(reviewList: List<Review>) {
-        val adapter = ListProductReviewAdapter(reviewList)
-        binding.rvReviews.adapter = adapter
+//        val adapter = ListProductReviewAdapter(reviewList)
+//        binding.rvReviews.adapter = adapter
     }
 
     companion object {
