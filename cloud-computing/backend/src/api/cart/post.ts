@@ -28,7 +28,7 @@ async function createCart(userId: string, productId: string, amount: number) {
 
   cart = rows;
 
-  await conn.end();
+
 
   if (cart) return cart;
 
@@ -47,7 +47,7 @@ async function updateCart(id: string, productId: string, amount: number) {
 
   cart = rows;
 
-  await conn.end();
+
 
   if (cart) return cart;
 
@@ -66,7 +66,7 @@ async function updateCartStatus(id: string, productId: string, status: string) {
 
   cart = rows;
 
-  await conn.end();
+
 
   if (cart) return cart;
 

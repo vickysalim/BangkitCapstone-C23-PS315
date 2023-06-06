@@ -26,7 +26,7 @@ async function getAllCartFromUserId(id: string) {
 
   cart = rows;
 
-  await conn.end();
+
 
   if (cart) return cart;
 
@@ -45,7 +45,7 @@ async function getCartFromUserId(id: string, productId: string) {
 
   cart = rows;
 
-  await conn.end();
+
 
   if (cart) return cart;
 

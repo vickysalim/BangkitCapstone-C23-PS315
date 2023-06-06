@@ -26,7 +26,7 @@ async function deleteCartItem(id: string) {
 
   cart = rows;
 
-  await conn.end();
+
 
   if (cart) return cart;
 
