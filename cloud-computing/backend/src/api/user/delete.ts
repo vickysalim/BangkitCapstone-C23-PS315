@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
+import formidable from "formidable";
 import connection from "../../config/db";
+import { verifyToken } from "../../lib/helper";
 
 const router = express.Router();
 
@@ -35,19 +37,48 @@ async function deleteUser(id: string) {
 
   user = rows;
 
-  await conn.end();
-
   if (user) return user;
 
   return [];
 }
 
-router.delete("/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
+router.post("/", async (req: Request, res: Response) => {
+  const form = formidable({ multiples: true });
+  const authHeader = req.headers.authorization as string;
 
-  const user = await deleteUser(id);
+  const token = authHeader.split(" ")[1];
 
-  res.status(200).json(user);
+  const verifiedToken = await verifyToken(token);
+
+  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
+    res.status(403).json(verifiedToken);
+    return;
+  }
+
+  form.parse(req, async (err, fields) => {
+    const { id } = fields;
+
+    if (verifiedToken.id !== id) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        id: null,
+        message: "Unauthorized",
+      });
+      return;
+    }
+
+    const user = await deleteUser(id as string);
+
+    if (!user) {
+      res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      user,
+    });
+  });
 });
 
 export default router;

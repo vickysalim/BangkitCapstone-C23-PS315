@@ -3,7 +3,9 @@ import connection from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { emailExists, phoneExists } from "../../lib/helper";
+import { emailExists, phoneExists, verifyToken } from "../../lib/helper";
+import formidable from "formidable";
+import { Storage } from "@google-cloud/storage";
 
 const router = express.Router();
 
@@ -30,11 +32,30 @@ async function addUser(
   password: string,
   phone: string,
   isSeller: boolean,
-  profilePicUrl?: string,
+  profilePic?: formidable.File,
 ) {
   const conn = await connection();
+  const storage = new Storage();
   const id = uuidv4();
   const hashedPassword = bcrypt.hashSync(password, 10);
+
+  const profilePicExtension = profilePic?.mimetype?.split("/")[1];
+
+  if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
+    return {
+      code: "PROFILE_PIC_EXTENSION_ERROR",
+      message: "Profile picture extension is not supported",
+    };
+  }
+
+  const profilePicUrl = "/uploads/" + id + "." + profilePicExtension;
+
+  await storage.bucket(process.env.GCLOUD_STORAGE_BUCKET as string).upload(profilePic?.filepath as string, {
+    gzip: true,
+    metadata: {
+      cacheControl: "public, max-age=31536000",
+    },
+  });
 
   let user = null;
   let error: {
@@ -76,8 +97,6 @@ async function addUser(
 
   user = rows;
 
-  await conn.end();
-
   if (user) return user;
 
   return {};
@@ -112,8 +131,6 @@ async function addUserAddress(
   ]);
 
   userAddress = rows;
-
-  await conn.end();
 
   if (userAddress) return userAddress;
 
@@ -155,7 +172,73 @@ async function updateUser(
 
   user = rows;
 
-  await conn.end();
+  if (user) return user;
+
+  return {};
+}
+
+async function updateUserProfilePic(
+  id: string,
+  profilePic: formidable.File,
+) {
+  const conn = await connection();
+  const storage = new Storage();
+
+  const profilePicExtension = profilePic?.mimetype?.split("/")[1];
+
+  if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
+    return {
+      code: "PROFILE_PIC_EXTENSION_ERROR",
+      message: "Profile picture extension is not supported",
+    };
+  }
+
+  const profilePicUrl = "/uploads/" + id + "." + profilePicExtension;
+
+  // Delete old profile picture from storage
+  const sql1 = `
+    SELECT
+      profilePicUrl
+    FROM
+      User
+    WHERE
+      id = ?
+  `;
+
+  const [rows1]: any = await conn.execute(sql1, [
+    id,
+  ]);
+
+  const oldProfilePicUrl = rows1[0 as keyof typeof rows1].profilePicUrl as unknown as string;
+
+  const oldProfilePicFilename = oldProfilePicUrl.split("/")[2];
+
+  await storage.bucket(process.env.GCLOUD_STORAGE_BUCKET as string).file(oldProfilePicFilename).delete();
+
+  await storage.bucket(process.env.GCLOUD_STORAGE_BUCKET as string).upload(profilePic?.filepath as string, {
+    gzip: true,
+    metadata: {
+      cacheControl: "public, max-age=31536000",
+    },
+  });
+
+  let user = null;
+
+  const sql = `
+    UPDATE
+      User
+    SET
+      profilePicUrl = ?
+    WHERE
+      id = ?
+  `;
+
+  const [rows] = await conn.execute(sql, [
+    profilePicUrl,
+    id,
+  ]);
+
+  user = rows;
 
   if (user) return user;
 
@@ -196,8 +279,6 @@ async function updateUserAddress(
   ]);
 
   userAddress = rows;
-
-  await conn.end();
 
   if (userAddress) return userAddress;
 
@@ -249,21 +330,19 @@ async function updatePassword(
 
       user = rowsB;
 
-      await conn.end();
-
       if (user) return user;
 
       return {};
     } else {
       error.code = "PASSWORD_NOT_MATCH_ERROR";
       error.message = "Password not match";
-      await conn.end();
+
       return error;
     }
   } else {
     error.code = "ID_NOT_FOUND_ERROR";
     error.message = "ID not found";
-    await conn.end();
+
     return error;
   }
 }
@@ -296,8 +375,7 @@ async function login(email: string, password: string) {
 
   const [rows] = await conn.execute(sql, [email]);
 
-  user = rows[0 as keyof typeof rows];
-  await conn.end();
+  user.cred = rows[0 as keyof typeof rows];
 
   if (user) {
     if (bcrypt.compareSync(password, user.cred.password)) {
@@ -320,72 +398,179 @@ async function login(email: string, password: string) {
 }
 
 router.post("/add", async (req: Request, res: Response) => {
-  const { fullName, email, password, phone, isSeller, profilePicUrl } =
-    req.body;
+  const form = formidable({ multiples: true });
 
-  const user = await addUser(
-    fullName,
-    email,
-    password,
-    phone,
-    isSeller,
-    profilePicUrl,
-  );
+  form.parse(req, async (err, fields, files) => {
+    const { fullName, email, password, phone, isSeller } = fields;
+    const { profilePic } = files;
 
-  res.status(201).json(user);
+    const user = await addUser(
+      fullName as string,
+      email as string,
+      password as string,
+      phone as string,
+      isSeller === "true" ? true : false,
+      profilePic as formidable.File,
+    );
+
+    res.status(201).json(user);
+  });
 });
 
 router.post("/add-address", async (req: Request, res: Response) => {
-  const { id, address, province, city, kecamatan, kodePos } = req.body;
+  const form = formidable({ multiples: true });
 
-  const userAddress = await addUserAddress(
-    id,
-    address,
-    province,
-    city,
-    kecamatan,
-    kodePos,
-  );
+  form.parse(req, async (err, fields) => {
+    const { id, address, province, city, kecamatan, kodePos } = fields;
 
-  res.status(201).json(userAddress);
+    const userAddress = await addUserAddress(
+      id as string,
+      address as string,
+      province as string,
+      city as string,
+      kecamatan as string,
+      kodePos as string,
+    );
+
+    res.status(201).json(userAddress);
+  });
 });
 
-router.put("/update", async (req: Request, res: Response) => {
-  const { id, fullName, email, phone, isSeller, profilePicUrl } = req.body;
+router.post("/update", async (req: Request, res: Response) => {
+  const form = formidable({ multiples: true });
+  const authHeader = req.headers.authorization as string;
 
-  const user = await updateUser(
-    id,
-    fullName,
-    email,
-    phone,
-    isSeller,
-    profilePicUrl,
-  );
+  const token = authHeader.split(" ")[1];
 
-  res.status(201).json(user);
+  const verifiedToken = await verifyToken(token);
+
+  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
+    res.status(403).json(verifiedToken);
+    return;
+  }
+
+  form.parse(req, async (err, fields) => {
+    const { id, fullName, email, phone, isSeller } = fields;
+
+    if (verifiedToken.id !== id) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+      return;
+    }
+
+    const user = await updateUser(
+      id as string,
+      fullName as string,
+      email as string,
+      phone as string,
+      isSeller === "true" ? true : false,
+    );
+
+    res.status(201).json(user);
+  });
 });
 
-router.put("/update-address", async (req: Request, res: Response) => {
-  const { id, address, province, city, kecamatan, kodePos } = req.body;
+router.post("/update-profile-pic", async (req: Request, res: Response) => {
+  const form = formidable({ multiples: true });
+  const authHeader = req.headers.authorization as string;
 
-  const userAddress = await updateUserAddress(
-    id,
-    address,
-    province,
-    city,
-    kecamatan,
-    kodePos,
-  );
+  const token = authHeader.split(" ")[1];
 
-  res.status(201).json(userAddress);
+  const verifiedToken = await verifyToken(token);
+
+  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
+    res.status(403).json(verifiedToken);
+    return;
+  }
+
+  form.parse(req, async (err, fields, files) => {
+    const { id } = fields;
+    const { profilePic } = files;
+
+    if (verifiedToken.id !== id) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+      return;
+    }
+
+    const user = await updateUserProfilePic(
+      id as string,
+      profilePic as formidable.File,
+    );
+
+    res.status(201).json(user);
+  });
 });
 
-router.put("/update-pass", async (req: Request, res: Response) => {
-  const { id, password, newPassword } = req.body;
+router.post("/update-address", async (req: Request, res: Response) => {
+  const form = formidable({ multiples: true });
+  const authHeader = req.headers.authorization as string;
 
-  const user = await updatePassword(id, password, newPassword);
+  const token = authHeader.split(" ")[1];
 
-  res.json(user);
+  const verifiedToken = await verifyToken(token);
+
+  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
+    res.status(403).json(verifiedToken);
+    return;
+  }
+
+  form.parse(req, async (err, fields) => {
+    const { id, address, province, city, kecamatan, kodePos } = fields;
+
+    if (verifiedToken.id !== id) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+      return;
+    }
+
+    const userAddress = await updateUserAddress(
+      id as string,
+      address as string,
+      province as string,
+      city as string,
+      kecamatan as string,
+      kodePos as string,
+    );
+
+    res.status(201).json(userAddress);
+  });
+});
+
+router.post("/update-pass", async (req: Request, res: Response) => {
+  const form = formidable({ multiples: true });
+  const authHeader = req.headers.authorization as string;
+
+  const token = authHeader.split(" ")[1];
+
+  const verifiedToken = await verifyToken(token);
+
+  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
+    res.status(403).json(verifiedToken);
+    return;
+  }
+
+  form.parse(req, async (err, fields) => {
+    const { id, password, newPassword } = fields;
+
+    if (verifiedToken.id !== id) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+      return;
+    }
+
+    const user = await updatePassword(id as string, password as string, newPassword as string);
+
+    res.json(user);
+  });
 });
 
 router.post("/authenticate", async (req: Request, res: Response) => {
