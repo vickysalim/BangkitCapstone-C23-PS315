@@ -23,10 +23,10 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "API_BASEURL", "\"http://localhost:5000/\"")
+            buildConfigField("String", "API_BASEURL", "\"http://localhost:5000/api/v1/\"")
         }
         release {
-            buildConfigField("String", "API_BASEURL", "\"http://localhost:5000/\"")
+            buildConfigField("String", "API_BASEURL", "\"http://localhost:5000/api/v1/\"")
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
