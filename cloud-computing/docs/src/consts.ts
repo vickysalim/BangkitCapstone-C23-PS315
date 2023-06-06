@@ -60,12 +60,16 @@ export const SIDEBAR: Sidebar = {
     ],
     "Order Endpoints": [
       { text: "Create Order", link: "en/order/create" },
-      { text: "Get Order Information", link: "en/order/history" },
+      { text: "Get Order Information", link: "en/order/get" },
       { text: "Update Order", link: "en/order/update" },
       { text: "Delete Order", link: "en/order/delete" },
     ],
     "Location Endpoints": [
       { text: "Get Location Information", link: "en/locations/" },
     ],
+    "Freshness Dataset": [
+      { text: "Get Freshness Information", link: "en/freshness/" },
+      { text: "Create New Report", link: "en/freshness/create" },
+    ]
   },
 };
