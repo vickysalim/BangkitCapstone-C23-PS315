@@ -21,7 +21,7 @@ async function getAllOrderFromUserId(id: string) {
 
   order = rows;
 
-  await conn.end();
+
 
   if (order) return order;
 
@@ -39,8 +39,6 @@ async function getOrderFromUserId(id: string, orderId: string) {
   const [rows] = await conn.execute(sql, [id, orderId]);
 
   order = rows;
-
-  await conn.end();
 
   if (order) return order;
 

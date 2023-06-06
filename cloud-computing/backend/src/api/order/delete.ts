@@ -1,5 +1,6 @@
 import express from "express";
 import connection from "../../config/db";
+import formidable from "formidable";
 
 const router = express.Router();
 
@@ -18,16 +19,20 @@ async function deleteOrderItem(id: string) {
 
   await conn.execute(sql, [id]);
 
-  await conn.end();
+
 }
 
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+router.post("/", async (req, res) => {
+  const form = formidable({ multiples: true });
 
-  await deleteOrderItem(id);
+  form.parse(req, async (err, fields) => {
+    const { id } = fields;
 
-  res.status(200).json({
-    message: "Order item deleted successfully",
+    await deleteOrderItem(id as string);
+
+    res.status(200).json({
+      message: "Order item deleted successfully",
+    });
   });
 });
 
