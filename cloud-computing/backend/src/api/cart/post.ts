@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/update", async (req, res) => {
+router.post("/update", async (req, res) => {
   const { userId, productId, amount } = req.body;
 
   const cart = await updateCart(userId, productId, amount);
@@ -105,7 +105,7 @@ router.put("/update", async (req, res) => {
   }
 });
 
-router.put("/update-status", async (req, res) => {
+router.post("/update-status", async (req, res) => {
   const { userId, productId, status } = req.body;
 
   const cart = await updateCartStatus(userId, productId, status);
