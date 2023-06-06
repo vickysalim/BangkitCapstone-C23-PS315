@@ -1,5 +1,7 @@
 import express, { Request, Response } from "express";
 import connection from "../../config/db";
+import { verifyToken } from "../../lib/helper";
+import formidable from "formidable";
 
 const router = express.Router();
 
@@ -23,17 +25,31 @@ async function deleteProductById(id: string) {
 
   const [rows] = await conn.execute(sql, [id]);
 
-  await conn.end();
-
   return rows;
 }
 
-router.delete("/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
+router.post("/", async (req: Request, res: Response) => {
+  const form = formidable({ multiples: true });
+  const token = req.headers.authorization?.split(" ")[1];
 
-  const result = await deleteProductById(id);
+  const verifyTokenResult = await verifyToken(token as string);
 
-  res.status(200).send(result);
+  form.parse(req, async (err, fields) => {
+    const { id } = fields;
+
+    if (verifyTokenResult.code !== "TOKEN_VERIFIED") {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+
+      return;
+    }
+
+    const result = await deleteProductById(id as string);
+
+    res.status(200).send(result);
+  });
 });
 
 export default router;

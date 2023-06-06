@@ -27,8 +27,6 @@ async function getAllProducts() {
 
   products = rows;
 
-  await conn.end();
-
   if (products) return products;
 
   return [];
@@ -45,8 +43,6 @@ async function getProductById(id: string) {
   const [rows] = await conn.execute(sql, [id]);
 
   product = rows[0 as keyof typeof rows];
-
-  await conn.end();
 
   if (product) return product;
 
@@ -65,8 +61,6 @@ async function getProductsBySellerId(sellerId: string) {
 
   products = rows;
 
-  await conn.end();
-
   if (products) return products;
 
   return [];
@@ -83,8 +77,6 @@ async function getProductsByType(type: string) {
   const [rows] = await conn.execute(sql, [type]);
 
   products = rows;
-
-  await conn.end();
 
   if (products) return products;
 
