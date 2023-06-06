@@ -33,7 +33,7 @@ async function deleteCartItem(id: string) {
   return [];
 }
 
-router.delete("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
   const { id } = req.params;
 
   const cart = await deleteCartItem(id);
