@@ -33,6 +33,14 @@ async function deleteUser(id: string) {
       id = ?
   `;
 
+  const alsoDeleteAddressSql = `
+    DELETE FROM
+      UserAddress
+    WHERE
+      id = ?
+  `;
+
+  await conn.execute(alsoDeleteAddressSql, [id]);
   const [rows] = await conn.execute(sql, [id]);
 
   user = rows;

@@ -18,7 +18,7 @@ export async function emailExists(email: string) {
 
   user = rows;
 
-  if (user) return true;
+  if (Object.hasOwn(user, "user")) return true;
 
   return false;
 }
@@ -40,7 +40,7 @@ export async function phoneExists(phone: string) {
 
   user = rows;
 
-  if (user) return true;
+  if (Object.hasOwn(user, "user")) return true;
 
   return false;
 }

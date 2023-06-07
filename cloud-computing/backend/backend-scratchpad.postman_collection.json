@@ -1,0 +1,538 @@
+{
+	"info": {
+		"_postman_id": "1c974e10-7df4-4681-a7c2-923403827278",
+		"name": "SiFresh API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User(s)",
+					"item": [
+						{
+							"name": "Get All Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/get/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"get",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/get/5481585b-074c-4d8b-92a4-926f357ac387",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"get",
+										"5481585b-074c-4d8b-92a4-926f357ac387"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By Email",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/get/email/irvanmalik48@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"get",
+										"email",
+										"irvanmalik48@gmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User By Phone",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/get/5481585b-074c-4d8b-92a4-926f357ac387",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"get",
+										"5481585b-074c-4d8b-92a4-926f357ac387"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add User",
+					"item": [
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "fullName",
+											"value": "Irvan Malik Azantha",
+											"type": "default"
+										},
+										{
+											"key": "email",
+											"value": "irvanmalik48@gmail.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "sayasukasusu123",
+											"type": "default"
+										},
+										{
+											"key": "phone",
+											"value": "089628090166",
+											"type": "default"
+										},
+										{
+											"key": "isSeller",
+											"value": "false",
+											"type": "default"
+										},
+										{
+											"key": "profilePic",
+											"type": "file",
+											"src": "/home/irvanmalik48/Downloads/IMG-20220828-WA0014-01.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add User Address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										},
+										{
+											"key": "address",
+											"value": "Komp. Ex KIwal Lama Blok A Lama No. 04",
+											"type": "default"
+										},
+										{
+											"key": "province",
+											"value": "SUMATERA SELATAN",
+											"type": "default"
+										},
+										{
+											"key": "city",
+											"value": "KOTA PALEMBANG",
+											"type": "default"
+										},
+										{
+											"key": "kecamatan",
+											"value": "ILIR TIMUR III",
+											"type": "default"
+										},
+										{
+											"key": "kodePos",
+											"value": "30114",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/add-address",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"add-address"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Auth",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "irvanmalik48@gmail.com",
+											"type": "default"
+										},
+										{
+											"key": "password",
+											"value": "sayasukasusu123",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/authenticate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"authenticate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU0ODE1ODViLTA3NGMtNGQ4Yi05MmE0LTkyNmYzNTdhYzM4NyIsImlhdCI6MTY4NjEyOTczMH0.2JVGM6dEsas07P-bzQJANYkV8Fg6tf33Lc2WJYPnDTA",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/verify-token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"verify-token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"item": [
+						{
+							"name": "Update User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										},
+										{
+											"key": "fullName",
+											"value": "Irvan Malik A",
+											"type": "default"
+										},
+										{
+											"key": "email",
+											"value": "irvanmalik69@gmail.com",
+											"type": "default"
+										},
+										{
+											"key": "phone",
+											"value": "089628090166",
+											"type": "default"
+										},
+										{
+											"key": "isSeller",
+											"value": "true",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User Address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										},
+										{
+											"key": "address",
+											"value": "Jl. May. Ruslan Lr. Hasyiman No. 417",
+											"type": "default"
+										},
+										{
+											"key": "province",
+											"value": "SUMATERA SELATAN",
+											"type": "default"
+										},
+										{
+											"key": "city",
+											"value": "KOTA PALEMBANG",
+											"type": "default"
+										},
+										{
+											"key": "kecamatan",
+											"value": "ILIR TIMUR III",
+											"type": "default"
+										},
+										{
+											"key": "kodePos",
+											"value": "30114",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/update-address",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"update-address"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile Picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										},
+										{
+											"key": "profilePic",
+											"type": "file",
+											"src": "/home/irvanmalik48/Downloads/Nazi (2).jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/post/update-profile-pic",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"post",
+										"update-profile-pic"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"item": [
+						{
+							"name": "Delete User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/user/del/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"del",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU0ODE1ODViLTA3NGMtNGQ4Yi05MmE0LTkyNmYzNTdhYzM4NyIsImlhdCI6MTY4NjEyOTczMH0.2JVGM6dEsas07P-bzQJANYkV8Fg6tf33Lc2WJYPnDTA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

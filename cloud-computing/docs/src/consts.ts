@@ -37,7 +37,7 @@ export const SIDEBAR: Sidebar = {
   en: {
     "General Information": [
       { text: "Introduction", link: "en/introduction" },
-      { text: "Getting Started", link: "en/page-2" },
+      { text: "Getting Started", link: "en/getting-started" },
     ],
     "User Endpoints": [
       { text: "Create User", link: "en/users/create" },
