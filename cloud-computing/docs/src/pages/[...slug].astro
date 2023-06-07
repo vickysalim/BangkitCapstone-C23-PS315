@@ -2,6 +2,8 @@
 import { CollectionEntry, getCollection } from 'astro:content';
 import MainLayout from '../layouts/MainLayout.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const docs = await getCollection('docs');
 	return docs.map((entry) => ({
