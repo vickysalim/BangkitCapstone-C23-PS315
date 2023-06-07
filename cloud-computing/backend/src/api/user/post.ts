@@ -48,14 +48,17 @@ async function addUser(
     };
   }
 
-  const profilePicUrl = "/uploads/" + id + "." + profilePicExtension;
+  let profilePicUrl = "uploads/" + id + "." + profilePicExtension;
 
-  await storage.bucket(process.env.GCLOUD_STORAGE_BUCKET as string).upload(profilePic?.filepath as string, {
+  await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.filepath as string, {
+    destination: profilePicUrl,
     gzip: true,
     metadata: {
       cacheControl: "public, max-age=31536000",
     },
   });
+
+  profilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${profilePicUrl}`;
 
   let user = null;
   let error: {
@@ -85,7 +88,16 @@ async function addUser(
       (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const getUserInfoByEmailAddress = `
+    SELECT
+      *
+    FROM
+      User
+    WHERE
+      email = ?
+  `;
+
+  await conn.execute(sql, [
     id,
     fullName,
     email,
@@ -95,7 +107,9 @@ async function addUser(
     profilePicUrl,
   ]);
 
-  user = rows;
+  const [rows] = await conn.execute(getUserInfoByEmailAddress, [email]);
+
+  user = rows[0 as keyof typeof rows];
 
   if (user) return user;
 
@@ -121,7 +135,16 @@ async function addUserAddress(
       (?, ?, ?, ?, ?, ?)
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const getUserAddress = `
+    SELECT
+      *
+    FROM
+      UserAddress
+    WHERE
+      id = ?
+  `;
+
+  await conn.execute(sql, [
     id,
     address,
     province,
@@ -130,7 +153,9 @@ async function addUserAddress(
     kodePos,
   ]);
 
-  userAddress = rows;
+  const [rows] = await conn.execute(getUserAddress, [id]);
+
+  userAddress = rows[0 as keyof typeof rows];
 
   if (userAddress) return userAddress;
 
@@ -143,10 +168,18 @@ async function updateUser(
   email: string,
   phone: string,
   isSeller: boolean,
-  profilePicUrl?: string,
 ) {
   const conn = await connection();
   let user = null;
+
+  const getUserInfoById = `
+    SELECT
+      *
+    FROM
+      User
+    WHERE
+      id = ?
+  `;
 
   const sql = `
     UPDATE
@@ -161,16 +194,21 @@ async function updateUser(
       id = ?
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const [rowsTemp] = await conn.execute(getUserInfoById, [id]);
+  user = rowsTemp[0 as keyof typeof rowsTemp];
+
+  await conn.execute(sql, [
     fullName,
     email,
     phone,
     isSeller,
-    profilePicUrl,
+    // eslint-disable-next-line @typescript-eslint/dot-notation
+    user["profilePicUrl"],
     id,
   ]);
 
-  user = rows;
+  const [rows] = await conn.execute(getUserInfoById, [id]);
+  user = rows[0 as keyof typeof rows];
 
   if (user) return user;
 
@@ -193,7 +231,7 @@ async function updateUserProfilePic(
     };
   }
 
-  const profilePicUrl = "/uploads/" + id + "." + profilePicExtension;
+  let profilePicUrl = "uploads/" + id + "." + profilePicExtension;
 
   // Delete old profile picture from storage
   const sql1 = `
@@ -209,13 +247,13 @@ async function updateUserProfilePic(
     id,
   ]);
 
-  const oldProfilePicUrl = rows1[0 as keyof typeof rows1].profilePicUrl as unknown as string;
+  const oldProfilePicUrlUnsanitized = rows1[0 as keyof typeof rows1].profilePicUrl as unknown as string;
+  const oldProfilePicUrl = oldProfilePicUrlUnsanitized.replace(`https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/`, "");
 
-  const oldProfilePicFilename = oldProfilePicUrl.split("/")[2];
+  await storage.bucket(process.env.GCP_BUCKET_NAME as string).file(oldProfilePicUrl).delete();
 
-  await storage.bucket(process.env.GCLOUD_STORAGE_BUCKET as string).file(oldProfilePicFilename).delete();
-
-  await storage.bucket(process.env.GCLOUD_STORAGE_BUCKET as string).upload(profilePic?.filepath as string, {
+  await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.filepath as string, {
+    destination: profilePicUrl,
     gzip: true,
     metadata: {
       cacheControl: "public, max-age=31536000",
@@ -223,6 +261,7 @@ async function updateUserProfilePic(
   });
 
   let user = null;
+  profilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${profilePicUrl}`;
 
   const sql = `
     UPDATE
@@ -233,12 +272,23 @@ async function updateUserProfilePic(
       id = ?
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const getUserInfoById = `
+    SELECT
+      *
+    FROM
+      User
+    WHERE
+      id = ?
+  `;
+
+  await conn.execute(sql, [
     profilePicUrl,
     id,
   ]);
 
-  user = rows;
+  const [rows] = await conn.execute(getUserInfoById, [id]);
+
+  user = rows[0 as keyof typeof rows];
 
   if (user) return user;
 
@@ -269,7 +319,16 @@ async function updateUserAddress(
       id = ?
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const getUserAddress = `
+    SELECT
+      *
+    FROM
+      UserAddress
+    WHERE
+      id = ?
+  `;
+
+  await conn.execute(sql, [
     address,
     province,
     city,
@@ -278,7 +337,9 @@ async function updateUserAddress(
     id,
   ]);
 
-  userAddress = rows;
+  const [rows] = await conn.execute(getUserAddress, [id]);
+
+  userAddress = rows[0 as keyof typeof rows];
 
   if (userAddress) return userAddress;
 
@@ -326,7 +387,18 @@ async function updatePassword(
           id = ?
       `;
 
-      const [rowsB] = await conn.execute(sql, [hashedPassword, id]);
+      const getUserInfoById = `
+        SELECT
+          *
+        FROM
+          User
+        WHERE
+          id = ?
+      `;
+
+      await conn.execute(sql, [hashedPassword, id]);
+
+      const [rowsB] = await conn.execute(getUserInfoById, [id]);
 
       user = rowsB;
 
@@ -574,11 +646,25 @@ router.post("/update-pass", async (req: Request, res: Response) => {
 });
 
 router.post("/authenticate", async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const form = formidable({ multiples: true });
 
-  const user = await login(email, password);
+  form.parse(req, async (err, fields) => {
+    const { email, password } = fields;
 
-  res.status(201).json(user);
+    const user = await login(email as string, password as string);
+
+    res.status(201).json(user);
+  });
+});
+
+router.post("/verify-token", async (req: Request, res: Response) => {
+  const authHeader = req.headers.authorization as string;
+
+  const token = authHeader.split(" ")[1];
+
+  const verifiedToken = await verifyToken(token);
+
+  res.status(201).json(verifiedToken);
 });
 
 export default router;
