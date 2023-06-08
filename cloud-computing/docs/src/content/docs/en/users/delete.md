@@ -17,12 +17,7 @@ Content-Type: multipart/form-data, application/x-www-form-urlencoded
 Authenticated: True
 
 Input Fields:
-- id          (The ID of the user you have just created)
-- address
-- province
-- city
-- kecamatan
-- kodePos
+- id
 ```
 
 **Output:**

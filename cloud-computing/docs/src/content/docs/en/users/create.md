@@ -25,8 +25,6 @@ Input Fields:
 
 **Output:**
 
-URL: `/api/v1/user/post/add-address`
-
 ```json
 {
   "id": "--- uuid ---",
@@ -40,6 +38,8 @@ URL: `/api/v1/user/post/add-address`
 ```
 
 ### Adding addresses
+
+URL: `/api/v1/user/post/add-address`
 
 **Input Details:**
 
