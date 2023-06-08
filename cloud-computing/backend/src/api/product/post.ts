@@ -3,6 +3,7 @@ import connection from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
 import { verifyToken } from "../../lib/helper";
 import formidable from "formidable";
+import { Storage } from "@google-cloud/storage";
 
 const router = express.Router();
 
@@ -40,9 +41,9 @@ async function addProduct(
   for (let i = 0; i < productPics.length; i++) {
     const productPic = productPics[i];
 
-    const productPicExtension = productPic.mimetype?.split("/")[1];
+    const productPicExtension = productPic?.mimetype?.split("/")[1];
 
-    const productPicName = `/uploads/${id}-${i}.${productPicExtension}`;
+    const productPicName = `uploads/${sellerId}/${id}-${i}.${productPicExtension}`;
 
     await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(productPic.filepath, {
       destination: productPicName,
@@ -53,7 +54,7 @@ async function addProduct(
     });
 
     productPicUrls.push(
-      `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}${productPicName}`,
+      `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${productPicName}`,
     );
   }
 
@@ -62,7 +63,11 @@ async function addProduct(
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const getProductByIdSql = `
+    SELECT * FROM Product WHERE id = ?;
+  `;
+
+  await conn.execute(sql, [
     id,
     sellerId,
     name,
@@ -75,7 +80,11 @@ async function addProduct(
     publishedAt,
   ]);
 
-  return rows;
+  const [rows] = await conn.execute(getProductByIdSql, [id]);
+
+  const product = rows[0 as keyof typeof rows];
+
+  return product;
 }
 
 async function updateProduct(
@@ -96,7 +105,11 @@ async function updateProduct(
     WHERE id = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [
+  const getProductByIdSql = `
+    SELECT * FROM Product WHERE id = ?;
+  `;
+
+  await conn.execute(sql, [
     sellerId,
     name,
     sellerName,
@@ -108,7 +121,11 @@ async function updateProduct(
     id,
   ]);
 
-  return rows;
+  const [rows] = await conn.execute(getProductByIdSql, [id]);
+
+  const product = rows[0 as keyof typeof rows];
+
+  return product;
 }
 
 router.post("/", async (req: Request, res: Response) => {
@@ -146,7 +163,7 @@ router.post("/", async (req: Request, res: Response) => {
       return;
     }
 
-    const id = await addProduct(
+    const product: any = await addProduct(
       sellerId as string,
       name as string,
       sellerName as string,
@@ -159,7 +176,10 @@ router.post("/", async (req: Request, res: Response) => {
     );
 
     res.status(201).json({
-      id,
+      ...product,
+      productPicUrls: JSON.parse(
+        product.productPicUrls as string,
+      ),
     });
   });
 });
@@ -191,7 +211,7 @@ router.post("/update", async (req: Request, res: Response) => {
       publishedAt,
     } = fields;
 
-    await updateProduct(
+    const product: any = await updateProduct(
       id as string,
       sellerId as string,
       name as string,
@@ -204,7 +224,10 @@ router.post("/update", async (req: Request, res: Response) => {
     );
 
     res.status(201).json({
-      id,
+      ...product,
+      productPicUrls: JSON.parse(
+        product.productPicUrls as string,
+      ),
     });
   });
 });
