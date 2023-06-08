@@ -1,13 +1,11 @@
 ---
-title: "Delete User"
+title: "Delete Product"
 description: "POST them up"
 ---
 
-### Delete a user by ID
+### Delete a product
 
-> Deleting a user also deletes the address associated with the user
-
-URL: `/api/v1/user/del/`
+URL: `/api/v1/product/del/`
 
 **Input Details:**
 

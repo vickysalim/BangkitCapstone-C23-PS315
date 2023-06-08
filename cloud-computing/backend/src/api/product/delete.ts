@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import connection from "../../config/db";
 import { verifyToken } from "../../lib/helper";
 import formidable from "formidable";
+import { Storage } from "@google-cloud/storage";
 
 const router = express.Router();
 
@@ -19,9 +20,33 @@ const router = express.Router();
 
 async function deleteProductById(id: string) {
   const conn = await connection();
+
+  const productInfo = `
+    SELECT * FROM Product WHERE id = ?;
+  `;
+
   const sql = `
     DELETE FROM Product WHERE id = ?;
   `;
+
+  const [productInfoRows] = await conn.execute(productInfo, [id]);
+
+  const product: any = productInfoRows[0 as keyof typeof productInfoRows];
+
+  const productPicUrls = JSON.parse(
+    product.productPicUrls as string,
+  ) as string[];
+
+  const storage = new Storage().bucket(process.env.GCP_BUCKET_NAME as string);
+
+  for (const productPicUrl of productPicUrls) {
+    const sanitizedFileName = productPicUrl.replace(
+      `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/`,
+      "",
+    );
+
+    await storage.file(sanitizedFileName).delete();
+  }
 
   const [rows] = await conn.execute(sql, [id]);
 

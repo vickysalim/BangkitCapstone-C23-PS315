@@ -240,7 +240,7 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "irvanmalik48@gmail.com",
+											"value": "irvanmalik69@gmail.com",
 											"type": "default"
 										},
 										{
@@ -502,7 +502,380 @@
 		},
 		{
 			"name": "Product",
-			"item": []
+			"item": [
+				{
+					"name": "Add Product",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "sellerId",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										},
+										{
+											"key": "name",
+											"value": "Brokoli",
+											"type": "default"
+										},
+										{
+											"key": "sellerName",
+											"value": "Irvan Malik A",
+											"type": "default"
+										},
+										{
+											"key": "type",
+											"value": "vegetable",
+											"type": "default"
+										},
+										{
+											"key": "price",
+											"value": "50000",
+											"type": "default"
+										},
+										{
+											"key": "isAvailable",
+											"value": "true",
+											"type": "default"
+										},
+										{
+											"key": "description",
+											"value": "Ini deskripsi brokoli banh",
+											"type": "default"
+										},
+										{
+											"key": "publishedAt",
+											"value": "2023-06-08T07:12:30.205Z",
+											"type": "default"
+										},
+										{
+											"key": "productPics",
+											"type": "file",
+											"src": [
+												"/home/irvanmalik48/Pictures/Screenshot_20230608_134816.png",
+												"/home/irvanmalik48/Pictures/Screenshot_20230608_134602.png",
+												"/home/irvanmalik48/Pictures/Screenshot_20230608_134229.png"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/post/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"post",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Product",
+					"item": [
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "e54123ce-08e5-412f-9c7b-165a577017f7",
+											"type": "default"
+										},
+										{
+											"key": "sellerId",
+											"value": "5481585b-074c-4d8b-92a4-926f357ac387",
+											"type": "default"
+										},
+										{
+											"key": "name",
+											"value": "Pepaya",
+											"type": "default"
+										},
+										{
+											"key": "sellerName",
+											"value": "Irvan Malik A",
+											"type": "default"
+										},
+										{
+											"key": "type",
+											"value": "buah",
+											"type": "default"
+										},
+										{
+											"key": "price",
+											"value": "100000",
+											"type": "default"
+										},
+										{
+											"key": "isAvailable",
+											"value": "false",
+											"type": "default"
+										},
+										{
+											"key": "description",
+											"value": "Ini deskripsi pepaya ngab",
+											"type": "default"
+										},
+										{
+											"key": "publishedAt",
+											"value": "2023-06-08T07:12:30.205Z",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/post/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"post",
+										"update"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Product(s)",
+					"item": [
+						{
+							"name": "Get All Products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/get/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"get",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/get/e54123ce-08e5-412f-9c7b-165a577017f7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"get",
+										"e54123ce-08e5-412f-9c7b-165a577017f7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products By Seller ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/get/seller/5481585b-074c-4d8b-92a4-926f357ac387",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"get",
+										"seller",
+										"5481585b-074c-4d8b-92a4-926f357ac387"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products By Type",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/get/type/vegetable",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"get",
+										"type",
+										"vegetable"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Product",
+					"item": [
+						{
+							"name": "Delete Product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "e54123ce-08e5-412f-9c7b-165a577017f7",
+											"type": "default"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:5000/api/v1/product/del/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"v1",
+										"product",
+										"del",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Get Provinces",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/location/get/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"location",
+								"get",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/location/get/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"location",
+								"get",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Districts (Kecamatan)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/v1/location/get/11/1103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"location",
+								"get",
+								"11",
+								"1103"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
@@ -510,7 +883,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU0ODE1ODViLTA3NGMtNGQ4Yi05MmE0LTkyNmYzNTdhYzM4NyIsImlhdCI6MTY4NjEyOTczMH0.2JVGM6dEsas07P-bzQJANYkV8Fg6tf33Lc2WJYPnDTA",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU0ODE1ODViLTA3NGMtNGQ4Yi05MmE0LTkyNmYzNTdhYzM4NyIsImlhdCI6MTY4NjIwNTk3MX0.BoulmXB2i5dOtOMv792AFY2DCWUfEjDB8uqHoEzem54",
 				"type": "string"
 			}
 		]

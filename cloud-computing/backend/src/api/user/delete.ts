@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import formidable from "formidable";
 import connection from "../../config/db";
 import { verifyToken } from "../../lib/helper";
+import { Storage } from "@google-cloud/storage";
 
 const router = express.Router();
 
@@ -23,8 +24,20 @@ const router = express.Router();
 // kodePos: varchar(10)
 
 async function deleteUser(id: string) {
+  const storage = new Storage().bucket(process.env.GCP_BUCKET_NAME as string);
   const conn = await connection();
   let user = null;
+
+  const getUserInfoSql = `
+    SELECT * FROM
+      User
+    WHERE
+      id = ?
+  `;
+
+  const [userInfoRows] = await conn.execute(getUserInfoSql, [id]);
+
+  const theUser: any = userInfoRows[0 as keyof typeof userInfoRows];
 
   const sql = `
     DELETE FROM
@@ -42,6 +55,13 @@ async function deleteUser(id: string) {
 
   await conn.execute(alsoDeleteAddressSql, [id]);
   const [rows] = await conn.execute(sql, [id]);
+
+  const sanitizedProfilePicUrl = theUser.profilePicUrl.replace(
+    `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/`,
+    "",
+  );
+
+  storage.file(sanitizedProfilePicUrl).delete();
 
   user = rows;
 
