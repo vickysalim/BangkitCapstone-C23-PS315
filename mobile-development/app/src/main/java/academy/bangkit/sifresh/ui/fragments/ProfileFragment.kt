@@ -6,21 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.sifresh.data.local.SettingPreferences
+import academy.bangkit.sifresh.data.local.dataStore
 import academy.bangkit.sifresh.databinding.FragmentProfileBinding
 import academy.bangkit.sifresh.ui.activities.EditProfileActivity
+import academy.bangkit.sifresh.ui.activities.LoginActivity
+import academy.bangkit.sifresh.ui.activities.MainActivity
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
-import android.content.Context
 import android.content.Intent
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import java.util.Locale
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -44,6 +41,7 @@ class ProfileFragment : Fragment() {
             }
             btnLogOut.setOnClickListener {
                 // Log out (Back to Login Activity)
+                (activity as MainActivity).logOut()
             }
             settingsGroup.tvLanguageDisplay.text =
                 Locale.getDefault().getDisplayLanguage(Locale.getDefault())
