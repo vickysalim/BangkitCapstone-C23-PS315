@@ -27,7 +27,7 @@ interface ApiService {
         @Part("password") password: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("isSeller") isSeller: RequestBody,
-        @Part("profilePicUrl") profilePicUrl: MultipartBody.Part,
+        @Part profilePic: MultipartBody.Part,
     ): Call<Register>
 
     @FormUrlEncoded
