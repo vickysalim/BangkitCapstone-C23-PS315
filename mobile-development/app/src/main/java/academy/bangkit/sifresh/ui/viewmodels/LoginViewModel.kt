@@ -20,17 +20,18 @@ class LoginViewModel : ViewModel() {
         client.enqueue(object : Callback<Login> {
             override fun onResponse(call: Call<Login>, response: Response<Login>) {
                 if (response.isSuccessful) {
-                    loginResult.postValue(response.body())
-//                    if (response.body()?.cred?.id != null) {
-//
-//                    }
+                    val result = response.body()
+                    if (result != null) {
+                        loginResult.postValue(response.body())
+                        Log.d("LoginViewModel", "onResponse: $result")
+                    }
                 } else {
                     Log.d("LoginViewModel", "Login Failed")
                 }
             }
 
             override fun onFailure(call: Call<Login>, t: Throwable) {
-
+                Log.e("LoginViewModel", "onFailed: ${t.message}")
             }
         })
     }

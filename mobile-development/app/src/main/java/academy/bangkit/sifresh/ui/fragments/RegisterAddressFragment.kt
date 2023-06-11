@@ -55,7 +55,7 @@ class RegisterAddressFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
 
-        val client = ApiConfig.getApiService().checkEmail("vickysalim@mhs.mdp.ac.id")
+        val client = ApiConfig.getApiService().checkEmail("irvanmalik69@gmail.com")
 
         client.enqueue(object : Callback<User> {
             override fun onResponse(
@@ -123,7 +123,7 @@ class RegisterAddressFragment : Fragment() {
 //                    // File conversion completed successfully, you can perform further actions here if needed
 
                     val client = ApiConfig.getApiService().addAddress(
-                        "2b720aa2-9357-43f3-9a49-09af1a945150",
+                        "e0eed68e-d4c6-4c24-bee5-2582594b0b7e",
                     "Jl. Jalan",
                     "SUMATERA SELATAN",
                     "PALEMBANG",
