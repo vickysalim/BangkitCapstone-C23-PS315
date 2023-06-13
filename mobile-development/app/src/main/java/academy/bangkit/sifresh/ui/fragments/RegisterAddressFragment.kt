@@ -1,40 +1,20 @@
 package academy.bangkit.sifresh.ui.fragments
 
-import academy.bangkit.sifresh.data.response.AddAddress
-import academy.bangkit.sifresh.data.response.Register
-import academy.bangkit.sifresh.data.response.User
-import academy.bangkit.sifresh.data.retrofit.ApiConfig
 import academy.bangkit.sifresh.databinding.FragmentRegisterAddressBinding
 import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
+import academy.bangkit.sifresh.utils.ResponseCode
 import android.R
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.net.URL
-
 
 class RegisterAddressFragment : Fragment() {
 
@@ -55,42 +35,56 @@ class RegisterAddressFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[RegisterViewModel::class.java]
 
-        val client = ApiConfig.getApiService().checkEmail("irvanmalik69@gmail.com")
+        viewModel.getProvince()
+        viewModel.provincesList.observe(viewLifecycleOwner) {
+            val provinceNames = it.map { province -> province.name }
+            val adapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, provinceNames)
 
-        client.enqueue(object : Callback<User> {
-            override fun onResponse(
-                call: Call<User>,
-                response: Response<User>
-            ) {
-                if (response.isSuccessful) {
-                    val result = response.body()
-                    if (result != null) {
-                        Log.d("RegisterViewModel", "onResponse: ${result.email}")
-                    }
-                }
+            binding.actvProvince.setAdapter(adapter)
+            binding.actvProvince.keyListener = null
+
+            binding.actvProvince.setOnItemClickListener { _, _, position, _ ->
+                binding.actvCity.setText("")
+                binding.actvDistrict.setText("")
+
+                val selectedProvince = it[position]
+                val provinceId = selectedProvince.id
+                viewModel.getCity(provinceId)
             }
+        }
 
-            override fun onFailure(
-                call: Call<User>, t: Throwable
-            ) {
-                Log.e("RegisterViewModel", "onFailed: ${t.message}")
+        viewModel.citiesList.observe(viewLifecycleOwner) {
+            val cityNames = it.map { city -> city.name }
+            val adapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, cityNames)
+
+            binding.actvCity.setAdapter(adapter)
+            binding.actvCity.keyListener = null
+
+            binding.actvCity.setOnItemClickListener { _, _, position, _ ->
+                binding.actvDistrict.setText("")
+
+                val selectedCity = it[position]
+                val provinceId = selectedCity.provinceId
+                val cityId = selectedCity.id
+                viewModel.getDistrict(provinceId, cityId)
             }
-        })
+        }
 
-        val provinceItems = listOf("Sumatera Selatan", "Sulawesi Selatan", "DKI Jakarta")
-        val cityItems = listOf("Palembang", "Makassar", "Jakarta Selatan")
-        val districtItems = listOf("Kecamatan ABC", "Kecamatan XYZ")
+        viewModel.districtsList.observe(viewLifecycleOwner) {
+            val districtNames = it.map { district -> district.name }
+            val adapter =
+                ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, districtNames)
 
-        setDropdownAdapter(provinceItems, binding.actvProvince)
-        setDropdownAdapter(cityItems, binding.actvCity)
-        setDropdownAdapter(districtItems, binding.actvDistrict)
+            binding.actvDistrict.setAdapter(adapter)
+            binding.actvDistrict.keyListener = null
+        }
 
         binding.apply {
-            inputProvince.editText?.setText(viewModel.province)
-            inputCity.editText?.setText(viewModel.city)
-            inputDistrict.editText?.setText(viewModel.district)
-            inputPostalCode.editText?.setText(viewModel.postalCode)
-            inputAddress.editText?.setText(viewModel.address)
+            inputProvince.editText?.setText(viewModel.province.value.toString())
+            inputCity.editText?.setText(viewModel.city.value.toString())
+            inputDistrict.editText?.setText(viewModel.district.value.toString())
+            inputPostalCode.editText?.setText(viewModel.postalCode.value.toString())
+            inputAddress.editText?.setText(viewModel.address.value.toString())
         }
 
         binding.btnPrevious.setOnClickListener {
@@ -98,81 +92,45 @@ class RegisterAddressFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener {
-//            GlobalScope.launch(Dispatchers.IO) {
-//                val url = URL("https://storage.googleapis.com/sifresh-bucket-one/uploads/65d09804-e496-445c-b1d3-010b1f827f56.png")
-//                val connection = url.openConnection()
-//                connection.doInput = true
-//                connection.connect()
-//                val inputStream = connection.getInputStream()
-//                val bitmap = BitmapFactory.decodeStream(inputStream)
-//
-//                // Create a file to store the bitmap
-//                val file = File(requireContext().filesDir, "your_file.png")
-//
-//                try {
-//                    file.createNewFile()
-//                    val outputStream = FileOutputStream(file)
-//
-//                    // Compress the bitmap to PNG format and write it to the file
-//                    launch(Dispatchers.IO) {
-//                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-//                        outputStream.flush()
-//                        outputStream.close()
-//                    }
-//
-//                    // File conversion completed successfully, you can perform further actions here if needed
+            viewModel.registerUser()
 
-                    val client = ApiConfig.getApiService().addAddress(
-                        "e0eed68e-d4c6-4c24-bee5-2582594b0b7e",
-                    "Jl. Jalan",
-                    "SUMATERA SELATAN",
-                    "PALEMBANG",
-                    "ILIR TIMUR III",
-                    "12345",
-                    )
+            viewModel.province.value = binding.inputProvince.editText?.text.toString()
+            viewModel.city.value = binding.inputCity.editText?.text.toString()
+            viewModel.district.value = binding.inputDistrict.editText?.text.toString()
+            viewModel.postalCode.value = binding.inputPostalCode.editText?.text.toString()
+            viewModel.address.value = binding.inputAddress.editText?.text.toString()
+        }
 
-                    client.enqueue(object : Callback<AddAddress> {
-                        override fun onResponse(
-                            call: Call<AddAddress>,
-                            response: Response<AddAddress>
-                        ) {
-                            if (response.isSuccessful) {
-                                val result = response.body()
-                                if (result != null) {
-                                    Log.d("RegisterViewModel", "onResponse: ${result}")
-                                }
-                            }
-                        }
-
-                        override fun onFailure(
-                            call: Call<AddAddress>, t: Throwable
-                        ) {
-                            Log.e("RegisterViewModel", "onFailed: ${t.message}")
-                        }
-                    })
-
-//                } catch (e: IOException) {
-//                    e.printStackTrace()
-//                    // Handle any exceptions that may occur during file creation or writing
-//                }
-//            }
+        viewModel.status.observe(viewLifecycleOwner) {
+            setBehavior(it)
         }
     }
 
     override fun onPause() {
         super.onPause()
 
-        viewModel.province = binding.inputProvince.editText?.text.toString()
-        viewModel.city = binding.inputCity.editText?.text.toString()
-        viewModel.district = binding.inputDistrict.editText?.text.toString()
-        viewModel.postalCode = binding.inputPostalCode.editText?.text.toString()
-        viewModel.address = binding.inputAddress.editText?.text.toString()
+        viewModel.province.value = binding.inputProvince.editText?.text.toString()
+        viewModel.city.value = binding.inputCity.editText?.text.toString()
+        viewModel.district.value = binding.inputDistrict.editText?.text.toString()
+        viewModel.postalCode.value = binding.inputPostalCode.editText?.text.toString()
+        viewModel.address.value = binding.inputAddress.editText?.text.toString()
     }
 
-    private fun setDropdownAdapter(items: List<String>, actv: MaterialAutoCompleteTextView) {
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, items)
-
-        actv.setAdapter(adapter)
-        actv.keyListener = null
+    private fun setBehavior(responseCode: Int) {
+        when(responseCode) {
+            ResponseCode.SUCCESS -> {
+                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_register_success), Toast.LENGTH_SHORT).show()
+                requireActivity().finish()
+            }
+            ResponseCode.NOT_FOUND -> {
+                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_email_exists), Toast.LENGTH_SHORT).show()
+            }
+            ResponseCode.FORBIDDEN -> {
+                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_forbidden), Toast.LENGTH_SHORT).show()
+            }
+            ResponseCode.SERVER_TIMEOUT -> {
+                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_timeout), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

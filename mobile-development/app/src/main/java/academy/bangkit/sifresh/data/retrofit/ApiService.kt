@@ -1,11 +1,8 @@
 package academy.bangkit.sifresh.data.retrofit
 
-import academy.bangkit.sifresh.data.response.Login
+import academy.bangkit.sifresh.data.response.*
 import retrofit2.Call
 import retrofit2.http.*
-import academy.bangkit.sifresh.data.response.AddAddress
-import academy.bangkit.sifresh.data.response.Register
-import academy.bangkit.sifresh.data.response.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -19,15 +16,15 @@ interface ApiService {
         @Field("password") password: String
     ): Call<Login>
 
-    @Multipart
+    @FormUrlEncoded
     @POST("user/post/add")
     fun register(
-        @Part("fullName") fullName: RequestBody,
-        @Part("email") email: RequestBody,
-        @Part("password") password: RequestBody,
-        @Part("phone") phone: RequestBody,
-        @Part("isSeller") isSeller: RequestBody,
-        @Part profilePic: MultipartBody.Part,
+        @Field("fullName") fullName: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("phone") phone: String,
+        @Field("isSeller") isSeller: Boolean,
+        //@Part profilePic: MultipartBody.Part,
     ): Call<Register>
 
     @FormUrlEncoded
@@ -44,5 +41,19 @@ interface ApiService {
     @GET("user/get/email/{email}")
     fun checkEmail(
         @Path("email") email: String
-    ): Call<User>
+    ): Call<CheckEmail>
+
+    @GET("location/get")
+    fun getProvince(): Call<Provinces>
+
+    @GET("location/get/{provinceId}")
+    fun getCities(
+        @Path("provinceId") provinceId: String
+    ): Call<Cities>
+
+    @GET("location/get/{provinceId}/{cityId}")
+    fun getDistricts(
+        @Path("provinceId") provinceId: String,
+        @Path("cityId") cityId: String
+    ): Call<Districts>
 }

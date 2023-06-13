@@ -40,4 +40,9 @@
     <string name="text_confirm_payment">Confirm Payment</string>
     <string name="text_return_home">Return to Home</string>
     <string name="text_add_product_image">Add Product Image</string>
+    <string name="text_register_success">Register Success</string>
+    <string name="text_email_exists">Email already exists</string>
+    <string name="text_forbidden">Failed to fetch data</string>
+    <string name="text_timeout">Server timeout</string>
+    <string name="text_error">Error</string>
 </resources>

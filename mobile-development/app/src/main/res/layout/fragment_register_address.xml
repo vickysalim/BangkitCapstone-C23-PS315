@@ -80,13 +80,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_district"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
             android:hint="@string/input_district"
-            app:layout_constraintEnd_toStartOf="@+id/input_postal_code"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input_city">
 
@@ -94,7 +93,6 @@
                 android:id="@+id/actv_district"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:completionThreshold="1"
                 android:ellipsize="end"
                 android:maxLines="1" />
 
@@ -102,15 +100,14 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_postal_code"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
             android:hint="@string/input_postal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/input_district"
-            app:layout_constraintTop_toBottomOf="@+id/input_city">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_district">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
