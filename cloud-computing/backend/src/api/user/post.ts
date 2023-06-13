@@ -32,33 +32,33 @@ async function addUser(
   password: string,
   phone: string,
   isSeller: boolean,
-  profilePic?: formidable.File,
+  //profilePic?: formidable.File,
 ) {
   const conn = await connection();
-  const storage = new Storage();
+  //const storage = new Storage();
   const id = uuidv4();
   const hashedPassword = bcrypt.hashSync(password, 10);
 
-  const profilePicExtension = profilePic?.mimetype?.split("/")[1];
+  // const profilePicExtension = profilePic?.mimetype?.split("/")[1];
 
-  if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
-    return {
-      code: "PROFILE_PIC_EXTENSION_ERROR",
-      message: "Profile picture extension is not supported",
-    };
-  }
+  // if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
+  //   return {
+  //     code: "PROFILE_PIC_EXTENSION_ERROR",
+  //     message: "Profile picture extension is not supported",
+  //   };
+  // }
 
-  let profilePicUrl = "uploads/" + id + "." + profilePicExtension;
+  // let profilePicUrl = "uploads/" + id + "." + profilePicExtension;
 
-  await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.filepath as string, {
-    destination: profilePicUrl,
-    gzip: true,
-    metadata: {
-      cacheControl: "public, max-age=31536000",
-    },
-  });
+  // await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.filepath as string, {
+  //   destination: profilePicUrl,
+  //   gzip: true,
+  //   metadata: {
+  //     cacheControl: "public, max-age=31536000",
+  //   },
+  // });
 
-  profilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${profilePicUrl}`;
+  // profilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${profilePicUrl}`;
 
   let user = null;
   let error: {
@@ -104,7 +104,7 @@ async function addUser(
     hashedPassword,
     phone,
     isSeller,
-    profilePicUrl,
+    "https://storage.googleapis.com/sifresh-bucket-one/uploads/4c0ef67c-568b-4820-b523-9763924995b1.png",
   ]);
 
   const [rows] = await conn.execute(getUserInfoByEmailAddress, [email]);
@@ -474,7 +474,7 @@ router.post("/add", async (req: Request, res: Response) => {
 
   form.parse(req, async (err, fields, files) => {
     const { fullName, email, password, phone, isSeller } = fields;
-    const { profilePic } = files;
+    // const { profilePic } = files;
 
     const user = await addUser(
       fullName as string,
@@ -482,7 +482,7 @@ router.post("/add", async (req: Request, res: Response) => {
       password as string,
       phone as string,
       isSeller === "true" ? true : false,
-      profilePic as formidable.File,
+      // profilePic as formidable.File,
     );
 
     res.status(201).json(user);
