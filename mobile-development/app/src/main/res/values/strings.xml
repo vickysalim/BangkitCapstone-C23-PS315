@@ -41,6 +41,8 @@
     <string name="text_return_home">Return to Home</string>
     <string name="text_add_product_image">Add Product Image</string>
     <string name="text_register_success">Register Success</string>
+    <string name="text_update_success">Update Data Success</string>
+    <string name="text_update_failed">Update Data Failed</string>
     <string name="text_email_exists">Email already exists</string>
     <string name="text_forbidden">Failed to fetch data</string>
     <string name="text_timeout">Server timeout</string>

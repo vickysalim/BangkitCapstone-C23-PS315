@@ -41,7 +41,12 @@ interface ApiService {
     @GET("user/get/email/{email}")
     fun checkEmail(
         @Path("email") email: String
-    ): Call<CheckEmail>
+    ): Call<GetUserData>
+
+    @GET("user/get/{id}")
+    fun getUserDataById(
+        @Path("id") id: String
+    ): Call<GetUserData>
 
     @GET("location/get")
     fun getProvince(): Call<Provinces>
@@ -56,4 +61,34 @@ interface ApiService {
         @Path("provinceId") provinceId: String,
         @Path("cityId") cityId: String
     ): Call<Districts>
+
+    @FormUrlEncoded
+    @POST("user/post/update")
+    fun updateUser(
+        @Header("Authorization") token: String,
+        @Field("id") id: String,
+        @Field("fullName") fullName: String,
+        @Field("email") email: String,
+        @Field("phone") phone: String,
+    ): Call<UpdateUser>
+
+    @FormUrlEncoded
+    @POST("user/post/update-address")
+    fun updateUserAddress(
+        @Header("Authorization") token: String,
+        @Field("id") id: String,
+        @Field("address") address: String,
+        @Field("province") province: String,
+        @Field("city") city: String,
+        @Field("kecamatan") kecamatan: String,
+        @Field("kodePos") kodePos: String,
+    ): Call<UpdateUserAddress>
+
+    @Multipart
+    @POST("user/post/update-profile-pic")
+    fun updateProfilePic(
+        @Header("Authorization") token: String,
+        @Part("id") id: RequestBody,
+        @Part profilePic: MultipartBody.Part,
+    ): Call<UpdateUser>
 }
