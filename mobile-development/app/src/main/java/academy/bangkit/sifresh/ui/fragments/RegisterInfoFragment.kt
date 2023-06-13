@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
-
 class RegisterInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterInfoBinding
@@ -54,7 +53,7 @@ class RegisterInfoFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                     return@setOnClickListener
-                } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     Toast.makeText(
                         requireContext(),
                         "Email format is invalid!",
@@ -84,7 +83,11 @@ class RegisterInfoFragment : Fragment() {
                     val registerAddressFragment = RegisterAddressFragment()
                     val fragmentManager = parentFragmentManager
                     fragmentManager.beginTransaction()
-                        .replace(R.id.frame_container, registerAddressFragment, RegisterAddressFragment::class.java.simpleName)
+                        .replace(
+                            R.id.frame_container,
+                            registerAddressFragment,
+                            RegisterAddressFragment::class.java.simpleName
+                        )
                         .addToBackStack(null)
                         .commit()
                     viewModel.emailValidStatus.value = ResponseCode.NOTHING

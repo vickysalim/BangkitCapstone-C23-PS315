@@ -42,7 +42,7 @@ class RegisterViewModel : ViewModel(), LifecycleObserver {
                 if (response.isSuccessful) {
                     val result = response.body()
                     if (result != null) {
-                        if(result.user?.email.toString() == "null") {
+                        if (result.user?.email.toString() == "null") {
                             emailValidStatus.value = ResponseCode.SUCCESS
                             Log.e("EMAIL 1: ", result.user?.email.toString())
                         } else {

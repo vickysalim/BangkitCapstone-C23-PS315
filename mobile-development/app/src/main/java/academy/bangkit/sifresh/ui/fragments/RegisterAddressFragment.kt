@@ -5,7 +5,6 @@ import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
 import academy.bangkit.sifresh.utils.ResponseCode
 import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.Observer
-import com.google.android.material.textfield.MaterialAutoCompleteTextView
 
 class RegisterAddressFragment : Fragment() {
 
@@ -38,7 +35,8 @@ class RegisterAddressFragment : Fragment() {
         viewModel.getProvince()
         viewModel.provincesList.observe(viewLifecycleOwner) {
             val provinceNames = it.map { province -> province.name }
-            val adapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, provinceNames)
+            val adapter =
+                ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, provinceNames)
 
             binding.actvProvince.setAdapter(adapter)
             binding.actvProvince.keyListener = null
@@ -55,7 +53,8 @@ class RegisterAddressFragment : Fragment() {
 
         viewModel.citiesList.observe(viewLifecycleOwner) {
             val cityNames = it.map { city -> city.name }
-            val adapter = ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, cityNames)
+            val adapter =
+                ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, cityNames)
 
             binding.actvCity.setAdapter(adapter)
             binding.actvCity.keyListener = null
@@ -117,19 +116,35 @@ class RegisterAddressFragment : Fragment() {
     }
 
     private fun setBehavior(responseCode: Int) {
-        when(responseCode) {
+        when (responseCode) {
             ResponseCode.SUCCESS -> {
-                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_register_success), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(academy.bangkit.sifresh.R.string.text_register_success),
+                    Toast.LENGTH_SHORT
+                ).show()
                 requireActivity().finish()
             }
             ResponseCode.NOT_FOUND -> {
-                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_email_exists), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(academy.bangkit.sifresh.R.string.text_email_exists),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             ResponseCode.FORBIDDEN -> {
-                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_forbidden), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(academy.bangkit.sifresh.R.string.text_forbidden),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
             ResponseCode.SERVER_TIMEOUT -> {
-                Toast.makeText(requireContext(), getString(academy.bangkit.sifresh.R.string.text_timeout), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(academy.bangkit.sifresh.R.string.text_timeout),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
