@@ -34,10 +34,10 @@ class RegisterViewModel : ViewModel(), LifecycleObserver {
         emailValidStatus.value = ResponseCode.LOADING
         val client = ApiConfig.getApiService().checkEmail(email)
 
-        client.enqueue(object : Callback<CheckEmail> {
+        client.enqueue(object : Callback<GetUserData> {
             override fun onResponse(
-                call: Call<CheckEmail>,
-                response: Response<CheckEmail>
+                call: Call<GetUserData>,
+                response: Response<GetUserData>
             ) {
                 if (response.isSuccessful) {
                     val result = response.body()
@@ -56,7 +56,7 @@ class RegisterViewModel : ViewModel(), LifecycleObserver {
             }
 
             override fun onFailure(
-                call: Call<CheckEmail>, t: Throwable
+                call: Call<GetUserData>, t: Throwable
             ) {
                 emailValidStatus.value = ResponseCode.SERVER_TIMEOUT
             }

@@ -5,14 +5,14 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 @Parcelize
-data class CheckEmail(
+data class GetUserData(
 
 	@field:SerializedName("user")
-	val user: CheckEmailResult? = null,
+	val user: GetUserDataResult? = null,
 ) : Parcelable
 
 @Parcelize
-data class CheckEmailResult(
+data class GetUserDataResult(
 
 	@field:SerializedName("password")
 	val password: String? = null,
