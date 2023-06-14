@@ -3,11 +3,14 @@ package academy.bangkit.sifresh.ui.activities
 import academy.bangkit.sifresh.R
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
+import academy.bangkit.sifresh.data.retrofit.ApiConfig
 import academy.bangkit.sifresh.databinding.ActivityMainBinding
 import academy.bangkit.sifresh.ui.fragments.CartFragment
 import academy.bangkit.sifresh.ui.fragments.HomeFragment
 import academy.bangkit.sifresh.ui.fragments.HistoryFragment
 import academy.bangkit.sifresh.ui.fragments.ProfileFragment
+import academy.bangkit.sifresh.ui.viewmodels.ProductPagerViewModel
+import academy.bangkit.sifresh.ui.viewmodels.ProductViewModelFactory
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.Helper
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: SettingViewModel by viewModels {
         SettingViewModelFactory(preferences)
     }
+    var tempToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,6 +93,16 @@ class MainActivity : AppCompatActivity() {
     fun logOut() {
         viewModel.clearUserPreferences()
         startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    fun getProductViewModel() : ProductPagerViewModel {
+        val viewModel: ProductPagerViewModel by viewModels {
+            ProductViewModelFactory(
+                this,
+                ApiConfig.getApiService()
+            )
+        }
+        return viewModel
     }
 
     companion object {

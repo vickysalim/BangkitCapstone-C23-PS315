@@ -1,6 +1,6 @@
 package academy.bangkit.sifresh.data.response
 
 data class ProductCart(
-    val product: Product,
+    val productDummy: ProductDummy,
     var quantity: Int
 )

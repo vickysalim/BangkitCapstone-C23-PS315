@@ -1,6 +1,6 @@
 package academy.bangkit.sifresh.data
 
-import academy.bangkit.sifresh.data.response.Product
+import academy.bangkit.sifresh.data.response.ProductDummy
 import academy.bangkit.sifresh.data.response.ProductCart
 import academy.bangkit.sifresh.data.response.Seller
 
@@ -10,20 +10,20 @@ object MyCartDataDummy {
             "Toko Buah Sukamaju",
             listOf(
                 ProductCart(
-                    Product(
-                        ProductDataDummy.productList[0].productName, ProductDataDummy.productList[0].productPrice, ProductDataDummy.productList[0].productImageUrl
+                    ProductDummy(
+                        ProductDataDummy.productDummyLists[0].productName, ProductDataDummy.productDummyLists[0].productPrice, ProductDataDummy.productDummyLists[0].productImageUrl
                     ),
                     1
                 ),
                 ProductCart(
-                    Product(
-                        ProductDataDummy.productList[2].productName, ProductDataDummy.productList[2].productPrice, ProductDataDummy.productList[2].productImageUrl
+                    ProductDummy(
+                        ProductDataDummy.productDummyLists[2].productName, ProductDataDummy.productDummyLists[2].productPrice, ProductDataDummy.productDummyLists[2].productImageUrl
                     ),
                     3
                 ),
                 ProductCart(
-                    Product(
-                        ProductDataDummy.productList[5].productName, ProductDataDummy.productList[5].productPrice, ProductDataDummy.productList[5].productImageUrl
+                    ProductDummy(
+                        ProductDataDummy.productDummyLists[5].productName, ProductDataDummy.productDummyLists[5].productPrice, ProductDataDummy.productDummyLists[5].productImageUrl
                     ),
                     1
                 )
@@ -34,14 +34,14 @@ object MyCartDataDummy {
             "Toko Buah Sukamundur",
             listOf(
                 ProductCart(
-                    Product(
-                        ProductDataDummy.productList[1].productName, ProductDataDummy.productList[1].productPrice, ProductDataDummy.productList[1].productImageUrl
+                    ProductDummy(
+                        ProductDataDummy.productDummyLists[1].productName, ProductDataDummy.productDummyLists[1].productPrice, ProductDataDummy.productDummyLists[1].productImageUrl
                     ),
                     2
                 ),
                 ProductCart(
-                    Product(
-                        ProductDataDummy.productList[6].productName, ProductDataDummy.productList[6].productPrice, ProductDataDummy.productList[6].productImageUrl
+                    ProductDummy(
+                        ProductDataDummy.productDummyLists[6].productName, ProductDataDummy.productDummyLists[6].productPrice, ProductDataDummy.productDummyLists[6].productImageUrl
                     ),
                     3
                 )

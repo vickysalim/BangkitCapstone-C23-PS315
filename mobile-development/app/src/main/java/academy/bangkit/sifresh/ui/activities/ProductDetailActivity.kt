@@ -10,6 +10,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 
 class ProductDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProductDetailBinding
@@ -21,10 +23,15 @@ class ProductDetailActivity : AppCompatActivity() {
 
         binding.apply {
             tvProductName.text = intent.getStringExtra(EXTRA_PRODUCT_NAME)
-            Glide.with(root)
-                .load(intent.getStringExtra(EXTRA_PRODUCT_IMAGE))
-                .into(imgBanner)
-            tvProductPrice.text = Helper.formatCurrency(intent.getDoubleExtra(EXTRA_PRODUCT_PRICE, 0.0),)
+            val imageList = ArrayList<SlideModel>()
+            val imageUrlList = intent.getStringArrayListExtra(EXTRA_PRODUCT_IMAGE) ?: ArrayList<String>()
+            for (image in imageUrlList) {
+                imageList.add(SlideModel(image))
+            }
+            binding.imgBanner.setImageList(imageList, ScaleTypes.CENTER_CROP)
+            tvProductPrice.text = Helper.formatCurrency(intent.getDoubleExtra(EXTRA_PRODUCT_PRICE, 0.0))
+            tvDescription.text = intent.getStringExtra(EXTRA_PRODUCT_DESCRIPTION)
+            tvSellerName.text = intent.getStringExtra(EXTRA_PRODUCT_SELLER_NAME)
             btnAddToCart.setOnClickListener {
                 btnAddToCart.visibility = View.GONE
                 viewQuantityCount.visibility = View.VISIBLE
@@ -51,20 +58,20 @@ class ProductDetailActivity : AppCompatActivity() {
                 finish()
             }
         }
-//
-//        val layoutManager = LinearLayoutManager(this)
-//        binding.rvReviews.layoutManager = layoutManager
-//        setReviewAdapter(ProductReviewDummy.reviewList)
-    }
 
-    private fun setReviewAdapter(reviewList: List<Review>) {
-//        val adapter = ListProductReviewAdapter(reviewList)
-//        binding.rvReviews.adapter = adapter
+        fun saveId() {
+            val productId = intent.getStringExtra(EXTRA_PRODUCT_ID)  ?: ""
+            val sellerId = intent.getStringExtra(EXTRA_PRODUCT_SELLER_ID) ?: ""
+        }
     }
 
     companion object {
         const val EXTRA_PRODUCT_NAME = "extra_product_name"
         const val EXTRA_PRODUCT_IMAGE = "extra_product_image"
         const val EXTRA_PRODUCT_PRICE = "extra_product_price"
+        const val EXTRA_PRODUCT_DESCRIPTION = "extra_product_description"
+        const val EXTRA_PRODUCT_SELLER_NAME = "extra_product_seller_name"
+        const val EXTRA_PRODUCT_SELLER_ID = "extra_product_seller_id"
+        const val EXTRA_PRODUCT_ID = "extra_product_id"
     }
 }

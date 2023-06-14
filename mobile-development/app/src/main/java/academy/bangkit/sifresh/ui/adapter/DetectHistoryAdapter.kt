@@ -1,22 +1,18 @@
 package academy.bangkit.sifresh.ui.adapter
 
-import academy.bangkit.sifresh.data.response.Product
+import academy.bangkit.sifresh.data.response.ProductDummy
 import academy.bangkit.sifresh.databinding.DetectHistoryCardBinding
-import android.animation.LayoutTransition
 import android.animation.ValueAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.AutoTransition
 import androidx.transition.ChangeBounds
-import androidx.transition.ChangeImageTransform
 import androidx.transition.Transition
-import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 
-class DetectHistoryAdapter(private val listDetect: List<Product>) :
+class DetectHistoryAdapter(private val listDetect: List<ProductDummy>) :
     RecyclerView.Adapter<DetectHistoryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding = DetectHistoryCardBinding.inflate(
@@ -47,7 +43,7 @@ class DetectHistoryAdapter(private val listDetect: List<Product>) :
             }
         }
 
-        fun bind(order: Product) {
+        fun bind(order: ProductDummy) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(order.productImageUrl)

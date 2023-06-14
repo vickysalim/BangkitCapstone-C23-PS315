@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
 import academy.bangkit.sifresh.databinding.FragmentProfileBinding
+import academy.bangkit.sifresh.ui.activities.AddProductActivity
 import academy.bangkit.sifresh.ui.activities.EditProfileActivity
 import academy.bangkit.sifresh.ui.activities.LoginActivity
 import academy.bangkit.sifresh.ui.activities.MainActivity
@@ -37,6 +38,11 @@ class ProfileFragment : Fragment() {
             btnEditProfile.setOnClickListener {
                 // Go to Edit Profile
                 val intent = Intent(requireContext(), EditProfileActivity::class.java)
+                startActivity(intent)
+            }
+            btnAddProduct.setOnClickListener {
+                // Go to Add Product
+                val intent = Intent(requireContext(), AddProductActivity::class.java)
                 startActivity(intent)
             }
             btnLogOut.setOnClickListener {

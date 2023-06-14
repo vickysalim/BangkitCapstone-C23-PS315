@@ -1,6 +1,7 @@
 package academy.bangkit.sifresh.ui.viewmodels
 
 import academy.bangkit.sifresh.data.local.SettingPreferences
+import academy.bangkit.sifresh.data.retrofit.ApiConfig
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -21,6 +22,10 @@ class SettingViewModel(private val preferences: SettingPreferences) : ViewModel(
                 .asLiveData()
             else -> preferences.getUserId().asLiveData()
         }
+    }
+
+    fun searchProduct(query: String) {
+//        val client = ApiConfig.getApiService().productSearch(query)
     }
 
     fun setUserPreferences(

@@ -81,17 +81,32 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_edit_profile"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginHorizontal="20dp"
-                android:text="Edit Profile"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="Edit Profile"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:cornerRadius="10dp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_profile_user_phone_number"
-                app:layout_constraintStart_toStartOf="@+id/tv_profile_user_phone_number"
+                app:layout_constraintEnd_toStartOf="@+id/btn_add_product"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_phone_number" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_add_product"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Add Product"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:layout_constraintStart_toEndOf="@id/btn_edit_profile"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_phone_number" />
 
             <TextView
