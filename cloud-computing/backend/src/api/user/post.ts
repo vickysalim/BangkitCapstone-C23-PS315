@@ -32,33 +32,10 @@ async function addUser(
   password: string,
   phone: string,
   isSeller: boolean,
-  //profilePic?: formidable.File,
 ) {
   const conn = await connection();
-  //const storage = new Storage();
   const id = uuidv4();
   const hashedPassword = encryptPassword(password);
-
-  // const profilePicExtension = profilePic?.mimetype?.split("/")[1];
-
-  // if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
-  //   return {
-  //     code: "PROFILE_PIC_EXTENSION_ERROR",
-  //     message: "Profile picture extension is not supported",
-  //   };
-  // }
-
-  // let profilePicUrl = "uploads/" + id + "." + profilePicExtension;
-
-  // await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.filepath as string, {
-  //   destination: profilePicUrl,
-  //   gzip: true,
-  //   metadata: {
-  //     cacheControl: "public, max-age=31536000",
-  //   },
-  // });
-
-  // profilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${profilePicUrl}`;
 
   let user = null;
   let error: {
