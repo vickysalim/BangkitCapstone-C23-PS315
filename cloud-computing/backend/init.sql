@@ -3,19 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2023 at 08:26 AM
--- Server version: 10.11.3-MariaDB
--- PHP Version: 8.2.6
+-- Generation Time: Jun 14, 2023 at 09:56 AM
+-- Server version: 10.11.4-MariaDB
+-- PHP Version: 8.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `sifresh`
@@ -30,6 +24,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `CartItem` (
   `id` varchar(255) NOT NULL,
   `userId` varchar(255) DEFAULT NULL,
+  `sellerId` varchar(32) DEFAULT NULL,
   `productId` varchar(255) DEFAULT NULL,
   `status` varchar(10) DEFAULT 'draft' COMMENT 'It can be draft, send, or complete. If complete, delete item gracefully and asynchronously using triggers.',
   `amount` int(11) DEFAULT NULL
@@ -49,7 +44,7 @@ CREATE TABLE `FreshnessDataset` (
   `type` varchar(10) DEFAULT NULL,
   `isFresh` tinyint(1) DEFAULT NULL,
   `nutritionDesc` text DEFAULT NULL,
-  `pictureUrl` varchar(500) DEFAULT NULL
+  `pictureUrl` varchar(500) DEFAULT "/uploads/freshness/default.jpg"
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -151,6 +146,7 @@ CREATE TABLE `UserAddress` (
 --
 ALTER TABLE `CartItem`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `sellerId` (`sellerId`),
   ADD KEY `userId` (`userId`),
   ADD KEY `productId` (`productId`);
 
@@ -253,7 +249,3 @@ ALTER TABLE `Review`
 ALTER TABLE `UserAddress`
   ADD CONSTRAINT `UserAddress_ibfk_1` FOREIGN KEY (`id`) REFERENCES `User` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
