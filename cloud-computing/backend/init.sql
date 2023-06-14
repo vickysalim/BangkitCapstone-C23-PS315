@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 14, 2023 at 09:56 AM
+-- Generation Time: Jun 14, 2023 at 10:13 AM
 -- Server version: 10.11.4-MariaDB
 -- PHP Version: 8.2.7
 
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `CartItem` (
   `id` varchar(255) NOT NULL,
   `userId` varchar(255) DEFAULT NULL,
-  `sellerId` varchar(32) DEFAULT NULL,
+  `sellerId` varchar(255) DEFAULT NULL,
   `productId` varchar(255) DEFAULT NULL,
   `status` varchar(10) DEFAULT 'draft' COMMENT 'It can be draft, send, or complete. If complete, delete item gracefully and asynchronously using triggers.',
   `amount` int(11) DEFAULT NULL
@@ -44,7 +44,7 @@ CREATE TABLE `FreshnessDataset` (
   `type` varchar(10) DEFAULT NULL,
   `isFresh` tinyint(1) DEFAULT NULL,
   `nutritionDesc` text DEFAULT NULL,
-  `pictureUrl` varchar(500) DEFAULT "/uploads/freshness/default.jpg"
+  `pictureUrl` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -57,7 +57,7 @@ CREATE TABLE `OrderHistory` (
   `id` varchar(255) NOT NULL,
   `userId` varchar(255) DEFAULT NULL,
   `orderDate` date DEFAULT NULL,
-  `status` varchar(10) DEFAULT NULL COMMENT 'Can be either processed, unpaid, delivering, or delivered.'
+  `status` varchar(10) DEFAULT 'processed' COMMENT 'Can be either processed, unpaid, delivering, or delivered.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
