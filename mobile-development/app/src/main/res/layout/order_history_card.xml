@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:background="@drawable/marketplace_item_container"
+    android:gravity="center|start"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pesanan: "
+                android:textSize="12sp" />-->
+
+            <TextView
+                android:id="@+id/tv_order_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="M-1681289338-5147567"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+        <TextView
+            android:id="@+id/tv_order_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="25 Mei 2023 15:50:44"
+            android:textSize="12sp" />
+
+<!--        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Harga: "
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_order_total_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rp. 65.000"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.LinearLayoutCompat>-->
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_order_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="Sedang Diproses"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+</androidx.appcompat.widget.LinearLayoutCompat>

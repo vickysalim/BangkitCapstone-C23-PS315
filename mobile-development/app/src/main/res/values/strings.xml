@@ -1,3 +1,50 @@
 <resources>
     <string name="app_name">SiFresh</string>
+    <string name="bottom_navBar_home">Home</string>
+    <string name="bottom_navBar_cart">My Cart</string>
+    <string name="bottom_navBar_order">History</string>
+    <string name="bottom_navBar_profile">Profile</string>
+    <string name="button_login_toRegister">Don\'t have an account? <b>Sign up</b></string>
+    <string name="title_login">Hello, Welcome Back</string>
+    <string name="button_login_confirm">Login to your account</string>
+    <string name="input_email" translatable="false">Email</string>
+    <string name="input_password" translatable="false">Password</string>
+    <string name="button_login_forgotPassword">Forgot Password?</string>
+    <string name="number_1" translatable="false">1</string>
+    <string name="number_2" translatable="false">2</string>
+    <string name="text_finish">Finish</string>
+    <string name="btn_register_toLogin">Already have an account? <b>Sign in</b></string>
+    <string name="title_register_info">Let\'s create your account!</string>
+    <string name="subtitle_register_info">Let\'s help you setup your account, it won\'t take long.</string>
+    <string name="input_name">Full Name</string>
+    <string name="input_phone">Phone Number</string>
+    <string name="btn_continue">Continue</string>
+    <string name="title_register_address">Let\'s enter your address!</string>
+    <string name="subtitle_register_address">Nearly there, it\'s the last step to setup your account</string>
+    <string name="input_province">Province</string>
+    <string name="input_city">City</string>
+    <string name="input_district">District</string>
+    <string name="input_postal">Postal Code</string>
+    <string name="input_address">Address</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_register">Register</string>
+    <string name="text_nutrition">Nutrition:</string>
+    <string name="text_tips">Tips to keep it fresh:</string>
+    <string name="btn_recheck">Re-check</string>
+    <string name="text_add_to_cart">Add to Cart</string>
+    <string name="text_product_description">Product Description</string>
+    <string name="text_see_profile">See Profile</string>
+    <string name="text_confirm">Confirm Order</string>
+    <string name="text_note_seller">Note for Seller</string>
+    <string name="text_payment_detail">Payment Detail</string>
+    <string name="text_confirm_payment">Confirm Payment</string>
+    <string name="text_return_home">Return to Home</string>
+    <string name="text_add_product_image">Add Product Image</string>
+    <string name="text_register_success">Register Success</string>
+    <string name="text_update_success">Update Data Success</string>
+    <string name="text_update_failed">Update Data Failed</string>
+    <string name="text_email_exists">Email already exists</string>
+    <string name="text_forbidden">Failed to fetch data</string>
+    <string name="text_timeout">Server timeout</string>
+    <string name="text_error">Error</string>
 </resources>

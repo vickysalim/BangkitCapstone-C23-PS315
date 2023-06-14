@@ -66,6 +66,23 @@ async function getProductsBySellerId(sellerId: string) {
   return [];
 }
 
+async function getProductsByName(name: string) {
+  const conn = await connection();
+  let products = null;
+
+  const sql = `
+    SELECT * FROM Product WHERE name LIKE ?;
+  `;
+
+  const [rows] = await conn.execute(sql, [`%${name}%`]);
+
+  products = rows;
+
+  if (products) return products;
+
+  return [];
+}
+
 async function getProductsByType(type: string) {
   const conn = await connection();
   let products = null;
@@ -118,6 +135,14 @@ router.get("/seller/:sellerId", async (req: Request, res: Response) => {
   const { sellerId } = req.params;
 
   const products = await getProductsBySellerId(sellerId);
+
+  res.status(200).json(products);
+});
+
+router.get("/name/:name", async (req: Request, res: Response) => {
+  const { name } = req.params;
+
+  const products = await getProductsByName(name);
 
   res.status(200).json(products);
 });
