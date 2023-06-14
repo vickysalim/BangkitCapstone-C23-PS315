@@ -84,9 +84,26 @@ async function getProductsByType(type: string) {
 }
 
 router.get("/", async (req: Request, res: Response) => {
-  const products = await getAllProducts();
+  const { page, size } = req.query;
+  let startIndex = 0;
+  let endIndex = 0;
 
-  res.status(200).json(products);
+  let pageReferred = page;
+  let sizeReferred = size;
+
+  const products: any = await getAllProducts();
+
+  if (pageReferred && sizeReferred) {
+    startIndex = (Number(pageReferred) - 1) * Number(sizeReferred);
+    endIndex = Number(pageReferred) * Number(sizeReferred);
+    res.status(200).json(products.slice(startIndex, endIndex));
+  } else if (pageReferred && !sizeReferred) {
+    startIndex = (Number(pageReferred) - 1) * 10;
+    endIndex = Number(pageReferred) * 10;
+    res.status(200).json(products.slice(startIndex, endIndex));
+  } else {
+    res.status(200).json(products);
+  }
 });
 
 router.get("/:id", async (req: Request, res: Response) => {
