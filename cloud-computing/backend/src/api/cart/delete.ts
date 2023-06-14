@@ -1,7 +1,7 @@
 import express from "express";
 import connection from "../../config/db";
 import formidable from "formidable";
-import { verifyToken } from "src/lib/helper";
+import { verifyToken } from "../../lib/helper";
 
 const router = express.Router();
 
