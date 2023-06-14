@@ -211,6 +211,14 @@ router.post("/update", async (req: Request, res: Response) => {
       publishedAt,
     } = fields;
 
+    if (verifiedToken.id !== sellerId) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+      return;
+    }
+
     const product: any = await updateProduct(
       id as string,
       sellerId as string,
