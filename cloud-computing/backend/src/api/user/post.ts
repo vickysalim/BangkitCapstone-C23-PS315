@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { emailExists, phoneExists, verifyToken } from "../../lib/helper";
 import formidable from "formidable";
 import { Storage } from "@google-cloud/storage";
-import { comparePassword, encryptPassword } from "src/lib/encrypt";
+import { comparePassword, encryptPassword } from "../../lib/encrypt";
 
 const router = express.Router();
 
