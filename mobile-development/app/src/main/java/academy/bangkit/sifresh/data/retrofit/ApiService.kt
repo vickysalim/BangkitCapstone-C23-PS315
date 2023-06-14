@@ -91,4 +91,9 @@ interface ApiService {
         @Part("id") id: RequestBody,
         @Part profilePic: MultipartBody.Part,
     ): Call<UpdateUser>
+
+    @GET("order/item/get/{id}")
+    fun getOrderList(
+        @Path("id") id: String
+    ): Call<OrderHistory>
 }

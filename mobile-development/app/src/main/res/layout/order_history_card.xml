@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <!--<androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pesanan: "
-                android:textSize="12sp" />
+                android:textSize="12sp" />-->
 
             <TextView
                 android:id="@+id/tv_order_id"
@@ -32,7 +32,7 @@
                 android:text="M-1681289338-5147567"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+<!--        </androidx.appcompat.widget.LinearLayoutCompat>-->
 
         <TextView
             android:id="@+id/tv_order_date"
@@ -42,7 +42,7 @@
             android:text="25 Mei 2023 15:50:44"
             android:textSize="12sp" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+<!--        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -61,7 +61,7 @@
                 android:text="Rp. 65.000"
                 android:textSize="12sp"
                 android:textStyle="bold" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>-->
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <TextView

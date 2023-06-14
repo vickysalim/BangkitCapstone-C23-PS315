@@ -4,7 +4,7 @@ import academy.bangkit.sifresh.data.response.OrderHistory
 import academy.bangkit.sifresh.data.response.Product
 
 object HistoryDataDummy {
-    val orderHistory = listOf(
+/*    val orderHistory = listOf(
         OrderHistory(
             "M-1681289338-5147567",
             "24 Mei 2023 15:10:27",
@@ -119,4 +119,5 @@ object HistoryDataDummy {
             "https://greenleafonline.net/media/catalog/product/cache/1/image/400x400/9df78eab33525d08d6e5fb8d27136e95/a/v/avocado11.jpg"
         )
     )
+ */
 }
