@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import connection from "../../config/db";
 import { v4 as uuidv4 } from "uuid";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { emailExists, phoneExists, verifyToken } from "../../lib/helper";
 import formidable from "formidable";
 import { Storage } from "@google-cloud/storage";
+import { comparePassword, encryptPassword } from "src/lib/encrypt";
 
 const router = express.Router();
 
@@ -37,7 +37,7 @@ async function addUser(
   const conn = await connection();
   const storage = new Storage();
   const id = uuidv4();
-  const hashedPassword = bcrypt.hashSync(password, 10);
+  const hashedPassword = encryptPassword(password);
 
   const profilePicExtension = profilePic?.mimetype?.split("/")[1];
 
@@ -375,8 +375,8 @@ async function updatePassword(
   user = rows[0 as keyof typeof rows];
 
   if (user) {
-    if (bcrypt.compareSync(password, user.password)) {
-      const hashedPassword = bcrypt.hashSync(newPassword, 10);
+    if (await comparePassword(password, user.password)) {
+      const hashedPassword = await encryptPassword(newPassword);
 
       const sql = `
         UPDATE
@@ -450,7 +450,7 @@ async function login(email: string, password: string) {
   user.cred = rows[0 as keyof typeof rows];
 
   if (user) {
-    if (bcrypt.compareSync(password, user.cred.password)) {
+    if (await comparePassword(password, user.cred.password)) {
       user.jwt = jwt.sign(
         { id: user.cred.id },
         process.env.JWT_SECRET_KEY as string,
@@ -472,9 +472,8 @@ async function login(email: string, password: string) {
 router.post("/add", async (req: Request, res: Response) => {
   const form = formidable({ multiples: true });
 
-  form.parse(req, async (err, fields, files) => {
+  form.parse(req, async (err, fields) => {
     const { fullName, email, password, phone, isSeller } = fields;
-    const { profilePic } = files;
 
     const user = await addUser(
       fullName as string,
@@ -482,7 +481,6 @@ router.post("/add", async (req: Request, res: Response) => {
       password as string,
       phone as string,
       isSeller === "true" ? true : false,
-      profilePic as formidable.File,
     );
 
     res.status(201).json(user);
