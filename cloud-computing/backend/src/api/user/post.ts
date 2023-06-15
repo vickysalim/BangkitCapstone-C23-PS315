@@ -194,21 +194,10 @@ async function updateUser(
 
 async function updateUserProfilePic(
   id: string,
-  profilePic: Express.Multer.File,
+  profilePicUrl: string,
 ) {
   const conn = await connection();
   const storage = new Storage();
-
-  const profilePicExtension = profilePic?.mimetype?.split("/")[1];
-
-  if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
-    return {
-      code: "PROFILE_PIC_EXTENSION_ERROR",
-      message: "Profile picture extension is not supported",
-    };
-  }
-
-  let profilePicUrl = "uploads/" + id + "." + profilePicExtension;
 
   // Delete old profile picture from storage
   const sql1 = `
@@ -227,18 +216,12 @@ async function updateUserProfilePic(
   const oldProfilePicUrlUnsanitized = rows1[0 as keyof typeof rows1].profilePicUrl as unknown as string;
   const oldProfilePicUrl = oldProfilePicUrlUnsanitized.replace(`https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/`, "");
 
-  await storage.bucket(process.env.GCP_BUCKET_NAME as string).file(oldProfilePicUrl).delete();
-
-  await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.path as string, {
-    destination: profilePicUrl,
-    gzip: true,
-    metadata: {
-      cacheControl: "public, max-age=31536000",
-    },
-  });
+  if (oldProfilePicUrl !== "uploads/default.png") {
+    await storage.bucket(process.env.GCP_BUCKET_NAME as string).file(oldProfilePicUrl).delete();
+  }
 
   let user = null;
-  profilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${profilePicUrl}`;
+  const newProfilePicUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/uploads/${profilePicUrl}`;
 
   const sql = `
     UPDATE
@@ -259,7 +242,7 @@ async function updateUserProfilePic(
   `;
 
   await conn.execute(sql, [
-    profilePicUrl,
+    newProfilePicUrl,
     id,
   ]);
 
@@ -530,9 +513,20 @@ router.post("/update-profile-pic", upload.single("profilePic"), async (req: Requ
     return;
   }
 
+  const profilePicExtension = profilePic?.mimetype?.split("/")[1];
+
+  if (!profilePicExtension || !["jpg", "jpeg", "png"].includes(profilePicExtension)) {
+    return {
+      code: "PROFILE_PIC_EXTENSION_ERROR",
+      message: "Profile picture extension is not supported",
+    };
+  }
+
+  const profilePicUrl = profilePic.filename;
+
   const user = await updateUserProfilePic(
     id as string,
-    profilePic as Express.Multer.File,
+    profilePicUrl,
   );
 
   res.status(201).json(user);
