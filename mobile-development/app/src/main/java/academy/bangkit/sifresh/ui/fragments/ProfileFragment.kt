@@ -1,5 +1,6 @@
 package academy.bangkit.sifresh.ui.fragments
 
+import academy.bangkit.sifresh.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
 import academy.bangkit.sifresh.databinding.FragmentProfileBinding
+import academy.bangkit.sifresh.ui.activities.AddProductActivity
 import academy.bangkit.sifresh.ui.activities.EditProfileActivity
 import academy.bangkit.sifresh.ui.activities.LoginActivity
 import academy.bangkit.sifresh.ui.activities.MainActivity
@@ -39,6 +41,11 @@ class ProfileFragment : Fragment() {
                 val intent = Intent(requireContext(), EditProfileActivity::class.java)
                 startActivity(intent)
             }
+            btnAddProduct.setOnClickListener {
+                // Go to Add Product
+                val intent = Intent(requireContext(), AddProductActivity::class.java)
+                startActivity(intent)
+            }
             btnLogOut.setOnClickListener {
                 // Log out (Back to Login Activity)
                 (activity as MainActivity).logOut()
@@ -65,17 +72,24 @@ class ProfileFragment : Fragment() {
                     if (isDarkMode) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         settingsGroup.switchDarkMode.isChecked = true
+//                        preferencesViewModel.saveThemeSetting(true)
                     } else {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         settingsGroup.switchDarkMode.isChecked = false
+//                        preferencesViewModel.saveThemeSetting(false)
                     }
                 }
             settingsGroup.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
                 preferencesViewModel.saveThemeSetting(isChecked)
+                updateNightMode(isChecked)
             }
-            settingsGroup.btnHelpCenter.setOnClickListener {
-                // Go to Help Center
-            }
+//            settingsGroup.btnHelpCenter.setOnClickListener {
+//                // Go to Help Center
+//            }
         }
+    }
+    private fun updateNightMode(isDarkMode: Boolean) {
+        val nightMode = if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 }

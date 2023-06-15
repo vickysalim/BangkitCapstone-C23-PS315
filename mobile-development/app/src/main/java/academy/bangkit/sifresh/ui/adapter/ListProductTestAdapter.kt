@@ -1,6 +1,7 @@
 package academy.bangkit.sifresh.ui.adapter
 
 import academy.bangkit.sifresh.data.response.ProductDummy
+import academy.bangkit.sifresh.data.response.ProductItem
 import academy.bangkit.sifresh.databinding.MarketplaceItemCardBinding
 import academy.bangkit.sifresh.ui.activities.ProductDetailActivity
 import academy.bangkit.sifresh.utils.Helper
@@ -10,12 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-/*
- * =======================
- *  Adapter for Dummy Data
- * =======================
- */
-class ListProductAllAdapter(private val listItem: List<ProductDummy>) : RecyclerView.Adapter<ListProductAllAdapter.ViewHolder>() {
+
+class ListProductTestAdapter (private val listItem: List<ProductItem>) : RecyclerView.Adapter<ListProductTestAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -40,13 +37,13 @@ class ListProductAllAdapter(private val listItem: List<ProductDummy>) : Recycler
     override fun getItemCount() = listItem.size
 
     class ViewHolder(var binding: MarketplaceItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind (productDummy: ProductDummy){
+        fun bind (product: ProductItem){
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(productDummy.productImageUrl)
+                    .load(product.productPicUrls)
                     .into(ivItemPhoto)
-                tvItemName.text = productDummy.productName
-                tvItemPrice.text = Helper.formatCurrency(productDummy.productPrice)
+                tvItemName.text = product.name
+                tvItemPrice.text = Helper.formatCurrency(product.price.toDouble())
                 btnAddToCart.setOnClickListener {
                     btnAddToCart.visibility = View.GONE
                     viewQuantityCount.visibility = View.VISIBLE
@@ -71,9 +68,9 @@ class ListProductAllAdapter(private val listItem: List<ProductDummy>) : Recycler
                 }
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, ProductDetailActivity::class.java)
-                    intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_NAME, productDummy.productName)
-                    intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_IMAGE, productDummy.productImageUrl)
-                    intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_PRICE, productDummy.productPrice)
+                    intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_NAME, product.name)
+                    intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_IMAGE, product.productPicUrls)
+                    intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_PRICE, product.price)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     itemView.context.startActivity(intent)
                 }

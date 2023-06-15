@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/manrope_medium"
         android:text="Seller A"
+        android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -43,7 +45,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
                 android:text="Total Harga"
+                android:textColor="@color/dark_gray"
                 android:textSize="18sp"
                 android:textStyle="normal" />
 
@@ -51,7 +55,9 @@
                 android:id="@+id/tv_total_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_medium"
                 android:text="Rp. 14.000"
+                android:textColor="@color/dark_gray"
                 android:textSize="18sp"
                 android:textStyle="normal" />
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -60,14 +66,15 @@
             android:id="@+id/btn_add_to_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:padding="8dp"
-            app:icon="@drawable/ic_shopping_cart_24"
-            app:cornerRadius="10dp"
-            app:iconGravity="textStart"
             android:text="Lanjutkan Pembayaran"
             android:textAllCaps="false"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:cornerRadius="10dp"
+            app:icon="@drawable/ic_shopping_cart_24"
+            app:iconGravity="textStart" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.divider.MaterialDivider

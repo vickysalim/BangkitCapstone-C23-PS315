@@ -29,11 +29,11 @@ class ListItemCartAdapter(private val listItem: List<ProductCart>) :
     inner class ViewHolder(var binding: CartItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductCart) {
             with(binding) {
-                tvItemName.text = item.product.productName
+                tvItemName.text = item.productDummy.productName
                 Glide.with(itemView.context)
-                    .load(item.product.productImageUrl)
+                    .load(item.productDummy.productImageUrl)
                     .into(ivItemPhoto)
-                tvItemPrice.text = Helper.formatCurrency(item.product.productPrice)
+                tvItemPrice.text = Helper.formatCurrency(item.productDummy.productPrice)
                 tvItemQuantity.text = item.quantity.toString()
                 btnQuantityMin.setOnClickListener {
                     if (item.quantity > 0) {
@@ -59,7 +59,7 @@ class ListItemCartAdapter(private val listItem: List<ProductCart>) :
         }
 
         private fun updateItemTotalPrice(item: ProductCart){
-            val itemTotalPrice = item.product.productPrice * item.quantity
+            val itemTotalPrice = item.productDummy.productPrice * item.quantity
             binding.tvItemTotalPrice.text = Helper.formatCurrency(itemTotalPrice)
         }
     }
@@ -75,7 +75,7 @@ class ListItemCartAdapter(private val listItem: List<ProductCart>) :
     fun getTotalPrice(): Double {
         var totalPrice = 0.0
         for (item in listItem) {
-            totalPrice += item.product.productPrice * item.quantity
+            totalPrice += item.productDummy.productPrice * item.quantity
         }
         return totalPrice
     }

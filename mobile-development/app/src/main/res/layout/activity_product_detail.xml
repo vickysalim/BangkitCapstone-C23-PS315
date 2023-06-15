@@ -18,16 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/img_banner"
                 android:layout_width="match_parent"
                 android:layout_height="256dp"
-                android:contentDescription="Result Image"
-                android:scaleType="centerCrop"
+                app:iss_corner_radius="20"
+                app:iss_delay="5000"
+                app:iss_error_image="@drawable/placeholder_image"
+                app:iss_period="5000"
+                app:iss_placeholder="@drawable/placeholder_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/tv_product_name"
@@ -98,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@id/text_rating" />
 
             <TextView
-                android:id="@+id/text_description"
+                android:id="@+id/tv_description"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -113,7 +115,7 @@
                 android:layout_height="4dp"
                 android:layout_marginVertical="16dp"
                 android:background="@color/gray"
-                app:layout_constraintTop_toBottomOf="@+id/text_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_seller"
@@ -125,68 +127,19 @@
                 app:layout_constraintTop_toBottomOf="@id/divider_1" />
 
             <TextView
-                android:id="@+id/text_seller_name"
+                android:id="@+id/tv_seller_name"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Seller Name"
-                android:layout_marginHorizontal="8dp"
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/img_seller"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/img_seller"/>
-
-            <TextView
-                android:id="@+id/text_seller_location"
-                style="@style/TextAppearance.Material3.BodyLarge"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="XYZ City"
-                android:layout_marginHorizontal="8dp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                app:layout_constraintStart_toEndOf="@+id/img_seller"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_seller_name"/>
-
-            <Button
-                android:id="@+id/btn_seller_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/img_seller"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/text_see_profile"/>
-
-            <!--<View
-                android:id="@+id/divider_2"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:layout_marginVertical="16dp"
-                android:background="@color/gray"
-                app:layout_constraintTop_toBottomOf="@+id/img_seller" />
-
-            <TextView
-                android:id="@+id/text_review_title"
-                style="@style/TextAppearance.Material3.HeadlineSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="User Reviews"
-                android:textColor="?attr/colorPrimary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_2" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_reviews"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_review_title"/>-->
-
+                app:layout_constraintStart_toEndOf="@+id/img_seller"
+                app:layout_constraintTop_toTopOf="@+id/img_seller" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

@@ -96,4 +96,22 @@ interface ApiService {
     fun getOrderList(
         @Path("id") id: String
     ): Call<OrderHistory>
+
+    @GET("product/get")
+    suspend fun product(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ) : List<ProductItem>
+
+    @GET("product/get/name/{name}")
+    fun searchProduct(
+        @Path("name") name: String
+    ) : Call<List<ProductItem>>
+
+    @GET("cart/get/{id}/{productId}")
+    fun getUserCartItemPerProduct(
+        @Path("id") id: String,
+        @Path("productId") productId: String
+    ): Call<Cart>
+
 }

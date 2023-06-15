@@ -74,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
 
         settingViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserToken.name)
             .observe(this) { token ->
-//                if (token != "") startActivity(Intent(this, MainActivity::class.java))
                 if (token != "") startActivity(Intent(this, MainActivity::class.java))
             }
     }

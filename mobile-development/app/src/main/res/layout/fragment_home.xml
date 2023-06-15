@@ -11,6 +11,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:paddingVertical="10dp">
 
         <androidx.appcompat.widget.SearchView
@@ -19,8 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
-            android:background="@drawable/marketplace_item_container"
+            android:background="@drawable/searchbar_container"
             app:queryHint="Cari Produk"
+            app:queryBackground="@null"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +66,7 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="All"
+            android:fontFamily="@font/manrope_medium"
             android:textStyle="bold" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -76,6 +79,7 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:text="Fruit"
+            android:fontFamily="@font/manrope_medium"
             android:textStyle="bold" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -87,6 +91,7 @@
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
+            android:fontFamily="@font/manrope_medium"
             android:text="Vegetable"
             android:textStyle="bold" />
     </RadioGroup>
