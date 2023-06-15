@@ -108,4 +108,10 @@ interface ApiService {
         @Path("name") name: String
     ) : Call<List<ProductItem>>
 
+    @GET("cart/get/{id}/{productId}")
+    fun getUserCartItemPerProduct(
+        @Path("id") id: String,
+        @Path("productId") productId: String
+    ): Call<Cart>
+
 }
