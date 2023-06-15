@@ -35,7 +35,7 @@ async function getAllUsers() {
       User.id = UserAddress.id
   `;
 
-  const [rows] = await conn.execute(sql);
+  const rows = await conn.execute(sql);
 
   users = rows;
 
@@ -63,7 +63,7 @@ async function getUserById(id: string) {
       User.id = ?
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   user = rows[0 as keyof typeof rows];
 
@@ -91,7 +91,7 @@ async function getUserByEmail(email: string) {
       User.email = ?
   `;
 
-  const [rows] = await conn.execute(sql, [email]);
+  const rows = await conn.execute(sql, [email]);
 
   user = rows[0 as keyof typeof rows];
 
@@ -119,7 +119,7 @@ async function getUserByPhone(phone: string) {
       User.phone = ?
   `;
 
-  const [rows] = await conn.execute(sql, [phone]);
+  const rows = await conn.execute(sql, [phone]);
 
   user = rows[0 as keyof typeof rows];
 

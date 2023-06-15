@@ -22,7 +22,7 @@ async function getAllCartFromUserId(id: string) {
     SELECT * FROM CartItem WHERE userId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   cart = rows;
 
@@ -41,7 +41,7 @@ async function getCartBySellerFromUserId(id: string) {
     SELECT c.sellerId, u.fullName FROM CartItem c JOIN user u ON c.sellerId = u.id WHERE c.userId = ? GROUP BY c.sellerId;
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   cart = rows;
 
@@ -70,7 +70,7 @@ async function getCartFromUserIdAndSellerId(id: string, sellerId: string) {
     SELECT * FROM CartItem WHERE userId = ? AND sellerId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id, sellerId]);
+  const rows = await conn.execute(sql, [id, sellerId]);
 
   cart = rows;
 
@@ -87,7 +87,7 @@ async function getCartFromUserId(id: string, productId: string) {
     SELECT * FROM CartItem WHERE userId = ? AND productId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id, productId]);
+  const rows = await conn.execute(sql, [id, productId]);
 
   cart = rows;
 
