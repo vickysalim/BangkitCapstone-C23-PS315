@@ -38,7 +38,7 @@ async function getCartBySellerFromUserId(id: string) {
   let cart = null;
 
   const sql = `
-    SELECT sellerId FROM CartItem WHERE userId = ? GROUP BY sellerId;
+    SELECT c.sellerId, u.fullName FROM CartItem c JOIN user u ON c.sellerId = u.id WHERE c.userId = ? GROUP BY c.sellerId;
   `;
 
   const [rows] = await conn.execute(sql, [id]);
