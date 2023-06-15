@@ -33,6 +33,40 @@ async function getAllCartFromUserId(id: string) {
   return [];
 }
 
+async function getCartBySellerFromUserId(id: string) {
+  const conn = await connection();
+  let cart = null;
+
+  const sql = `
+    SELECT sellerId FROM CartItem WHERE userId = ? GROUP BY sellerId;
+  `;
+
+  const [rows] = await conn.execute(sql, [id]);
+
+  cart = rows;
+
+  if (cart) return cart;
+
+  return [];
+}
+
+async function getCartFromUserIdAndSellerId(id: string, sellerId: string) {
+  const conn = await connection();
+  let cart = null;
+
+  const sql = `
+    SELECT * FROM CartItem WHERE userId = ? AND sellerId = ?;
+  `;
+
+  const [rows] = await conn.execute(sql, [id, sellerId]);
+
+  cart = rows;
+
+  if (cart) return cart;
+
+  return [];
+}
+
 async function getCartFromUserId(id: string, productId: string) {
   const conn = await connection();
   let cart = null;
@@ -56,6 +90,40 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   const cart = await getAllCartFromUserId(id);
+
+  if (cart) {
+    res.status(200).json({
+      message: "Cart item found",
+      data: cart,
+    });
+  } else {
+    res.status(404).json({
+      message: "Cart item not found",
+    });
+  }
+});
+
+router.get("/seller/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const cart = await getCartBySellerFromUserId(id);
+
+  if (cart) {
+    res.status(200).json({
+      message: "Cart item found",
+      data: cart,
+    });
+  } else {
+    res.status(404).json({
+      message: "Cart item not found",
+    });
+  }
+});
+
+router.get("/seller/:id/:sellerId", async (req, res) => {
+  const { id, sellerId } = req.params;
+
+  const cart = await getCartFromUserIdAndSellerId(id, sellerId);
 
   if (cart) {
     res.status(200).json({
