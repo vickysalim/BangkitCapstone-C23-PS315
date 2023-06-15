@@ -45,9 +45,21 @@ async function getCartBySellerFromUserId(id: string) {
 
   cart = rows;
 
-  if (cart) return cart;
+  if (cart) {
+    for (const item of rows as any) {
+      const sellerId = item.sellerId;
 
-  return [];
+      const itemSql = `
+        SELECT * FROM CartItem WHERE userId = ? AND sellerId = ?;
+      `;
+
+      const [productRows] = await conn.execute(itemSql, [id, sellerId]);
+
+      item.products = productRows;
+    }
+  };
+
+  return cart ? cart : [];
 }
 
 async function getCartFromUserIdAndSellerId(id: string, sellerId: string) {
