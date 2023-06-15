@@ -76,7 +76,6 @@ router.post("/", upload.none(), async (req, res) => {
     res.status(201).json({
       code: "SUCCESS",
       message: "Order history created successfully",
-      data: order,
     });
   } else {
     res.status(500).json({
