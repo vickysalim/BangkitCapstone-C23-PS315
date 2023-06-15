@@ -1,6 +1,6 @@
 import express from "express";
 import connection from "../../config/db";
-import upload from "src/lib/multer";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
