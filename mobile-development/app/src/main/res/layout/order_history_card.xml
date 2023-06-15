@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_medium"
-            android:text="M-1681289338-5147567"
+            android:text="@string/text_placeholder_order_id"
             android:textColor="@color/dark_gray"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/manrope_medium"
-            android:text="25 Mei 2023 15:50:44"
+            android:text="@string/text_placeholder_order_date"
             android:textColor="@color/dark_gray"
             android:textSize="12sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_medium"
         android:gravity="end"
-        android:text="Sedang Diproses"
+        android:text="@string/text_placeholder_order_status"
         android:textColor="@color/dark_gray"
         android:textSize="15sp"
         android:textStyle="bold" />

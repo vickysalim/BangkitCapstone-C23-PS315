@@ -8,13 +8,15 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/TextAppearance.Material3.HeadlineMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:fontFamily="@font/manrope_medium"
         android:gravity="center"
         android:paddingVertical="12dp"
-        android:text="Add Product"
+        android:text="@string/text_add_product"
+        android:textColor="@color/dark_gray"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +30,7 @@
         android:background="@drawable/btn_round"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,12 +44,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@id/btn_add_image"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:fontFamily="@font/manrope_medium"
         android:text="@string/text_add_product_image"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_product" />
@@ -57,7 +62,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:hint="Product Name"
+        android:hint="@string/input_product_name"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_add_image">
@@ -65,7 +75,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:fontFamily="@font/manrope_medium"
+            android:inputType="text"
+            android:textColor="@color/dark_gray" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,7 +88,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:hint="Type"
+        android:hint="@string/input_product_type"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_name">
@@ -87,7 +104,9 @@
             android:layout_height="wrap_content"
             android:completionThreshold="1"
             android:ellipsize="end"
-            android:maxLines="1" />
+            android:fontFamily="@font/manrope_medium"
+            android:maxLines="1"
+            android:textColor="@color/dark_gray" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +116,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:hint="Price"
+        android:hint="@string/input_product_price"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_type">
@@ -105,7 +129,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:fontFamily="@font/manrope_medium"
+            android:inputType="number"
+            android:textColor="@color/dark_gray" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,10 +141,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:boxStrokeColor="@color/gray"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:boxStrokeWidth="1dp"
         app:counterEnabled="true"
         app:counterMaxLength="100"
+        app:counterTextColor="@color/dark_gray"
         app:hintEnabled="false"
         app:layout_constraintTop_toBottomOf="@+id/input_price">
 
@@ -127,25 +158,28 @@
             style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
+            android:gravity="top"
             android:inputType="textMultiLine"
             android:maxLength="100"
             android:maxLines="3"
             android:minLines="3"
-            android:gravity="top"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray"
             android:textColorHint="@color/gray"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/text_add_product_image"
+        android:fontFamily="@font/manrope_medium"
+        android:text="@string/text_add_product"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

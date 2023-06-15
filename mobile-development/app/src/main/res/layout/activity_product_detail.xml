@@ -33,79 +33,90 @@
 
             <TextView
                 android:id="@+id/tv_product_name"
-                style="@style/TextAppearance.Material3.HeadlineMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:fontFamily="@font/manrope_medium"
+                android:textSize="28sp"
+                android:textColor="@color/dark_gray"
                 android:layout_marginTop="8dp"
-                android:text="Placeholder Item"
+                android:text="@string/text_placeholder_fruit_name"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_banner" />
 
             <TextView
                 android:id="@+id/tv_product_price"
-                style="@style/TextAppearance.Material3.HeadlineSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="Rp 0"
+                android:fontFamily="@font/manrope_medium"
+                android:textColor="@color/dark_gray"
+                android:textSize="24sp"
+                android:text="@string/text_placeholder_price"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
             <TextView
                 android:id="@+id/text_rating"
-                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:fontFamily="@font/manrope_medium"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/card_outlined"
                 android:drawablePadding="8dp"
-                android:drawableTint="@color/yellow"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
-                android:text="5.0 (100)"
+                android:text="@string/text_placeholder_rating"
                 app:drawableLeftCompat="@drawable/ic_star_24"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_product_price" />
+                app:layout_constraintTop_toBottomOf="@id/tv_product_price"
+                app:drawableTint="@color/yellow" />
 
             <TextView
                 android:id="@+id/text_status"
-                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:background="@drawable/card_outlined"
                 android:drawablePadding="8dp"
-                android:drawableTint="@color/green"
+                android:fontFamily="@font/manrope_medium"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
-                android:text="Stock available"
+                android:text="@string/text_placeholder_stock_available"
                 app:drawableLeftCompat="@drawable/ic_inbox_24"
                 app:layout_constraintBottom_toBottomOf="@+id/text_rating"
                 app:layout_constraintStart_toEndOf="@+id/text_rating"
-                app:layout_constraintTop_toTopOf="@id/text_rating" />
+                app:layout_constraintTop_toTopOf="@id/text_rating"
+                app:drawableTint="@color/light_green" />
 
             <TextView
                 android:id="@+id/text_description_title"
-                style="@style/TextAppearance.Material3.BodyMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:fontFamily="@font/manrope_medium"
+                android:textColor="@color/light_green"
+                android:textSize="14sp"
                 android:text="@string/text_product_description"
-                android:textColor="?attr/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_rating" />
 
             <TextView
                 android:id="@+id/tv_description"
-                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit"
+                android:fontFamily="@font/manrope_medium"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
+                android:text="@string/text_placeholder_lorem_ipsum_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_description_title" />
 
@@ -128,13 +139,15 @@
 
             <TextView
                 android:id="@+id/tv_seller_name"
-                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:fontFamily="@font/manrope_medium"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Seller Name"
+                android:text="@string/text_placeholder_seller_name"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/img_seller"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -153,13 +166,16 @@
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/content_description_back" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_to_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:fontFamily="@font/manrope_medium"
+        android:textStyle="bold"
         android:visibility="visible"
         app:cornerRadius="10dp"
         android:text="@string/text_add_to_cart"
@@ -196,13 +212,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="1"
+            android:fontFamily="@font/manrope_medium"
+            android:textColor="@color/dark_gray"
             android:layout_gravity="center"
             android:paddingHorizontal="10dp"
             android:gravity="center"
             android:background="#E8E8E8"
             android:textSize="16sp"
-            android:text="1"
-            android:textColor="#252525"/>
+            android:text="@string/text_placeholder_number_1"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_quantity_plus"

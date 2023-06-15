@@ -10,18 +10,21 @@
         android:id="@+id/iv_icon"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:src="@drawable/ic_check_circle_outline_24"
+        android:src="@drawable/ic_check_circle_24"
         app:layout_constraintBottom_toTopOf="@id/tv_success"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/green" />
+        app:tint="@color/light_green"
+        android:contentDescription="@string/content_description_success" />
 
     <TextView
         android:id="@+id/tv_success"
-        style="@style/TextAppearance.Material3.HeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Order Success"
+        android:text="@string/text_order_success"
+        android:fontFamily="@font/manrope_medium"
+        android:textSize="25sp"
+        android:textColor="@color/light_green"
         android:textStyle="bold"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,12 +32,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/text_return_home"
+        android:fontFamily="@font/manrope_medium"
+        android:layout_margin="16dp"
+        android:text="@string/btn_return_home"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_success" />

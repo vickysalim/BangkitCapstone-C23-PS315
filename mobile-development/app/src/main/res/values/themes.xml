@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SiFresh" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.SiFresh" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_gray</item>
         <item name="colorPrimaryVariant">@color/dark_gray</item>
