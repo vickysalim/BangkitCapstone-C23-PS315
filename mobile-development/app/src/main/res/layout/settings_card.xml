@@ -21,7 +21,9 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:drawablePadding="16dp"
-            android:text="Bahasa"
+            android:fontFamily="@font/manrope_medium"
+            android:text="Language"
+            android:textColor="@color/dark_gray"
             android:textSize="20sp"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_language_24" />
@@ -31,7 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Indonesia"
+            android:fontFamily="@font/manrope_medium"
+            android:text="English"
+            android:textColor="@color/dark_gray"
             android:textSize="12sp"
             android:textStyle="normal" />
 
@@ -86,7 +90,9 @@
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:drawablePadding="16dp"
-            android:text="Tema Gelap"
+            android:fontFamily="@font/manrope_medium"
+            android:text="Dark Mode"
+            android:textColor="@color/dark_gray"
             android:textSize="20sp"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_dark_mode_24" />
@@ -98,32 +104,31 @@
             android:layout_marginEnd="16dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/setting_help_center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="start|center"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp">
+    <!--    <androidx.appcompat.widget.LinearLayoutCompat-->
+    <!--        android:id="@+id/setting_help_center"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="start|center"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:paddingVertical="10dp">-->
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:drawablePadding="16dp"
-            android:text="Pusat Bantuan"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:drawableStartCompat="@drawable/ic_help_outline_24" />
-
-
-        <ImageView
-            android:id="@+id/btn_help_center"
-            android:layout_width="27dp"
-            android:layout_height="27dp"
-            android:layout_marginEnd="16dp"
-            android:contentDescription=""
-            android:src="@drawable/ic_keyboard_arrow_right_24" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    <!--        <TextView-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:drawablePadding="16dp"-->
+    <!--            android:text="Pusat Bantuan"-->
+    <!--            android:textSize="20sp"-->
+    <!--            android:textStyle="bold"-->
+    <!--            app:drawableStartCompat="@drawable/ic_help_outline_24" />-->
+    <!--        -->
+    <!--        <ImageView-->
+    <!--            android:id="@+id/btn_help_center"-->
+    <!--            android:layout_width="27dp"-->
+    <!--            android:layout_height="27dp"-->
+    <!--            android:layout_marginEnd="16dp"-->
+    <!--            android:contentDescription=""-->
+    <!--            android:src="@drawable/ic_keyboard_arrow_right_24" />-->
+    <!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
 </androidx.appcompat.widget.LinearLayoutCompat>

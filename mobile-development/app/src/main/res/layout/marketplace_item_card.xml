@@ -29,6 +29,8 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="8dp"
         android:text="Watermelon"
+        android:fontFamily="@font/manrope_medium"
+        android:textColor="@color/dark_gray"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +45,9 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="4dp"
         android:text="Rp. 50.000"
+        android:textColor="@color/dark_gray"
         android:textSize="12sp"
+        android:fontFamily="@font/manrope_medium"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +65,7 @@
         app:cornerRadius="10dp"
         app:iconGravity="textStart"
         android:text="Add to Cart"
+        android:fontFamily="@font/manrope_medium"
         android:textAllCaps="false"
         android:textSize="12sp"
         android:textStyle="bold"
@@ -103,6 +108,7 @@
             android:background="#E8E8E8"
             android:textSize="16sp"
             android:text="1"
+            android:fontFamily="@font/manrope_medium"
             android:textColor="#252525"/>
 
         <com.google.android.material.button.MaterialButton

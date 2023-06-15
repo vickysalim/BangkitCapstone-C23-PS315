@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 
-class ProductPagerViewModel(private val repository: ProductRepository) : ViewModel() {
+class ProductPagerViewModel(repository: ProductRepository) : ViewModel() {
     val product: LiveData<PagingData<ProductItem>> = repository.getProduct().cachedIn(viewModelScope)
     val productFruit: LiveData<PagingData<ProductItem>> = repository.getProductFruit().cachedIn(viewModelScope)
     val productVegetable: LiveData<PagingData<ProductItem>> = repository.getProductVegetable().cachedIn(viewModelScope)

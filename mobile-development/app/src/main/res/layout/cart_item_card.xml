@@ -12,10 +12,12 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:contentDescription=""
+        android:fontFamily="@font/manrope_medium"
         android:scaleType="centerCrop"
+        android:textColor="@color/dark_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.AllRounded"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -24,7 +26,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:fontFamily="@font/manrope_medium"
         android:text="Apple"
+        android:textColor="@color/dark_gray"
         app:layout_constraintStart_toEndOf="@+id/iv_item_photo"
         app:layout_constraintTop_toTopOf="@+id/iv_item_photo" />
 
@@ -33,7 +37,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:fontFamily="@font/manrope_medium"
         android:text="Rp. 8.000"
+        android:textColor="@color/dark_gray"
         app:layout_constraintBottom_toBottomOf="@+id/iv_item_photo"
         app:layout_constraintStart_toEndOf="@+id/iv_item_photo" />
 
@@ -73,10 +79,11 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:background="#E8E8E8"
+            android:fontFamily="@font/manrope_medium"
             android:gravity="center"
             android:paddingHorizontal="10dp"
             android:text="1"
-            android:textColor="#252525" />
+            android:textColor="@color/dark_gray" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_quantity_plus"

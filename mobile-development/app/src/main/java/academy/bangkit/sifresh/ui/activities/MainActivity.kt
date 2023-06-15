@@ -16,9 +16,13 @@ import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.Helper
 import android.Manifest
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 
@@ -35,7 +39,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        hideSystemUI()
+
         switchFragment(getCurrentFragment())
+//        switchFragment(HomeFragment())
 
         binding.apply {
             bottomNavigationView.apply {
@@ -103,6 +110,19 @@ class MainActivity : AppCompatActivity() {
             )
         }
         return viewModel
+    }
+
+    @Suppress("DEPRECATION")
+    private fun hideSystemUI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 
     companion object {

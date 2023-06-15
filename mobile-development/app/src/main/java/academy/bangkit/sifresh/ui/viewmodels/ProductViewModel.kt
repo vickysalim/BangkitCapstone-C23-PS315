@@ -14,10 +14,6 @@ class ProductViewModel : ViewModel() {
     private val _product = MutableLiveData<List<ProductItem>>()
     val product: LiveData<List<ProductItem>> = _product
 
-    init {
-        findProduct("")
-    }
-
     internal fun findProduct(query: String) {
         val client = ApiConfig.getApiService().searchProduct(query)
         client.enqueue(object : Callback<List<ProductItem>> {

@@ -1,5 +1,6 @@
 package academy.bangkit.sifresh.ui.fragments
 
+import academy.bangkit.sifresh.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -71,17 +72,24 @@ class ProfileFragment : Fragment() {
                     if (isDarkMode) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                         settingsGroup.switchDarkMode.isChecked = true
+//                        preferencesViewModel.saveThemeSetting(true)
                     } else {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                         settingsGroup.switchDarkMode.isChecked = false
+//                        preferencesViewModel.saveThemeSetting(false)
                     }
                 }
             settingsGroup.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
                 preferencesViewModel.saveThemeSetting(isChecked)
+                updateNightMode(isChecked)
             }
-            settingsGroup.btnHelpCenter.setOnClickListener {
-                // Go to Help Center
-            }
+//            settingsGroup.btnHelpCenter.setOnClickListener {
+//                // Go to Help Center
+//            }
         }
+    }
+    private fun updateNightMode(isDarkMode: Boolean) {
+        val nightMode = if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 }

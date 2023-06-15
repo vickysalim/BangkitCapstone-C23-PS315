@@ -45,6 +45,8 @@ class HistoryFragment : Fragment() {
 
         binding.rbTransaction.isChecked = true
         binding.rvHistory.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rbTransaction.setTextColor(resources.getColor(R.color.white))
+        binding.rbDetect.setTextColor(resources.getColor(R.color.light_green))
         viewModel.orderList.observe(viewLifecycleOwner) {
             binding.rvHistory.adapter = OrderHistoryAdapter(it)
         }
@@ -52,12 +54,16 @@ class HistoryFragment : Fragment() {
             when (checkedId) {
                 R.id.rb_transaction -> {
                     // History Order
+                    binding.rbTransaction.setTextColor(resources.getColor(R.color.white))
+                    binding.rbDetect.setTextColor(resources.getColor(R.color.light_green))
                     viewModel.orderList.observe(viewLifecycleOwner) {
                         binding.rvHistory.adapter = OrderHistoryAdapter(it)
                     }
                 }
                 R.id.rb_detect -> {
                     // History Scan
+                    binding.rbTransaction.setTextColor(resources.getColor(R.color.light_green))
+                    binding.rbDetect.setTextColor(resources.getColor(R.color.white))
 //                    viewModel.detectList.observe(viewLifecycleOwner) {
 //                        binding.rvHistory.adapter = DetectHistoryAdapter(it)
 //                    }

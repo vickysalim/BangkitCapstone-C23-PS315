@@ -24,10 +24,6 @@ class SettingViewModel(private val preferences: SettingPreferences) : ViewModel(
         }
     }
 
-    fun searchProduct(query: String) {
-//        val client = ApiConfig.getApiService().productSearch(query)
-    }
-
     fun setUserPreferences(
         userToken: String,
         userId: String,

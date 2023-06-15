@@ -9,7 +9,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
 
         <TextView
             android:layout_width="match_parent"
@@ -18,6 +19,8 @@
             android:gravity="center"
             android:text="Keranjang Belanja"
             android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:fontFamily="@font/manrope_medium"
             android:textSize="35sp" />
     </com.google.android.material.appbar.AppBarLayout>
 

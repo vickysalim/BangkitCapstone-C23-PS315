@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -92,6 +93,9 @@ class HomeFragment : Fragment() {
 
                 binding.rbCategoryAll.isChecked = true
                 binding.rvMarketplaceItem.apply {
+                    binding.rbCategoryAll.setTextColor(resources.getColor(R.color.white))
+                    binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.light_green))
+                    binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.light_green))
                     setHasFixedSize(false)
                     layoutManager = GridLayoutManager(context, 2)
                     isNestedScrollingEnabled = false
@@ -101,6 +105,9 @@ class HomeFragment : Fragment() {
                     when (checkedId) {
                         R.id.rb_category_all -> {
                             // Display all product
+                            binding.rbCategoryAll.setTextColor(resources.getColor(R.color.white))
+                            binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.light_green))
+                            binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.light_green))
                             productViewModel.product.observe(viewLifecycleOwner) {
                                 productAdapter.submitData(lifecycle, it)
                             }
@@ -108,6 +115,9 @@ class HomeFragment : Fragment() {
                         }
                         R.id.rb_category_fruit -> {
                             // Display fruit product
+                            binding.rbCategoryAll.setTextColor(resources.getColor(R.color.light_green))
+                            binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.white))
+                            binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.light_green))
                             productViewModel.productFruit.observe(viewLifecycleOwner) {
                                 productAdapter.submitData(lifecycle, it)
                             }
@@ -116,6 +126,9 @@ class HomeFragment : Fragment() {
                         }
                         R.id.rb_category_vegetable -> {
                             // Display vegetable product
+                            binding.rbCategoryAll.setTextColor(resources.getColor(R.color.light_green))
+                            binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.light_green))
+                            binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.white))
                             productViewModel.productVegetable.observe(viewLifecycleOwner) {
                                 productAdapter.submitData(lifecycle, it)
                             }
@@ -124,6 +137,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
+
             }
     }
 
