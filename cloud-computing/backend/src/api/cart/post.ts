@@ -26,7 +26,7 @@ async function createCart(userId: string, sellerId: string, productId: string, a
     INSERT INTO CartItem (id, userId, sellerId, productId, amount) VALUES (?, ?, ?, ?, ?);
   `;
 
-  const [rows] = await conn.execute(sql, [id, userId, sellerId, productId, amount]);
+  const rows = await conn.execute(sql, [id, userId, sellerId, productId, amount]);
 
   cart = rows;
 
@@ -43,7 +43,7 @@ async function updateCart(id: string, productId: string, amount: number) {
     UPDATE CartItem SET amount = ? WHERE userId = ? AND productId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [amount, id, productId]);
+  const rows = await conn.execute(sql, [amount, id, productId]);
 
   cart = rows;
 
@@ -60,7 +60,7 @@ async function updateCartStatus(id: string, productId: string, status: string) {
     UPDATE CartItem SET status = ? WHERE userId = ? AND productId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id, status, productId]);
+  const rows = await conn.execute(sql, [id, status, productId]);
 
   cart = rows;
 

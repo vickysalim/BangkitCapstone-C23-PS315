@@ -22,7 +22,7 @@ async function createOrderHistory(userId: string) {
     INSERT INTO OrderHistory (id, userId) VALUES (?, ?);
   `;
 
-  const [rows] = await conn.execute(sql, [id, userId]);
+  const rows = await conn.execute(sql, [id, userId]);
 
   order = rows;
 
@@ -39,7 +39,7 @@ async function updateStatus(id: string, userId: string, status: string) {
     UPDATE OrderHistory SET status = ? WHERE id = ? AND userId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [status, id, userId]);
+  const rows = await conn.execute(sql, [status, id, userId]);
 
   order = rows;
 

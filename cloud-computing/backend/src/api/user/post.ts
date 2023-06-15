@@ -35,7 +35,7 @@ async function addUser(
 ) {
   const conn = await connection();
   const id = uuidv4();
-  const hashedPassword = encryptPassword(password);
+  const hashedPassword = await encryptPassword(password);
 
   let user = null;
   let error: {
@@ -81,10 +81,10 @@ async function addUser(
     hashedPassword,
     phone,
     isSeller,
-    "https://storage.googleapis.com/sifresh-bucket-one/uploads/4c0ef67c-568b-4820-b523-9763924995b1.png",
+    "https://storage.googleapis.com/sifresh-bucket-one/uploads/default.png",
   ]);
 
-  const [rows] = await conn.execute(getUserInfoByEmailAddress, [email]);
+  const rows = await conn.execute(getUserInfoByEmailAddress, [email]);
 
   user = rows[0 as keyof typeof rows];
 
@@ -130,7 +130,7 @@ async function addUserAddress(
     kodePos,
   ]);
 
-  const [rows] = await conn.execute(getUserAddress, [id]);
+  const rows = await conn.execute(getUserAddress, [id]);
 
   userAddress = rows[0 as keyof typeof rows];
 
@@ -171,7 +171,7 @@ async function updateUser(
       id = ?
   `;
 
-  const [rowsTemp] = await conn.execute(getUserInfoById, [id]);
+  const rowsTemp = await conn.execute(getUserInfoById, [id]);
   user = rowsTemp[0 as keyof typeof rowsTemp];
 
   await conn.execute(sql, [
@@ -184,7 +184,7 @@ async function updateUser(
     id,
   ]);
 
-  const [rows] = await conn.execute(getUserInfoById, [id]);
+  const rows = await conn.execute(getUserInfoById, [id]);
   user = rows[0 as keyof typeof rows];
 
   if (user) return user;
@@ -220,7 +220,7 @@ async function updateUserProfilePic(
       id = ?
   `;
 
-  const [rows1]: any = await conn.execute(sql1, [
+  const rows1: any = await conn.execute(sql1, [
     id,
   ]);
 
@@ -263,7 +263,7 @@ async function updateUserProfilePic(
     id,
   ]);
 
-  const [rows] = await conn.execute(getUserInfoById, [id]);
+  const rows = await conn.execute(getUserInfoById, [id]);
 
   user = rows[0 as keyof typeof rows];
 
@@ -314,7 +314,7 @@ async function updateUserAddress(
     id,
   ]);
 
-  const [rows] = await conn.execute(getUserAddress, [id]);
+  const rows = await conn.execute(getUserAddress, [id]);
 
   userAddress = rows[0 as keyof typeof rows];
 
@@ -347,7 +347,7 @@ async function updatePassword(
       id = ?
   `;
 
-  const [rows] = await conn.execute(compare, [id]);
+  const rows = await conn.execute(compare, [id]);
 
   user = rows[0 as keyof typeof rows];
 
@@ -422,7 +422,7 @@ async function login(email: string, password: string) {
       email = ?
   `;
 
-  const [rows] = await conn.execute(sql, [email]);
+  const rows = await conn.execute(sql, [email]);
 
   user.cred = rows[0 as keyof typeof rows];
 

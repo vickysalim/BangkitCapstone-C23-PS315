@@ -20,7 +20,7 @@ async function deleteHistory(id: string) {
     DELETE FROM OrderHistory WHERE id = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   order = rows;
 

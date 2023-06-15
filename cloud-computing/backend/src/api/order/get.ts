@@ -17,7 +17,7 @@ async function getAllOrderFromUserId(id: string) {
     SELECT * FROM OrderHistory WHERE userId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   order = rows;
 
@@ -36,7 +36,7 @@ async function getOrderFromUserId(id: string, orderId: string) {
     SELECT * FROM OrderHistory WHERE userId = ? AND id = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id, orderId]);
+  const rows = await conn.execute(sql, [id, orderId]);
 
   order = rows;
 

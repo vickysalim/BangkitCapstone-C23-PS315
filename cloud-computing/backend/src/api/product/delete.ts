@@ -48,7 +48,7 @@ async function deleteProductById(id: string) {
     await storage.file(sanitizedFileName).delete();
   }
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   return rows;
 }

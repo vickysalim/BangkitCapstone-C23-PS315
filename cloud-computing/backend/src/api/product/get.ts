@@ -23,7 +23,7 @@ async function getAllProducts() {
     SELECT * FROM Product;
   `;
 
-  const [rows] = await conn.execute(sql);
+  const rows = await conn.execute(sql);
 
   products = rows;
 
@@ -40,7 +40,7 @@ async function getProductById(id: string) {
     SELECT * FROM Product WHERE id = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   product = rows[0 as keyof typeof rows];
 
@@ -57,7 +57,7 @@ async function getProductsBySellerId(sellerId: string) {
     SELECT * FROM Product WHERE sellerId = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [sellerId]);
+  const rows = await conn.execute(sql, [sellerId]);
 
   products = rows;
 
@@ -74,7 +74,7 @@ async function getProductsByName(name: string) {
     SELECT * FROM Product WHERE name LIKE ?;
   `;
 
-  const [rows] = await conn.execute(sql, [`%${name}%`]);
+  const rows = await conn.execute(sql, [`%${name}%`]);
 
   products = rows;
 
@@ -91,7 +91,7 @@ async function getProductsByType(type: string) {
     SELECT * FROM Product WHERE type = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [type]);
+  const rows = await conn.execute(sql, [type]);
 
   products = rows;
 

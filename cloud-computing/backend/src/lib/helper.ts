@@ -14,7 +14,7 @@ export async function emailExists(email: string) {
       email = ?
   `;
 
-  const [rows] = await conn.execute(sql, [email]);
+  const rows = await conn.execute(sql, [email]);
 
   user = rows;
 
@@ -36,7 +36,7 @@ export async function phoneExists(phone: string) {
       phone = ?
   `;
 
-  const [rows] = await conn.execute(sql, [phone]);
+  const rows = await conn.execute(sql, [phone]);
 
   user = rows;
 
@@ -69,7 +69,7 @@ export async function verifyToken(token: string) {
         id = ?
     `;
 
-    const [rows]: any = await conn.execute(sql, [decoded.id]);
+    const rows: any = await conn.execute(sql, [decoded.id]);
 
     if (!rows.length) {
       throw new Error();

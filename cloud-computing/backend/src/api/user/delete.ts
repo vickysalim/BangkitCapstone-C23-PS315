@@ -35,7 +35,7 @@ async function deleteUser(id: string) {
       id = ?
   `;
 
-  const [userInfoRows] = await conn.execute(getUserInfoSql, [id]);
+  const userInfoRows = await conn.execute(getUserInfoSql, [id]);
 
   const theUser: any = userInfoRows[0 as keyof typeof userInfoRows];
 
@@ -54,14 +54,16 @@ async function deleteUser(id: string) {
   `;
 
   await conn.execute(alsoDeleteAddressSql, [id]);
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   const sanitizedProfilePicUrl = theUser.profilePicUrl.replace(
     `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/`,
     "",
   );
 
-  storage.file(sanitizedProfilePicUrl).delete();
+  if (sanitizedProfilePicUrl !== "uploads/default.png") {
+    storage.file(sanitizedProfilePicUrl).delete();
+  }
 
   user = rows;
 
@@ -102,7 +104,7 @@ router.post("/", upload.none(), async (req: Request, res: Response) => {
   }
 
   res.status(200).json({
-    user,
+    message: "User deleted",
   });
 });
 

@@ -21,7 +21,7 @@ async function createOrder(userId: string, cartItemId: string) {
     INSERT INTO OrderItem (id, orderId, cartItemId) VALUES (?, ?, ?);
   `;
 
-  const [rows] = await conn.execute(sql, [id, userId, cartItemId]);
+  const rows = await conn.execute(sql, [id, userId, cartItemId]);
 
   order = rows;
 

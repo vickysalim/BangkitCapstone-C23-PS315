@@ -24,7 +24,7 @@ async function deleteCartItem(id: string) {
     DELETE FROM CartItem WHERE id = ?;
   `;
 
-  const [rows] = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id]);
 
   cart = rows;
 
