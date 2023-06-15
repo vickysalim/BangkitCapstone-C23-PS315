@@ -92,12 +92,12 @@
     <string name="text_placeholder_language" translatable="false">English</string>
     <string name="text_placeholder_lorem_ipsum_1" translatable="false">Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</string>
     <string name="text_placeholder_lorem_ipsum_2" translatable="false">Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</string>
-
-    <string name="text_register_success" translatable="false">Register Success</string>
-    <string name="text_update_success" translatable="false">Update Data Success</string>
-    <string name="text_update_failed" translatable="false">Update Data Failed</string>
-    <string name="text_email_exists" translatable="false">Email already exists</string>
-    <string name="text_forbidden" translatable="false">Failed to fetch data</string>
-    <string name="text_timeout" translatable="false">Server timeout</string>
-    <string name="text_error" translatable="false">Error</string>
+    <string name="text_register_success">Register Success</string>
+    <string name="text_update_success">Update Data Success</string>
+    <string name="text_update_failed">Update Data Failed</string>
+    <string name="text_email_exists">Email already exists</string>
+    <string name="text_forbidden">Failed to fetch data</string>
+    <string name="text_timeout">Server timeout</string>
+    <string name="text_error">Error</string>
+    <string name="text_cart">Successfully add items to cart</string>
 </resources>

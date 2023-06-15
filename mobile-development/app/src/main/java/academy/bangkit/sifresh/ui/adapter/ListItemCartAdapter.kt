@@ -1,5 +1,6 @@
 package academy.bangkit.sifresh.ui.adapter
 
+import academy.bangkit.sifresh.data.response.CartItems
 import academy.bangkit.sifresh.data.response.ProductCart
 import academy.bangkit.sifresh.databinding.CartItemCardBinding
 import academy.bangkit.sifresh.utils.Helper
@@ -8,10 +9,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class ListItemCartAdapter(private val listItem: List<ProductCart>) :
+class ListItemCartAdapter(private val listItem: List<CartItems>) :
     RecyclerView.Adapter<ListItemCartAdapter.ViewHolder>() {
 
-    private var totalPriceChangeListener: (() -> Unit)? = null
+    //private var totalPriceChangeListener: (() -> Unit)? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -27,14 +28,15 @@ class ListItemCartAdapter(private val listItem: List<ProductCart>) :
     override fun getItemCount() = listItem.size
 
     inner class ViewHolder(var binding: CartItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ProductCart) {
+        fun bind(item: CartItems) {
             with(binding) {
-                tvItemName.text = item.productDummy.productName
+                tvItemName.text = item.productName
                 Glide.with(itemView.context)
-                    .load(item.productDummy.productImageUrl)
+                    .load("https://storage.googleapis.com/sifresh-bucket-one/uploads/default.png")
                     .into(ivItemPhoto)
-                tvItemPrice.text = Helper.formatCurrency(item.productDummy.productPrice)
-                tvItemQuantity.text = item.quantity.toString()
+                tvItemPrice.text = Helper.formatCurrency(item.productPrice.toDouble())
+                tvItemQuantity.text = item.amount.toString()
+                /*tvItemQuantity.text = item.amount.toString()
                 btnQuantityMin.setOnClickListener {
                     if (item.quantity > 0) {
                         item.quantity--
@@ -54,17 +56,17 @@ class ListItemCartAdapter(private val listItem: List<ProductCart>) :
                     notifyTotalPriceChangeListener()
                     updateItemTotalPrice(item)
                 }
-                updateItemTotalPrice(item)
+                updateItemTotalPrice(item)*/
             }
         }
 
-        private fun updateItemTotalPrice(item: ProductCart){
+/*        private fun updateItemTotalPrice(item: ProductCart){
             val itemTotalPrice = item.productDummy.productPrice * item.quantity
             binding.tvItemTotalPrice.text = Helper.formatCurrency(itemTotalPrice)
-        }
+        }*/
     }
 
-    fun setTotalPriceChangeListener(listener: () -> Unit) {
+    /*fun setTotalPriceChangeListener(listener: () -> Unit) {
         totalPriceChangeListener = listener
     }
 
@@ -78,5 +80,5 @@ class ListItemCartAdapter(private val listItem: List<ProductCart>) :
             totalPrice += item.productDummy.productPrice * item.quantity
         }
         return totalPrice
-    }
+    }*/
 }

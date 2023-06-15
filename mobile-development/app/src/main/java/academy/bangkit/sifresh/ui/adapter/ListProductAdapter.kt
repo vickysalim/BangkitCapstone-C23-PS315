@@ -43,7 +43,7 @@ class ListProductAdapter :
                     .into(ivItemPhoto)
                 tvItemName.text = product.name
                 tvItemPrice.text = Helper.formatCurrency(product.price.toDouble())
-                btnAddToCart.setOnClickListener {
+                /*btnAddToCart.setOnClickListener {
                     btnAddToCart.visibility = View.GONE
                     viewQuantityCount.visibility = View.VISIBLE
                     tvItemQuantity.text = "1"
@@ -64,7 +64,7 @@ class ListProductAdapter :
                         val newQuantity = quantity + 1
                         tvItemQuantity.text = newQuantity.toString()
                     }
-                }
+                }*/
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, ProductDetailActivity::class.java)
                     intent.putExtra(

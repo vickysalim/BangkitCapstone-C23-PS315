@@ -1,5 +1,6 @@
 package academy.bangkit.sifresh.ui.activities
 
+import academy.bangkit.sifresh.R
 import academy.bangkit.sifresh.data.ProductReviewDummy
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
@@ -10,9 +11,12 @@ import academy.bangkit.sifresh.ui.viewmodels.CartViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.Helper
+import academy.bangkit.sifresh.utils.ResponseCode
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -53,6 +57,30 @@ class ProductDetailActivity : AppCompatActivity() {
             }
         }
 
+        cartViewModel.updateStatus.observe(this) {
+            when(it) {
+                ResponseCode.LOADING -> {
+                    binding.apply {
+                        btnAddToCart.isEnabled = false
+                        btnQuantityMin.isEnabled = false
+                        btnQuantityPlus.isEnabled = false
+                    }
+                }
+                ResponseCode.SUCCESS -> {
+                    binding.apply {
+                        Toast.makeText(this@ProductDetailActivity, getString(R.string.text_cart), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            if(it != ResponseCode.LOADING) {
+                binding.apply {
+                    btnAddToCart.isEnabled = true
+                    btnQuantityMin.isEnabled = true
+                    btnQuantityPlus.isEnabled = true
+                }
+            }
+    }
+
         binding.apply {
             tvProductName.text = intent.getStringExtra(EXTRA_PRODUCT_NAME)
             val imageList = ArrayList<SlideModel>()
@@ -66,19 +94,30 @@ class ProductDetailActivity : AppCompatActivity() {
                 Helper.formatCurrency(intent.getDoubleExtra(EXTRA_PRODUCT_PRICE, 0.0))
             tvDescription.text = intent.getStringExtra(EXTRA_PRODUCT_DESCRIPTION)
             tvSellerName.text = intent.getStringExtra(EXTRA_PRODUCT_SELLER_NAME)
+
             btnAddToCart.setOnClickListener {
                 btnAddToCart.visibility = View.GONE
                 viewQuantityCount.visibility = View.VISIBLE
                 tvItemQuantity.text = "1"
+                cartViewModel.addCartItem(sellerId, productId)
+            }
 
-                btnQuantityMin.setOnClickListener {
-                    setQuantityMin()
-                }
-
-                btnQuantityPlus.setOnClickListener {
-                    setQuantityPlus()
+            btnQuantityMin.setOnClickListener {
+                setQuantityMin()
+                if(viewQuantityCount.visibility == View.VISIBLE) {
+                    Log.e("TAG", "onCreate: if")
+                    cartViewModel.updateCartItem(productId, tvItemQuantity.text.toString().toInt())
+                } else {
+                    Log.e("TAG", "onCreate: else")
+                    cartViewModel.deleteCartItem()
                 }
             }
+
+            btnQuantityPlus.setOnClickListener {
+                setQuantityPlus()
+                cartViewModel.updateCartItem(productId, tvItemQuantity.text.toString().toInt())
+            }
+
             btnBack.setOnClickListener {
                 finish()
             }
@@ -89,7 +128,7 @@ class ProductDetailActivity : AppCompatActivity() {
         binding.apply {
             val quantity = tvItemQuantity.text.toString().toInt()
             val newQuantity = quantity - 1
-            if (newQuantity > 1) {
+            if (newQuantity > 0) {
                 tvItemQuantity.text = newQuantity.toString()
             } else {
                 btnAddToCart.visibility = View.VISIBLE
@@ -112,6 +151,11 @@ class ProductDetailActivity : AppCompatActivity() {
             this,
             SettingViewModelFactory(settingPreferences)
         )[SettingViewModel::class.java]
+
+        settingViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserToken.name)
+            .observe(this) { token ->
+                if (token != "") cartViewModel.userToken.value = token
+            }
 
         settingViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserID.name)
             .observe(this) { id ->
