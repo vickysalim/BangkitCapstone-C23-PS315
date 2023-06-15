@@ -1,8 +1,8 @@
 import express from "express";
 import connection from "../../config/db";
-import { v4 as uuidv4 } from "uuid";
-import formidable from "formidable";
+import { uuidv4 } from "../../lib/uuid";
 import { verifyToken } from "../../lib/helper";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
@@ -30,8 +30,6 @@ async function createCart(userId: string, sellerId: string, productId: string, a
 
   cart = rows;
 
-
-
   if (cart) return cart;
 
   return [];
@@ -48,8 +46,6 @@ async function updateCart(id: string, productId: string, amount: number) {
   const [rows] = await conn.execute(sql, [amount, id, productId]);
 
   cart = rows;
-
-
 
   if (cart) return cart;
 
@@ -68,15 +64,13 @@ async function updateCartStatus(id: string, productId: string, status: string) {
 
   cart = rows;
 
-
-
   if (cart) return cart;
 
   return [];
 }
 
-router.post("/", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req, res) => {
+  const { userId, sellerId, productId, amount } = req.body;
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -88,69 +82,57 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { userId, sellerId, productId, amount } = fields;
+  if (verifiedToken.id !== userId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    if (verifiedToken.id !== userId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  const cart = await createCart(userId as string, sellerId as string, productId as string, Number(amount));
 
-    const cart = await createCart(userId as string, sellerId as string, productId as string, Number(amount));
-
-    if (cart) {
-      res.status(200).json({
-        message: "Cart item created",
-      });
-    } else {
-      res.status(404).json({
-        message: "Cart item not created",
-      });
-    }
-  });
+  if (cart) {
+    res.status(200).json({
+      message: "Cart item created",
+    });
+  } else {
+    res.status(404).json({
+      message: "Cart item not created",
+    });
+  }
 });
 
-router.post("/update", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/update", upload.none(), async (req, res) => {
+  const { userId, productId, amount } = req.body;
 
-  form.parse(req, async (err, fields) => {
-    const { userId, productId, amount } = fields;
+  const cart = await updateCart(userId as string, productId as string, Number(amount));
 
-    const cart = await updateCart(userId as string, productId as string, Number(amount));
-
-    if (cart) {
-      res.status(200).json({
-        message: "Cart item updated",
-      });
-    } else {
-      res.status(404).json({
-        message: "Cart item not updated",
-      });
-    }
-  });
+  if (cart) {
+    res.status(200).json({
+      message: "Cart item updated",
+    });
+  } else {
+    res.status(404).json({
+      message: "Cart item not updated",
+    });
+  }
 });
 
-router.post("/update-status", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/update-status", upload.none(), async (req, res) => {
+  const { userId, productId, status } = req.body;
 
-  form.parse(req, async (err, fields) => {
-    const { userId, productId, status } = fields;
+  const cart = await updateCartStatus(userId as string, productId as string, status as string);
 
-    const cart = await updateCartStatus(userId as string, productId as string, status as string);
-
-    if (cart) {
-      res.status(200).json({
-        message: "Cart item status updated",
-      });
-    } else {
-      res.status(404).json({
-        message: "Cart item status not updated",
-      });
-    }
-  });
+  if (cart) {
+    res.status(200).json({
+      message: "Cart item status updated",
+    });
+  } else {
+    res.status(404).json({
+      message: "Cart item status not updated",
+    });
+  }
 });
 
 export default router;

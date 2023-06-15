@@ -1,6 +1,6 @@
 import express from "express";
 import connection from "../../config/db";
-import formidable from "formidable";
+import upload from "src/lib/multer";
 
 const router = express.Router();
 
@@ -22,17 +22,13 @@ async function deleteOrderItem(id: string) {
 
 }
 
-router.post("/", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req, res) => {
+  const { id } = req.body;
 
-  form.parse(req, async (err, fields) => {
-    const { id } = fields;
+  await deleteOrderItem(id as string);
 
-    await deleteOrderItem(id as string);
-
-    res.status(200).json({
-      message: "Order item deleted successfully",
-    });
+  res.status(200).json({
+    message: "Order item deleted successfully",
   });
 });
 

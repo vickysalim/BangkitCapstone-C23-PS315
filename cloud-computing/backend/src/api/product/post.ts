@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import connection from "../../config/db";
-import { v4 as uuidv4 } from "uuid";
+import { uuidv4 } from "../../lib/uuid";
 import { verifyToken } from "../../lib/helper";
-import formidable from "formidable";
 import { Storage } from "@google-cloud/storage";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
@@ -27,7 +27,7 @@ async function addProduct(
   price: number,
   isAvailable: boolean,
   description: string,
-  productPics: formidable.File | formidable.File[],
+  productPics: Express.Multer.File[],
   publishedAt: Date,
 ) {
   const storage = new Storage();
@@ -45,7 +45,7 @@ async function addProduct(
 
     const productPicName = `uploads/${sellerId}/${id}-${i}.${productPicExtension}`;
 
-    await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(productPic.filepath, {
+    await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(productPic.path, {
       destination: productPicName,
       gzip: true,
       metadata: {
@@ -128,8 +128,17 @@ async function updateProduct(
   return product;
 }
 
-router.post("/", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.array("productPics", 12), async (req: Request, res: Response) => {
+  const {
+    sellerId,
+    name,
+    sellerName,
+    type,
+    price,
+    isAvailable,
+    description,
+    publishedAt,
+  } = req.body;
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -141,51 +150,50 @@ router.post("/", async (req: Request, res: Response) => {
     return;
   }
 
-  form.parse(req, async (err, fields, files) => {
-    const {
-      sellerId,
-      name,
-      sellerName,
-      type,
-      price,
-      isAvailable,
-      description,
-      publishedAt,
-    } = fields;
 
-    const { productPics } = files;
+  const productPics = req.files;
 
-    if (verifiedToken.id !== sellerId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
-
-    const product: any = await addProduct(
-      sellerId as string,
-      name as string,
-      sellerName as string,
-      type as string,
-      Number(price),
-      isAvailable === "true" ? true : false,
-      description as string,
-      productPics,
-      new Date(publishedAt as string),
-    );
-
-    res.status(201).json({
-      ...product,
-      productPicUrls: JSON.parse(
-        product.productPicUrls as string,
-      ),
+  if (verifiedToken.id !== sellerId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
     });
+    return;
+  }
+
+  const product: any = await addProduct(
+    sellerId as string,
+    name as string,
+    sellerName as string,
+    type as string,
+    Number(price),
+    isAvailable === "true" ? true : false,
+    description as string,
+    productPics as Express.Multer.File[],
+    new Date(publishedAt as string),
+  );
+
+  res.status(201).json({
+    ...product,
+    productPicUrls: JSON.parse(
+      product.productPicUrls as string,
+    ),
   });
 });
 
-router.post("/update", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/update", upload.none(), async (req: Request, res: Response) => {
+  const {
+    id,
+    sellerId,
+    name,
+    sellerName,
+    type,
+    price,
+    isAvailable,
+    description,
+    publishedAt,
+  } = req.body;
+
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -197,46 +205,32 @@ router.post("/update", async (req: Request, res: Response) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
 
-    const {
-      id,
-      sellerId,
-      name,
-      sellerName,
-      type,
-      price,
-      isAvailable,
-      description,
-      publishedAt,
-    } = fields;
-
-    if (verifiedToken.id !== sellerId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
-
-    const product: any = await updateProduct(
-      id as string,
-      sellerId as string,
-      name as string,
-      sellerName as string,
-      type as string,
-      Number(price),
-      isAvailable === "true" ? true : false,
-      description as string,
-      new Date(publishedAt as string),
-    );
-
-    res.status(201).json({
-      ...product,
-      productPicUrls: JSON.parse(
-        product.productPicUrls as string,
-      ),
+  if (verifiedToken.id !== sellerId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
     });
+    return;
+  }
+
+  const product: any = await updateProduct(
+    id as string,
+    sellerId as string,
+    name as string,
+    sellerName as string,
+    type as string,
+    Number(price),
+    isAvailable === "true" ? true : false,
+    description as string,
+    new Date(publishedAt as string),
+  );
+
+  res.status(201).json({
+    ...product,
+    productPicUrls: JSON.parse(
+      product.productPicUrls as string,
+    ),
   });
 });
 

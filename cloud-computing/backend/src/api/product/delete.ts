@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import connection from "../../config/db";
 import { verifyToken } from "../../lib/helper";
-import formidable from "formidable";
 import { Storage } from "@google-cloud/storage";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
@@ -53,28 +53,24 @@ async function deleteProductById(id: string) {
   return rows;
 }
 
-router.post("/", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req: Request, res: Response) => {
+  const { id } = req.body;
   const token = req.headers.authorization?.split(" ")[1];
 
   const verifyTokenResult = await verifyToken(token as string);
 
-  form.parse(req, async (err, fields) => {
-    const { id } = fields;
+  if (verifyTokenResult.code !== "TOKEN_VERIFIED") {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
 
-    if (verifyTokenResult.code !== "TOKEN_VERIFIED") {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
+    return;
+  }
 
-      return;
-    }
+  const result = await deleteProductById(id as string);
 
-    const result = await deleteProductById(id as string);
-
-    res.status(200).send(result);
-  });
+  res.status(200).send(result);
 });
 
 export default router;

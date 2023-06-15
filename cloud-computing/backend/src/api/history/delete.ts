@@ -1,6 +1,6 @@
 import express from "express";
 import connection from "../../config/db";
-import formidable from "formidable";
+import upload from "../../lib/multer";
 import { verifyToken } from "../../lib/helper";
 
 const router = express.Router();
@@ -29,8 +29,8 @@ async function deleteHistory(id: string) {
   return [];
 }
 
-router.post("/", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req, res) => {
+  const { id, userId } = req.body;
   const authHeader = req.headers.authorization;
 
   const token = authHeader?.split(" ")[1];
@@ -40,30 +40,26 @@ router.post("/", async (req, res) => {
   if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
     res.status(403).json(verifiedToken);
   } else {
-    form.parse(req, async (err, fields) => {
-      const { id, userId } = fields;
+    if (verifiedToken.id !== userId) {
+      res.status(403).json({
+        code: "UNAUTHORIZED_ERROR",
+        message: "Unauthorized",
+      });
+      return;
+    }
 
-      if (verifiedToken.id !== userId) {
-        res.status(403).json({
-          code: "UNAUTHORIZED_ERROR",
-          message: "Unauthorized",
-        });
-        return;
-      }
+    const order = await deleteHistory(id as string);
 
-      const order = await deleteHistory(id as string);
-
-      if (order) {
-        res.status(200).json({
-          message: "Success",
-          data: order,
-        });
-      } else {
-        res.status(404).json({
-          message: "Orders not found",
-        });
-      }
-    });
+    if (order) {
+      res.status(200).json({
+        message: "Success",
+        data: order,
+      });
+    } else {
+      res.status(404).json({
+        message: "Orders not found",
+      });
+    }
   }
 });
 

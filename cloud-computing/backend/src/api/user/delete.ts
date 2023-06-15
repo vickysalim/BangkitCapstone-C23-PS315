@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import formidable from "formidable";
 import connection from "../../config/db";
 import { verifyToken } from "../../lib/helper";
 import { Storage } from "@google-cloud/storage";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
@@ -70,8 +70,8 @@ async function deleteUser(id: string) {
   return [];
 }
 
-router.post("/", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req: Request, res: Response) => {
+  const { id } = req.body;
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -83,29 +83,26 @@ router.post("/", async (req: Request, res: Response) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { id } = fields;
 
-    if (verifiedToken.id !== id) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        id: null,
-        message: "Unauthorized",
-      });
-      return;
-    }
-
-    const user = await deleteUser(id as string);
-
-    if (!user) {
-      res.status(404).json({
-        message: "User not found",
-      });
-    }
-
-    res.status(200).json({
-      user,
+  if (verifiedToken.id !== id) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      id: null,
+      message: "Unauthorized",
     });
+    return;
+  }
+
+  const user = await deleteUser(id as string);
+
+  if (!user) {
+    res.status(404).json({
+      message: "User not found",
+    });
+  }
+
+  res.status(200).json({
+    user,
   });
 });
 

@@ -1,11 +1,11 @@
 import express, { Request, Response } from "express";
 import connection from "../../config/db";
-import { v4 as uuidv4 } from "uuid";
+import { uuidv4 } from "../../lib/uuid";
 import jwt from "jsonwebtoken";
 import { emailExists, phoneExists, verifyToken } from "../../lib/helper";
-import formidable from "formidable";
 import { Storage } from "@google-cloud/storage";
 import { comparePassword, encryptPassword } from "../../lib/encrypt";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
@@ -194,7 +194,7 @@ async function updateUser(
 
 async function updateUserProfilePic(
   id: string,
-  profilePic: formidable.File,
+  profilePic: Express.Multer.File,
 ) {
   const conn = await connection();
   const storage = new Storage();
@@ -229,7 +229,7 @@ async function updateUserProfilePic(
 
   await storage.bucket(process.env.GCP_BUCKET_NAME as string).file(oldProfilePicUrl).delete();
 
-  await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.filepath as string, {
+  await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(profilePic?.path as string, {
     destination: profilePicUrl,
     gzip: true,
     metadata: {
@@ -446,45 +446,68 @@ async function login(email: string, password: string) {
   }
 }
 
-router.post("/add", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/add", upload.none(), async (req: Request, res: Response) => {
+  const { fullName, email, password, phone, isSeller } = req.body;
 
-  form.parse(req, async (err, fields) => {
-    const { fullName, email, password, phone, isSeller } = fields;
+  const user = await addUser(
+    fullName as string,
+    email as string,
+    password as string,
+    phone as string,
+    isSeller === "true" ? true : false,
+  );
 
-    const user = await addUser(
-      fullName as string,
-      email as string,
-      password as string,
-      phone as string,
-      isSeller === "true" ? true : false,
-    );
-
-    res.status(201).json(user);
-  });
+  res.status(201).json(user);
 });
 
-router.post("/add-address", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/add-address", upload.none(), async (req: Request, res: Response) => {
+  const { id, address, province, city, kecamatan, kodePos } = req.body;
 
-  form.parse(req, async (err, fields) => {
-    const { id, address, province, city, kecamatan, kodePos } = fields;
+  const userAddress = await addUserAddress(
+    id as string,
+    address as string,
+    province as string,
+    city as string,
+    kecamatan as string,
+    kodePos as string,
+  );
 
-    const userAddress = await addUserAddress(
-      id as string,
-      address as string,
-      province as string,
-      city as string,
-      kecamatan as string,
-      kodePos as string,
-    );
-
-    res.status(201).json(userAddress);
-  });
+  res.status(201).json(userAddress);
 });
 
-router.post("/update", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/update", upload.none(), async (req: Request, res: Response) => {
+  const authHeader = req.headers.authorization as string;
+  const { id, fullName, email, phone, isSeller } = req.body;
+
+  const token = authHeader.split(" ")[1];
+
+  const verifiedToken = await verifyToken(token);
+
+  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
+    res.status(403).json(verifiedToken);
+    return;
+  }
+
+  if (verifiedToken.id !== id) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
+
+  const user = await updateUser(
+    id as string,
+    fullName as string,
+    email as string,
+    phone as string,
+    isSeller === "true" ? true : false,
+  );
+
+  res.status(201).json(user);
+});
+
+router.post("/update-profile-pic", upload.single("profilePic"), async (req: Request, res: Response) => {
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -496,31 +519,27 @@ router.post("/update", async (req: Request, res: Response) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { id, fullName, email, phone, isSeller } = fields;
+  const { id } = req.body;
+  const profilePic = req.file;
 
-    if (verifiedToken.id !== id) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  if (verifiedToken.id !== id) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    const user = await updateUser(
-      id as string,
-      fullName as string,
-      email as string,
-      phone as string,
-      isSeller === "true" ? true : false,
-    );
+  const user = await updateUserProfilePic(
+    id as string,
+    profilePic as Express.Multer.File,
+  );
 
-    res.status(201).json(user);
-  });
+  res.status(201).json(user);
 });
 
-router.post("/update-profile-pic", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/update-address", upload.none(), async (req: Request, res: Response) => {
+  const { id, address, province, city, kecamatan, kodePos } = req.body;
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -532,29 +551,28 @@ router.post("/update-profile-pic", async (req: Request, res: Response) => {
     return;
   }
 
-  form.parse(req, async (err, fields, files) => {
-    const { id } = fields;
-    const { profilePic } = files;
+  if (verifiedToken.id !== id) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    if (verifiedToken.id !== id) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  const userAddress = await updateUserAddress(
+    id as string,
+    address as string,
+    province as string,
+    city as string,
+    kecamatan as string,
+    kodePos as string,
+  );
 
-    const user = await updateUserProfilePic(
-      id as string,
-      profilePic as formidable.File,
-    );
-
-    res.status(201).json(user);
-  });
+  res.status(201).json(userAddress);
 });
 
-router.post("/update-address", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/update-pass", upload.none(), async (req: Request, res: Response) => {
+  const { id, password, newPassword } = req.body;
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -566,73 +584,29 @@ router.post("/update-address", async (req: Request, res: Response) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { id, address, province, city, kecamatan, kodePos } = fields;
 
-    if (verifiedToken.id !== id) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
-
-    const userAddress = await updateUserAddress(
-      id as string,
-      address as string,
-      province as string,
-      city as string,
-      kecamatan as string,
-      kodePos as string,
-    );
-
-    res.status(201).json(userAddress);
-  });
-});
-
-router.post("/update-pass", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
-  const authHeader = req.headers.authorization as string;
-
-  const token = authHeader.split(" ")[1];
-
-  const verifiedToken = await verifyToken(token);
-
-  if (verifiedToken.code === "INVALID_TOKEN_ERROR") {
-    res.status(403).json(verifiedToken);
+  if (verifiedToken.id !== id) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { id, password, newPassword } = fields;
+  const user = await updatePassword(id as string, password as string, newPassword as string);
 
-    if (verifiedToken.id !== id) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
-
-    const user = await updatePassword(id as string, password as string, newPassword as string);
-
-    res.json(user);
-  });
+  res.json(user);
 });
 
-router.post("/authenticate", async (req: Request, res: Response) => {
-  const form = formidable({ multiples: true });
+router.post("/authenticate", upload.none(), async (req: Request, res: Response) => {
+  const { email, password } = req.body;
 
-  form.parse(req, async (err, fields) => {
-    const { email, password } = fields;
+  const user = await login(email as string, password as string);
 
-    const user = await login(email as string, password as string);
-
-    res.status(201).json(user);
-  });
+  res.status(201).json(user);
 });
 
-router.post("/verify-token", async (req: Request, res: Response) => {
+router.post("/verify-token", upload.none(), async (req: Request, res: Response) => {
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];

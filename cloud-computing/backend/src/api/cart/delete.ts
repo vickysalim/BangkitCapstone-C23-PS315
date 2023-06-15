@@ -1,6 +1,6 @@
 import express from "express";
 import connection from "../../config/db";
-import formidable from "formidable";
+import upload from "../../lib/multer";
 import { verifyToken } from "../../lib/helper";
 
 const router = express.Router();
@@ -35,8 +35,8 @@ async function deleteCartItem(id: string) {
   return [];
 }
 
-router.post("/", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req, res) => {
+  const { id, userId } = req.body;
   const authHeader = req.headers.authorization as string;
 
   const token = authHeader.split(" ")[1];
@@ -48,30 +48,27 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { id, userId } = fields;
 
-    if (verifiedToken.id !== userId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  if (verifiedToken.id !== userId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    const cart = await deleteCartItem(id as string);
+  const cart = await deleteCartItem(id as string);
 
-    if (cart) {
-      res.status(200).json({
-        message: "Cart item deleted",
-      });
-    } else {
-      res.status(404).json({
-        message: "Cart item not found",
-      });
-    }
+  if (cart) {
+    res.status(200).json({
+      message: "Cart item deleted",
+    });
+  } else {
+    res.status(404).json({
+      message: "Cart item not found",
+    });
+  }
 
-  });
 });
 
 export default router;
