@@ -30,31 +30,16 @@ async function addProduct(
   productPics: Express.Multer.File[],
   publishedAt: Date,
 ) {
-  const storage = new Storage();
   const conn = await connection();
   const id = uuidv4();
 
   let productPicUrls: string[] = [];
 
-  productPics = Array.isArray(productPics) ? productPics : [productPics];
-
   for (let i = 0; i < productPics.length; i++) {
     const productPic = productPics[i];
 
-    const productPicExtension = productPic?.mimetype?.split("/")[1];
-
-    const productPicName = `uploads/${sellerId}/${id}-${i}.${productPicExtension}`;
-
-    await storage.bucket(process.env.GCP_BUCKET_NAME as string).upload(productPic.path, {
-      destination: productPicName,
-      gzip: true,
-      metadata: {
-        cacheControl: "public, max-age=31536000",
-      },
-    });
-
     productPicUrls.push(
-      `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/${productPicName}`,
+      `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/uploads/${productPic.filename}`,
     );
   }
 
