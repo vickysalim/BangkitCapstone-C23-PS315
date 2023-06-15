@@ -27,7 +27,7 @@ async function addProduct(
   price: number,
   isAvailable: boolean,
   description: string,
-  productPics: Express.Multer.File[],
+//  productPics: Express.Multer.File[],
   publishedAt: Date,
 ) {
   const conn = await connection();
@@ -35,13 +35,13 @@ async function addProduct(
 
   let productPicUrls: string[] = [];
 
-  for (let i = 0; i < productPics.length; i++) {
-    const productPic = productPics[i];
+  // for (let i = 0; i < productPics.length; i++) {
+  //   const productPic = productPics[i];
 
-    productPicUrls.push(
-      `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/uploads/${productPic.filename}`,
-    );
-  }
+  //   productPicUrls.push(
+  //     `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/uploads/${productPic.filename}`,
+  //   );
+  // }
 
   const sql = `
     INSERT INTO Product (id, sellerId, name, sellerName, type, price, isAvailable, description, productPicUrls, publishedAt)
@@ -61,7 +61,8 @@ async function addProduct(
     price,
     isAvailable,
     description,
-    JSON.stringify(productPicUrls),
+    ["https://storage.googleapis.com/sifresh-bucket-one/uploads/default.png"],
+//    JSON.stringify(productPicUrls),
     publishedAt,
   ]);
 
@@ -135,7 +136,7 @@ router.post("/", upload.array("productPics", 12), async (req: Request, res: Resp
     return;
   }
 
-  const productPics = req.files;
+  //const productPics = req.files;
 
   if (verifiedToken.id !== sellerId) {
     res.status(403).json({
@@ -153,13 +154,13 @@ router.post("/", upload.array("productPics", 12), async (req: Request, res: Resp
     Number(price),
     isAvailable === "true" ? true : false,
     description as string,
-    productPics as Express.Multer.File[],
+  //  productPics as Express.Multer.File[],
     new Date(publishedAt as string),
   );
 
   res.status(201).json({
     ...product,
-    productPicUrls: product.productPicUrls,
+    //productPicUrls: product.productPicUrls,
   });
 });
 
