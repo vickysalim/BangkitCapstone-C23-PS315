@@ -1,8 +1,8 @@
 import express from "express";
 import connection from "../../config/db";
-import { v4 as uuidv4 } from "uuid";
-import formidable from "formidable";
+import { uuidv4 } from "../../lib/uuid";
 import { verifyToken } from "../../lib/helper";
+import upload from "src/lib/multer";
 
 const router = express.Router();
 
@@ -30,8 +30,8 @@ async function createOrder(userId: string, cartItemId: string) {
   return [];
 }
 
-router.post("/", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req, res) => {
+  const { userId, cartItemId } = req.body;
   const authHeader = req.headers.authorization;
 
   const token = authHeader?.split(" ")[1];
@@ -43,32 +43,28 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { userId, cartItemId } = fields;
+  if (verifiedToken.id !== userId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    if (verifiedToken.id !== userId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  const order = await createOrder(userId as string, cartItemId as string);
 
-    const order = await createOrder(userId as string, cartItemId as string);
-
-    if (order) {
-      res.status(201).json({
-        code: "ORDER_CREATED",
-        message: "Order created",
-        order,
-      });
-    } else {
-      res.status(500).json({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal server error",
-      });
-    }
-  });
+  if (order) {
+    res.status(201).json({
+      code: "ORDER_CREATED",
+      message: "Order created",
+      order,
+    });
+  } else {
+    res.status(500).json({
+      code: "INTERNAL_SERVER_ERROR",
+      message: "Internal server error",
+    });
+  }
 });
 
 export default router;

@@ -57,7 +57,7 @@ async function getCartBySellerFromUserId(id: string) {
 
       item.products = productRows;
     }
-  };
+  }
 
   return cart ? cart : [];
 }

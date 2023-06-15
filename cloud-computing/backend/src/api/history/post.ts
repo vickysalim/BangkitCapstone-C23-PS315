@@ -1,8 +1,8 @@
 import express from "express";
 import connection from "../../config/db";
-import { v4 as uuidv4 } from "uuid";
-import formidable from "formidable";
+import { uuidv4 } from "../../lib/uuid";
 import { verifyToken } from "../../lib/helper";
+import upload from "../../lib/multer";
 
 const router = express.Router();
 
@@ -48,8 +48,8 @@ async function updateStatus(id: string, userId: string, status: string) {
   return [];
 }
 
-router.post("/", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/", upload.none(), async (req, res) => {
+  const { userId } = req.body;
   const authHeader = req.headers.authorization;
 
   const token = authHeader?.split(" ")[1];
@@ -61,36 +61,33 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { userId } = fields;
 
-    if (verifiedToken.id !== userId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  if (verifiedToken.id !== userId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    const order = await createOrderHistory(userId as string);
+  const order = await createOrderHistory(userId as string);
 
-    if (order) {
-      res.status(201).json({
-        code: "SUCCESS",
-        message: "Order history created successfully",
-        data: order,
-      });
-    } else {
-      res.status(500).json({
-        code: "SERVER_ERROR",
-        message: "Failed to create order history",
-      });
-    }
-  });
+  if (order) {
+    res.status(201).json({
+      code: "SUCCESS",
+      message: "Order history created successfully",
+      data: order,
+    });
+  } else {
+    res.status(500).json({
+      code: "SERVER_ERROR",
+      message: "Failed to create order history",
+    });
+  }
 });
 
-router.post("/update", async (req, res) => {
-  const form = formidable({ multiples: true });
+router.post("/update", upload.none(), async (req, res) => {
+  const { id, userId, status } = req.body;
   const authHeader = req.headers.authorization;
 
   const token = authHeader?.split(" ")[1];
@@ -102,32 +99,29 @@ router.post("/update", async (req, res) => {
     return;
   }
 
-  form.parse(req, async (err, fields) => {
-    const { id, userId, status } = fields;
 
-    if (verifiedToken.id !== userId) {
-      res.status(403).json({
-        code: "UNAUTHORIZED_ERROR",
-        message: "Unauthorized",
-      });
-      return;
-    }
+  if (verifiedToken.id !== userId) {
+    res.status(403).json({
+      code: "UNAUTHORIZED_ERROR",
+      message: "Unauthorized",
+    });
+    return;
+  }
 
-    const order = await updateStatus(id as string, userId as string, status as string);
+  const order = await updateStatus(id as string, userId as string, status as string);
 
-    if (order) {
-      res.status(201).json({
-        code: "SUCCESS",
-        message: "Order history status updated successfully",
-        data: order,
-      });
-    } else {
-      res.status(500).json({
-        code: "SERVER_ERROR",
-        message: "Failed to update order history status",
-      });
-    }
-  });
+  if (order) {
+    res.status(201).json({
+      code: "SUCCESS",
+      message: "Order history status updated successfully",
+      data: order,
+    });
+  } else {
+    res.status(500).json({
+      code: "SERVER_ERROR",
+      message: "Failed to update order history status",
+    });
+  }
 });
 
 export default router;
