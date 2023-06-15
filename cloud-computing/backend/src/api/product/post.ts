@@ -135,7 +135,6 @@ router.post("/", upload.array("productPics", 12), async (req: Request, res: Resp
     return;
   }
 
-
   const productPics = req.files;
 
   if (verifiedToken.id !== sellerId) {
@@ -160,9 +159,7 @@ router.post("/", upload.array("productPics", 12), async (req: Request, res: Resp
 
   res.status(201).json({
     ...product,
-    productPicUrls: JSON.parse(
-      product.productPicUrls as string,
-    ),
+    productPicUrls: product.productPicUrls,
   });
 });
 
