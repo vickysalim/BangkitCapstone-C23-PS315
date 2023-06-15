@@ -53,7 +53,7 @@ async function getCartBySellerFromUserId(id: string) {
         SELECT c.*, p.name AS productName, p.price AS productPrice FROM CartItem c JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.sellerId = ?;
       `;
 
-      const [productRows] = await conn.execute(itemSql, [id, sellerId]);
+      const productRows = await conn.execute(itemSql, [id, sellerId]);
 
       item.products = productRows;
     }
