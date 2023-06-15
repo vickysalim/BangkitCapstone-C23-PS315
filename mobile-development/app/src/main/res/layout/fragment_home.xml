@@ -21,7 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/searchbar_container"
-            app:queryHint="Cari Produk"
+            app:queryHint="@string/text_search_product"
             app:queryBackground="@null"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
-            android:text="All"
+            android:text="@string/text_category_all"
             android:fontFamily="@font/manrope_medium"
             android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
             android:gravity="center"
-            android:text="Fruit"
+            android:text="@string/text_category_fruit"
             android:fontFamily="@font/manrope_medium"
             android:textStyle="bold" />
 
@@ -92,7 +92,7 @@
             android:button="@android:color/transparent"
             android:gravity="center"
             android:fontFamily="@font/manrope_medium"
-            android:text="Vegetable"
+            android:text="@string/text_category_vegetable"
             android:textStyle="bold" />
     </RadioGroup>
 

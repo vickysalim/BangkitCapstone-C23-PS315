@@ -18,7 +18,7 @@
             android:fontFamily="@font/manrope_medium"
             android:gravity="center"
             android:paddingVertical="12dp"
-            android:text="Riwayat"
+            android:text="@string/bottom_navBar_history"
             android:textColor="@color/dark_gray"
             android:textSize="35sp"
             android:textStyle="bold" />
@@ -42,7 +42,7 @@
             android:button="@android:color/transparent"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center"
-            android:text="Transaksi"
+            android:text="@string/text_order"
             android:textStyle="bold" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -55,7 +55,7 @@
             android:button="@android:color/transparent"
             android:fontFamily="@font/manrope_medium"
             android:gravity="center"
-            android:text="Deteksi"
+            android:text="@string/text_detect"
             android:textStyle="bold" />
     </RadioGroup>
 

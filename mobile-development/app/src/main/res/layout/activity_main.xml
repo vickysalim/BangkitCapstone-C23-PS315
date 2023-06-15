@@ -51,7 +51,7 @@
             android:id="@+id/fab_scan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Scan"
+            android:contentDescription="@string/content_description_freshness_detection"
             android:src="@drawable/ic_filter_center_focus_24"
             app:layout_anchor="@id/bottomAppBar"
             app:maxImageSize="30dp"

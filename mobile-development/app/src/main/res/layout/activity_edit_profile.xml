@@ -10,15 +10,18 @@
         android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:gravity="center"
             android:paddingVertical="12dp"
-            android:text="Edit Profile"
+            android:text="@string/text_edit_profile"
+            android:textColor="@color/dark_gray"
             android:textSize="35sp"
             android:textStyle="bold" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -42,7 +45,8 @@
         style="?attr/materialIconButtonFilledStyle"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        app:icon="@drawable/ic_camera_alt_24"
+        app:backgroundTint="@color/light_green"
+        app:icon="@drawable/ic_add_a_photo_24"
         app:iconGravity="textEnd"
         app:iconSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_profile_photo"
@@ -59,6 +63,11 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:hint="@string/input_name"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="@+id/appBarLayout2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_profile_photo">
@@ -66,6 +75,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,6 +87,11 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         android:hint="@string/input_province"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_name">
@@ -87,6 +102,7 @@
             android:layout_height="wrap_content"
             android:completionThreshold="1"
             android:ellipsize="end"
+            android:fontFamily="@font/manrope_medium"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,6 +114,11 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         android:hint="@string/input_city"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_province">
@@ -108,19 +129,24 @@
             android:layout_height="wrap_content"
             android:completionThreshold="1"
             android:ellipsize="end"
+            android:fontFamily="@font/manrope_medium"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_district"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
         android:hint="@string/input_district"
-        app:layout_constraintEnd_toStartOf="@+id/input_postal_code"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_city">
 
@@ -128,26 +154,32 @@
             android:id="@+id/actv_district"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:completionThreshold="1"
             android:ellipsize="end"
+            android:fontFamily="@font/manrope_medium"
             android:maxLines="1" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_postal_code"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="16dp"
         android:hint="@string/input_postal"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/input_district"
-        app:layout_constraintTop_toBottomOf="@+id/input_city">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_district">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,6 +190,11 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         android:hint="@string/input_address"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_postal_code">
@@ -165,6 +202,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:inputType="text"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -176,8 +214,9 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#F65454"
+        android:fontFamily="@font/manrope_medium"
         android:gravity="center"
-        android:text="Cancel"
+        android:text="@string/btn_cancel"
         android:textSize="16sp"
         android:textStyle="bold"
         app:cornerRadius="10dp"
@@ -191,10 +230,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/manrope_medium"
         android:gravity="center"
-        android:text="Save"
+        android:text="@string/btn_save"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:backgroundTint="@color/light_green"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_cancel"

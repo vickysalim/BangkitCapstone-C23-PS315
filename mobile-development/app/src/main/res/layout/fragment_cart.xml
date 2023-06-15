@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="12dp"
             android:gravity="center"
-            android:text="Keranjang Belanja"
+            android:text="@string/bottom_navBar_cart"
             android:textStyle="bold"
             android:textColor="@color/dark_gray"
             android:fontFamily="@font/manrope_medium"

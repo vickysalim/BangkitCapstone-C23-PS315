@@ -21,18 +21,19 @@
 
             <TextView
                 android:id="@+id/tv_seller_name"
-                style="@style/TextAppearance.Material3.HeadlineSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/manrope_medium"
                 android:maxLines="1"
-                android:text="Order From Seller 1"
+                android:text="@string/text_placeholder_seller_name"
+                android:textColor="@color/dark_gray"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textColor="?attr/colorPrimary" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_cart_item"
@@ -41,7 +42,9 @@
                 android:layout_margin="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_seller_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_seller_name"
+                tools:itemCount="2"
+                tools:listitem="@layout/cart_item_card" />
 
             <View
                 android:id="@+id/divider_1"
@@ -53,18 +56,19 @@
 
             <TextView
                 android:id="@+id/tv_order_note"
-                style="@style/TextAppearance.Material3.HeadlineSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/manrope_medium"
                 android:maxLines="1"
                 android:text="@string/text_note_seller"
+                android:textColor="@color/dark_gray"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider_1"
-                android:textColor="?attr/colorPrimary" />
+                app:layout_constraintTop_toBottomOf="@+id/divider_1" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_order_note"
@@ -72,6 +76,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeColor="@color/gray"
                 app:boxStrokeWidth="1dp"
                 app:counterEnabled="true"
@@ -81,17 +89,17 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_order_note"
-                    style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/manrope_medium"
+                    android:gravity="top"
                     android:inputType="textMultiLine"
                     android:maxLength="100"
                     android:maxLines="3"
                     android:minLines="3"
-                    android:gravity="top"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,36 +113,41 @@
 
             <TextView
                 android:id="@+id/tv_payment_detail"
-                style="@style/TextAppearance.Material3.HeadlineSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/manrope_medium"
                 android:maxLines="1"
                 android:text="@string/text_payment_detail"
+                android:textColor="@color/dark_gray"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider_2"
-                android:textColor="?attr/colorPrimary"/>
+                app:layout_constraintTop_toBottomOf="@+id/divider_2" />
 
             <TextView
                 android:id="@+id/tv_price_title"
-                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Total Price"
+                android:fontFamily="@font/manrope_medium"
+                android:text="@string/text_total_price"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_payment_detail" />
 
             <TextView
                 android:id="@+id/tv_price"
-                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Rp 0"
+                android:fontFamily="@font/manrope_medium"
+                android:text="@string/text_placeholder_total_price"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_payment_detail" />
@@ -145,17 +158,19 @@
 
     <TextView
         android:id="@+id/tv_title"
-        style="@style/TextAppearance.Material3.HeadlineMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fontFamily="@font/manrope_medium"
         android:gravity="center"
         android:paddingVertical="12dp"
         android:text="@string/text_confirm"
+        android:textColor="@color/dark_gray"
+        android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/white"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -165,15 +180,20 @@
         android:background="@drawable/btn_round"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_confirm_payment"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:fontFamily="@font/manrope_medium"
         android:text="@string/text_confirm_payment"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
