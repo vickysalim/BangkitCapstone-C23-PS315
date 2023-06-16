@@ -43,7 +43,7 @@ async function updateCart(id: string, productId: string, amount: number) {
     UPDATE CartItem SET amount = ? WHERE userId = ? AND productId = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [amount, id, productId, 'complete']);
+  const rows = await conn.execute(sql, [amount, id, productId, "complete"]);
 
   cart = rows;
 

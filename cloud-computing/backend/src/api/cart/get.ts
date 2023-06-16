@@ -41,7 +41,7 @@ async function getCartBySellerFromUserId(id: string) {
     SELECT c.sellerId, u.fullName, SUM(p.price * c.amount) AS totalPrice FROM CartItem c JOIN user u ON c.sellerId = u.id JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.status <> ? GROUP BY c.sellerId;
   `;
 
-  const rows = await conn.execute(sql, [id, 'complete']);
+  const rows = await conn.execute(sql, [id, "complete"]);
 
   cart = rows;
 
@@ -53,7 +53,7 @@ async function getCartBySellerFromUserId(id: string) {
         SELECT c.*, p.name AS productName, p.price AS productPrice FROM CartItem c JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.sellerId = ? AND c.status <> ?;
       `;
 
-      const productRows = await conn.execute(itemSql, [id, sellerId, 'complete']);
+      const productRows = await conn.execute(itemSql, [id, sellerId, "complete"]);
 
       item.products = productRows;
     }
@@ -70,7 +70,7 @@ async function getCartFromUserIdAndSellerId(id: string, sellerId: string) {
     SELECT c.*, p.name AS productName, p.price AS productPrice FROM CartItem c JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.sellerId = ? AND c.status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [id, sellerId, 'complete']);
+  const rows = await conn.execute(sql, [id, sellerId, "complete"]);
 
   cart = rows;
 
@@ -87,7 +87,7 @@ async function getCartFromUserId(id: string, productId: string) {
     SELECT * FROM CartItem WHERE userId = ? AND productId = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [id, productId, 'complete']);
+  const rows = await conn.execute(sql, [id, productId, "complete"]);
 
   cart = rows;
 
