@@ -5,7 +5,6 @@ import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.*
 
 interface ApiService {
 
@@ -107,6 +106,21 @@ interface ApiService {
     fun searchProduct(
         @Path("name") name: String
     ) : Call<List<ProductItem>>
+
+    @Multipart
+    @POST("product/post/")
+    fun addProduct(
+        @Header("Authorization") token: String,
+        @Part("sellerId") sellerId: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("sellerName") sellerName: RequestBody,
+        @Part("type") type: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("isAvailable") isAvailable: RequestBody,
+        @Part("description") description: RequestBody,
+        // @Part productPics: MultipartBody.Part,
+        @Part("publishedAt") publishedAt: RequestBody,
+    ) : Call<ProductItem>
 
     @GET("cart/get/{id}/{productId}")
     fun getUserCartItemPerProduct(

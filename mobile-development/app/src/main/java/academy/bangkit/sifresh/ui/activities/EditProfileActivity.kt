@@ -8,7 +8,6 @@ import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.ResponseCode
 import academy.bangkit.sifresh.utils.uriToFile
-import android.R
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -21,10 +20,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -97,7 +94,7 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel.provincesList.observe(this) {
             val provinceNames = it.map { province -> province.name }
             val adapter =
-                ArrayAdapter(this, R.layout.simple_dropdown_item_1line, provinceNames)
+                ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, provinceNames)
 
             binding.actvProvince.setAdapter(adapter)
             binding.actvProvince.keyListener = null
@@ -118,7 +115,7 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel.citiesList.observe(this) {
             val cityNames = it.map { city -> city.name }
             val adapter =
-                ArrayAdapter(this, R.layout.simple_dropdown_item_1line, cityNames)
+                ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, cityNames)
 
             binding.actvCity.setAdapter(adapter)
             binding.actvCity.keyListener = null
@@ -136,7 +133,7 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel.districtsList.observe(this) {
             val districtNames = it.map { district -> district.name }
             val adapter =
-                ArrayAdapter(this, R.layout.simple_dropdown_item_1line, districtNames)
+                ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, districtNames)
 
             binding.actvDistrict.setAdapter(adapter)
             binding.actvDistrict.keyListener = null

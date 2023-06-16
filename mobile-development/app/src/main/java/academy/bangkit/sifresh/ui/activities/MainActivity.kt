@@ -9,10 +9,7 @@ import academy.bangkit.sifresh.ui.fragments.CartFragment
 import academy.bangkit.sifresh.ui.fragments.HomeFragment
 import academy.bangkit.sifresh.ui.fragments.HistoryFragment
 import academy.bangkit.sifresh.ui.fragments.ProfileFragment
-import academy.bangkit.sifresh.ui.viewmodels.ProductPagerViewModel
-import academy.bangkit.sifresh.ui.viewmodels.ProductViewModelFactory
-import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
-import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
+import academy.bangkit.sifresh.ui.viewmodels.*
 import academy.bangkit.sifresh.utils.Helper
 import android.Manifest
 import android.content.Intent

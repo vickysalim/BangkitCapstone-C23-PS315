@@ -73,4 +73,14 @@
     <string name="content_description_success">Berhasil</string>
     <string name="content_description_image_history">Riwayat gambar</string>
     <string name="content_description_select_language">Pilih bahasa</string>
+    <string name="content_description_product_image">Gambar Produk</string>
+
+    <string name="text_register_success">Register Gagal</string>
+    <string name="text_update_success">Data Berhasil Diperharui</string>
+    <string name="text_update_failed">Data Gagal Diperharui</string>
+    <string name="text_email_exists">Email telah digunakan</string>
+    <string name="text_forbidden">Gagal mengambil data</string>
+    <string name="text_timeout">Batas waktu server</string>
+    <string name="text_error">Kesalahan</string>
+    <string name="text_cart">Berhasil menambahkan item ke keranjang</string>
 </resources>
