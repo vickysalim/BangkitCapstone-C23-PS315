@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity() {
     fun logOut() {
         viewModel.clearUserPreferences()
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     fun getProductViewModel() : ProductPagerViewModel {
