@@ -83,12 +83,13 @@ router.post("/", uploadMemory.single("image"), async (req, res) => {
   `;
 
   await conn.execute(sql, [id, userId, productId ?? null, name, type, isFresh, nutritionDesc, imageUrl]);
-
+  
   const getSql = `
     SELECT * FROM FreshnessDataset WHERE id = ?;
   `;
 
   const rows = await conn.execute(getSql, [id]);
+  await conn.end();
 
   const data = rows[0];
 

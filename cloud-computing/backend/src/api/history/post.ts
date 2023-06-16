@@ -23,6 +23,7 @@ async function createOrderHistory(userId: string) {
   `;
 
   const rows = await conn.execute(sql, [id, userId]);
+  await conn.end();
 
   order = rows;
 
@@ -40,6 +41,7 @@ async function updateStatus(id: string, userId: string, status: string) {
   `;
 
   const rows = await conn.execute(sql, [status, id, userId]);
+  await conn.end();
 
   order = rows;
 

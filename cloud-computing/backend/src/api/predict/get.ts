@@ -23,6 +23,7 @@ async function getAllFreshnessDataFromUser(userId: string) {
   `;
 
   const rows = await conn.execute(sql, [userId]);
+  await conn.end();
 
   data = rows;
 
@@ -40,6 +41,7 @@ async function getAllFreshnessDataFromProduct(productId: string) {
   `;
 
   const rows = await conn.execute(sql, [productId]);
+  await conn.end();
 
   data = rows;
 
@@ -57,6 +59,7 @@ async function getFreshnessDataById(id: string) {
   `;
 
   const rows = await conn.execute(sql, [id]);
+  await conn.end();
 
   data = rows[0 as keyof typeof rows];
 

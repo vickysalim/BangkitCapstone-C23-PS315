@@ -15,6 +15,7 @@ export async function emailExists(email: string) {
   `;
 
   const rows = await conn.execute(sql, [email]);
+  await conn.end();
 
   user = rows;
 
@@ -37,6 +38,7 @@ export async function phoneExists(phone: string) {
   `;
 
   const rows = await conn.execute(sql, [phone]);
+  await conn.end();
 
   user = rows;
 
@@ -70,6 +72,7 @@ export async function verifyToken(token: string) {
     `;
 
     const rows: any = await conn.execute(sql, [decoded.id]);
+    await conn.end();
 
     if (!rows.length) {
       throw new Error();
