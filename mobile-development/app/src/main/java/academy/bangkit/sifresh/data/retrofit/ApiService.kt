@@ -107,19 +107,19 @@ interface ApiService {
         @Path("name") name: String
     ) : Call<List<ProductItem>>
 
-    @Multipart
-    @POST("product/post/")
+    @FormUrlEncoded
+    @POST("product/post")
     fun addProduct(
         @Header("Authorization") token: String,
-        @Part("sellerId") sellerId: RequestBody,
-        @Part("name") name: RequestBody,
-        @Part("sellerName") sellerName: RequestBody,
-        @Part("type") type: RequestBody,
-        @Part("price") price: RequestBody,
-        @Part("isAvailable") isAvailable: RequestBody,
-        @Part("description") description: RequestBody,
+        @Field("sellerId") sellerId: String,
+        @Field("name") name: String,
+        @Field("sellerName") sellerName: String,
+        @Field("type") type: String,
+        @Field("price") price: Int,
+        @Field("isAvailable") isAvailable: Boolean,
+        @Field("description") description: String,
         // @Part productPics: MultipartBody.Part,
-        @Part("publishedAt") publishedAt: RequestBody,
+        //@Field("publishedAt") publishedAt: String,
     ) : Call<ProductItem>
 
     @GET("cart/get/{id}/{productId}")
