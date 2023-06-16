@@ -2,6 +2,7 @@ import express from "express";
 
 import MessageResponse from "../interfaces/MessageResponse";
 import userRouter from "./user/index";
+import predictionRouter from "./predict/index";
 import productRouter from "./product/index";
 import locationRouter from "./location/index";
 import cartRouter from "./cart/index";
@@ -23,5 +24,6 @@ router.use("/cart", cartRouter);
 router.use("/order", orderItemRouter);
 router.use("/history", orderHistoryRouter);
 router.use("/order/item", orderItemRouter);
+router.use("/predict", predictionRouter);
 
 export default router;
