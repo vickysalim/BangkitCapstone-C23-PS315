@@ -19,6 +19,7 @@ async function getOrderHistoryFromUserId(userId: string) {
   `;
 
   const rows = await conn.execute(sql, [userId]);
+  await conn.end();
 
   order = rows;
 
@@ -36,6 +37,7 @@ async function getOrderHistoryFromId(id: string) {
   `;
 
   const rows = await conn.execute(sql, [id]);
+  await conn.end();
 
   order = rows;
 

@@ -36,10 +36,9 @@ async function getAllUsers() {
   `;
 
   const rows = await conn.execute(sql);
+  await conn.end();
 
   users = rows;
-
-  await conn.end();
 
   if (users) return users;
 
@@ -64,10 +63,9 @@ async function getUserById(id: string) {
   `;
 
   const rows = await conn.execute(sql, [id]);
+  await conn.end();
 
   user = rows[0 as keyof typeof rows];
-
-  await conn.end();
 
   if (user) return user;
 
@@ -92,10 +90,9 @@ async function getUserByEmail(email: string) {
   `;
 
   const rows = await conn.execute(sql, [email]);
+  await conn.end();
 
   user = rows[0 as keyof typeof rows];
-
-  await conn.end();
 
   if (user) return user;
 
@@ -120,10 +117,9 @@ async function getUserByPhone(phone: string) {
   `;
 
   const rows = await conn.execute(sql, [phone]);
+  await conn.end();
 
   user = rows[0 as keyof typeof rows];
-
-  await conn.end();
 
   if (user) return user;
 

@@ -29,7 +29,7 @@ async function deleteProductById(id: string) {
     DELETE FROM Product WHERE id = ?;
   `;
 
-  const [productInfoRows] = await conn.execute(productInfo, [id]);
+  const productInfoRows = await conn.execute(productInfo, [id]);
 
   const product: any = productInfoRows[0 as keyof typeof productInfoRows];
 
@@ -49,6 +49,8 @@ async function deleteProductById(id: string) {
   }
 
   const rows = await conn.execute(sql, [id]);
+
+  await conn.end();
 
   return rows;
 }

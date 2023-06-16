@@ -44,6 +44,7 @@ async function updateCart(id: string, productId: string, amount: number) {
   `;
 
   const rows = await conn.execute(sql, [amount, id, productId, "complete"]);
+  await conn.end();
 
   cart = rows;
 
@@ -61,6 +62,7 @@ async function updateCartStatus(id: string, sellerId: string, status: string) {
   `;
 
   const rows = await conn.execute(sql, [status, id, sellerId]);
+  await conn.end();
 
   cart = rows;
 

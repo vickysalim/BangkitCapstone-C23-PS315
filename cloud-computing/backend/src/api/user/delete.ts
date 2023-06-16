@@ -55,6 +55,7 @@ async function deleteUser(id: string) {
 
   await conn.execute(alsoDeleteAddressSql, [id]);
   const rows = await conn.execute(sql, [id]);
+  await conn.end();
 
   const sanitizedProfilePicUrl = theUser.profilePicUrl.replace(
     `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/`,

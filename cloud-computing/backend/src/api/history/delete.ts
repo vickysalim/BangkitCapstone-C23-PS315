@@ -21,6 +21,7 @@ async function deleteHistory(id: string) {
   `;
 
   const rows = await conn.execute(sql, [id]);
+  await conn.end();
 
   order = rows;
 

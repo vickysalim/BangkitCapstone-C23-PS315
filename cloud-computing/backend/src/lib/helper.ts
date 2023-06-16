@@ -15,10 +15,11 @@ export async function emailExists(email: string) {
   `;
 
   const rows = await conn.execute(sql, [email]);
+  await conn.end();
 
   user = rows;
 
-  if (Object.hasOwn(user, "user")) return true;
+  if (user.hasOwnProperty("user")) return true;
 
   return false;
 }
@@ -37,10 +38,11 @@ export async function phoneExists(phone: string) {
   `;
 
   const rows = await conn.execute(sql, [phone]);
+  await conn.end();
 
   user = rows;
 
-  if (Object.hasOwn(user, "user")) return true;
+  if (user.hasOwnProperty("user")) return true;
 
   return false;
 }
@@ -70,6 +72,7 @@ export async function verifyToken(token: string) {
     `;
 
     const rows: any = await conn.execute(sql, [decoded.id]);
+    await conn.end();
 
     if (!rows.length) {
       throw new Error();

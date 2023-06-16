@@ -23,6 +23,7 @@ async function getAllCartFromUserId(id: string) {
   `;
 
   const rows = await conn.execute(sql, [id]);
+  await conn.end();
 
   cart = rows;
 

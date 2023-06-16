@@ -18,8 +18,7 @@ async function deleteOrderItem(id: string) {
   `;
 
   await conn.execute(sql, [id]);
-
-
+  await conn.end();
 }
 
 router.post("/", upload.none(), async (req, res) => {

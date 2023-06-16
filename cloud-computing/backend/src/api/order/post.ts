@@ -22,6 +22,7 @@ async function createOrder(userId: string, cartItemId: string) {
   `;
 
   const rows = await conn.execute(sql, [id, userId, cartItemId]);
+  await conn.end();
 
   order = rows;
 
