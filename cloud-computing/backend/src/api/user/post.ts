@@ -85,6 +85,7 @@ async function addUser(
   ]);
 
   const rows = await conn.execute(getUserInfoByEmailAddress, [email]);
+  await conn.end();
 
   user = rows[0 as keyof typeof rows];
 
@@ -131,6 +132,7 @@ async function addUserAddress(
   ]);
 
   const rows = await conn.execute(getUserAddress, [id]);
+  await conn.end();
 
   userAddress = rows[0 as keyof typeof rows];
 
@@ -185,6 +187,7 @@ async function updateUser(
   ]);
 
   const rows = await conn.execute(getUserInfoById, [id]);
+  await conn.end();
   user = rows[0 as keyof typeof rows];
 
   if (user) return user;
@@ -247,6 +250,7 @@ async function updateUserProfilePic(
   ]);
 
   const rows = await conn.execute(getUserInfoById, [id]);
+  await conn.end();
 
   user = rows[0 as keyof typeof rows];
 
@@ -298,6 +302,7 @@ async function updateUserAddress(
   ]);
 
   const rows = await conn.execute(getUserAddress, [id]);
+  await conn.end();
 
   userAddress = rows[0 as keyof typeof rows];
 
@@ -359,6 +364,7 @@ async function updatePassword(
       await conn.execute(sql, [hashedPassword, id]);
 
       const [rowsB] = await conn.execute(getUserInfoById, [id]);
+      await conn.end();
 
       user = rowsB;
 
@@ -406,6 +412,7 @@ async function login(email: string, password: string) {
   `;
 
   const rows = await conn.execute(sql, [email]);
+  await conn.end();
 
   user.cred = rows[0 as keyof typeof rows];
 

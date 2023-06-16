@@ -66,6 +66,8 @@ async function addProduct(
     publishedAt,
   ]);
 
+  await conn.end();
+
   const rows = await conn.execute(getProductByIdSql, [id]);
 
   const product = rows[0 as keyof typeof rows];
@@ -108,6 +110,7 @@ async function updateProduct(
   ]);
 
   const rows = await conn.execute(getProductByIdSql, [id]);
+  await conn.end();
 
   const product = rows[0 as keyof typeof rows];
 

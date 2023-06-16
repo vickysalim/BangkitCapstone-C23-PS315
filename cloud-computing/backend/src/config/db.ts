@@ -8,6 +8,8 @@ async function connection() {
     database: process.env.DB_NAME,
     connectionLimit: 10,
     idleTimeout: 60000,
+    socketPath: process.env.DB_SOCKET_PATH,
+    socketTimeout: 100000,
   });
 
   const getConnection = await conn.getConnection();

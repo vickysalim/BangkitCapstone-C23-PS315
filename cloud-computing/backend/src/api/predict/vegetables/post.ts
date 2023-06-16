@@ -123,6 +123,7 @@ router.post("/", uploadMemory.single("image"), async (req, res) => {
   `;
 
   const rows = await conn.execute(getSql, [id]);
+  await conn.end();
 
   const data = rows[0];
 
