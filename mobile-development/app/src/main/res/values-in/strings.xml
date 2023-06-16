@@ -66,6 +66,7 @@
     <string name="text_category_all">Semua</string>
     <string name="text_category_fruit">Buah</string>
     <string name="text_category_vegetable">Sayur</string>
+    <string name="text_dialog_camera">Silakan gunakan fitur pemindaian aplikasi untuk mendeteksi dan mengidentifikasi buah dan sayuran Anda. Aplikasi ini mendukung pemindaian untuk sayuran seperti tomat, wortel, kentang, dan timun, serta buah-buahan seperti mangga, pisang, apel, strawberry,dan apel.</string>
 
     <string name="content_description_image_result">Hasil Gambar</string>
     <string name="content_description_back">Kembali</string>

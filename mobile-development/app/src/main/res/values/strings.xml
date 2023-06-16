@@ -67,6 +67,7 @@
     <string name="text_category_all">All</string>
     <string name="text_category_fruit">Fruit</string>
     <string name="text_category_vegetable">Vegetable</string>
+    <string name="text_dialog_camera">Please use the app\'s scanning feature to detect and identify your fruits and vegetables. The application supports scanning for vegetables such as tomatoes, carrots, potatoes and cucumbers, as well as fruits such as mangoes, bananas, apples, strawberries and apples.</string>
 
     <string name="content_description_image_result">Image Result</string>
     <string name="content_description_back">Back</string>

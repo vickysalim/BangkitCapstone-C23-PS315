@@ -35,7 +35,8 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/manrope_medium"
         android:textColor="@color/dark_gray"
-        android:text="@string/text_placeholder_lorem_ipsum_2"
+        android:text="@string/text_dialog_camera"
+        android:textAlignment="center"
         android:textSize="12sp"
         android:textStyle="normal" />
 
