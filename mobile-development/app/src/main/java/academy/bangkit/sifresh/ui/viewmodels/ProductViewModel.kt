@@ -54,17 +54,17 @@ class ProductViewModel : ViewModel() {
         isAvailable: Boolean = true,
         description: String,
         // image: MultipartBody.Part,
-        publishedAt: String
+        //publishedAt: String
     ) {
         val auth = "Bearer ${userToken.value.toString()}"
-        val productSellerId = sellerId.value.toString().toRequestBody("text/plain".toMediaType())
-        val productName = name.toRequestBody("text/plain".toMediaType())
-        val productSellerName = sellerName.value.toString().toRequestBody("text/plain".toMediaType())
-        val productDescription = description.toRequestBody("text/plain".toMediaType())
-        val productType = type.toRequestBody("text/plain".toMediaType())
-        val productPrice = price.toString().toRequestBody("text/plain".toMediaType())
-        val productPublishedAt = publishedAt.toRequestBody("text/plain".toMediaType())
-        val productIsAvailable = isAvailable.toString().toRequestBody("text/plain".toMediaType())
+        val productSellerId = sellerId.value.toString() //.toRequestBody("text/plain".toMediaType())
+        val productName = name //.toRequestBody("text/plain".toMediaType())
+        val productSellerName = sellerName.value.toString() //.toRequestBody("text/plain".toMediaType())
+        val productDescription = description //.toRequestBody("text/plain".toMediaType())
+        val productType = type //.toRequestBody("text/plain".toMediaType())
+        val productPrice = price.toInt() //.toRequestBody("text/plain".toMediaType())
+        //val productPublishedAt = publishedAt //.toRequestBody("text/plain".toMediaType())
+        val productIsAvailable = isAvailable //.toRequestBody("text/plain".toMediaType())
         // val reqImageFile = Helper.reduceFileImage(image).asRequestBody("image/jpeg".toMediaTypeOrNull())
         // val imageMultiPart: MultipartBody.Part = MultipartBody.Part.createFormData("photo", image.name, reqImageFile)
 
@@ -78,7 +78,7 @@ class ProductViewModel : ViewModel() {
             productIsAvailable,
             productDescription,
             // image,
-            productPublishedAt
+            //productPublishedAt
         )
         client.enqueue(object : Callback<ProductItem> {
             override fun onResponse(call: Call<ProductItem>, response: Response<ProductItem>) {

@@ -74,7 +74,7 @@ class AddProductActivity : AppCompatActivity() {
             }
             btnSubmit.setOnClickListener {
                 Log.e("Get File", getFile.toString())
-                if (getFile != null) {
+                //if (getFile != null) {
                     // val id = productViewModel.sellerId.value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
 
                     // val file = getFile!!
@@ -86,22 +86,24 @@ class AddProductActivity : AppCompatActivity() {
                     val type = inputType.editText?.text.toString()
                     val price = inputPrice.editText?.text.toString()
                     val description = tilDescription.editText?.text.toString()
-                    val publishedAt = SimpleDateFormat(
+                    /*val publishedAt = SimpleDateFormat(
                         "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
                         Locale.getDefault()
                     ).format(
                         Date()
-                    )
+                    )*/
+
+
                     productViewModel.addProduct(
                         name,
                         type,
                         price.toDouble(),
                         true,
                         description,
-                        publishedAt.toString()
+                        //publishedAt.toString()
                     )
                     finish()
-                }
+                //}
             }
         }
     }
@@ -138,7 +140,7 @@ class AddProductActivity : AppCompatActivity() {
     }
 
     private fun setUserData() {
-        val settingPreferences = SettingPreferences.getInstance(applicationContext.dataStore)
+        val settingPreferences = SettingPreferences.getInstance(this.dataStore)
         val settingViewModel = ViewModelProvider(
             this,
             SettingViewModelFactory(settingPreferences)
