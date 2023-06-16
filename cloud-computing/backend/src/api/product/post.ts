@@ -2,7 +2,6 @@ import express, { Request, Response } from "express";
 import connection from "../../config/db";
 import { uuidv4 } from "../../lib/uuid";
 import { verifyToken } from "../../lib/helper";
-import { Storage } from "@google-cloud/storage";
 import upload from "../../lib/multer";
 
 const router = express.Router();
@@ -211,9 +210,7 @@ router.post("/update", upload.none(), async (req: Request, res: Response) => {
 
   res.status(201).json({
     ...product,
-    productPicUrls: JSON.parse(
-      product.productPicUrls as string,
-    ),
+    productPicUrls: product.productPicUrls,
   });
 });
 
