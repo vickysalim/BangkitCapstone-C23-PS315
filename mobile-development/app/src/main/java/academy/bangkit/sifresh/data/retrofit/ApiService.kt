@@ -119,7 +119,7 @@ interface ApiService {
         @Field("isAvailable") isAvailable: Boolean,
         @Field("description") description: String,
         // @Part productPics: MultipartBody.Part,
-        //@Field("publishedAt") publishedAt: String,
+        @Field("publishedAt") publishedAt: String,
     ) : Call<ProductItem>
 
     @GET("cart/get/{id}/{productId}")

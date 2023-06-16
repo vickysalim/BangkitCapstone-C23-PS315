@@ -86,12 +86,12 @@ class AddProductActivity : AppCompatActivity() {
                     val type = inputType.editText?.text.toString()
                     val price = inputPrice.editText?.text.toString()
                     val description = tilDescription.editText?.text.toString()
-                    /*val publishedAt = SimpleDateFormat(
+                    val publishedAt = SimpleDateFormat(
                         "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
                         Locale.getDefault()
                     ).format(
                         Date()
-                    )*/
+                    ).toString()
 
 
                     productViewModel.addProduct(
@@ -100,7 +100,7 @@ class AddProductActivity : AppCompatActivity() {
                         price.toDouble(),
                         true,
                         description,
-                        //publishedAt.toString()
+                        publishedAt
                     )
                     finish()
                 //}
