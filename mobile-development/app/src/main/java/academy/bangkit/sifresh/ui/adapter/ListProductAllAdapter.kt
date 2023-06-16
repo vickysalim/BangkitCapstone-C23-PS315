@@ -47,7 +47,7 @@ class ListProductAllAdapter(private val listItem: List<ProductDummy>) : Recycler
                     .into(ivItemPhoto)
                 tvItemName.text = productDummy.productName
                 tvItemPrice.text = Helper.formatCurrency(productDummy.productPrice)
-                btnAddToCart.setOnClickListener {
+                /*btnAddToCart.setOnClickListener {
                     btnAddToCart.visibility = View.GONE
                     viewQuantityCount.visibility = View.VISIBLE
                     tvItemQuantity.text = "1"
@@ -68,7 +68,7 @@ class ListProductAllAdapter(private val listItem: List<ProductDummy>) : Recycler
                         val newQuantity = quantity + 1
                         tvItemQuantity.text = newQuantity.toString()
                     }
-                }
+                }*/
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, ProductDetailActivity::class.java)
                     intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT_NAME, productDummy.productName)

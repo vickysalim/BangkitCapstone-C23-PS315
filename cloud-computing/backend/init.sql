@@ -56,7 +56,7 @@ CREATE TABLE `FreshnessDataset` (
 CREATE TABLE `OrderHistory` (
   `id` varchar(255) NOT NULL,
   `userId` varchar(255) DEFAULT NULL,
-  `orderDate` date DEFAULT NULL,
+  `orderDate` date DEFAULT current_timestamp(),
   `status` varchar(10) DEFAULT 'processed' COMMENT 'Can be either processed, unpaid, delivering, or delivered.'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

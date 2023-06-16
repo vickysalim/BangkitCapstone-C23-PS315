@@ -40,10 +40,10 @@ async function updateCart(id: string, productId: string, amount: number) {
   let cart = null;
 
   const sql = `
-    UPDATE CartItem SET amount = ? WHERE userId = ? AND productId = ?;
+    UPDATE CartItem SET amount = ? WHERE userId = ? AND productId = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [amount, id, productId]);
+  const rows = await conn.execute(sql, [amount, id, productId, 'complete']);
 
   cart = rows;
 
@@ -52,15 +52,15 @@ async function updateCart(id: string, productId: string, amount: number) {
   return [];
 }
 
-async function updateCartStatus(id: string, productId: string, status: string) {
+async function updateCartStatus(id: string, sellerId: string, status: string) {
   const conn = await connection();
   let cart = null;
 
   const sql = `
-    UPDATE CartItem SET status = ? WHERE userId = ? AND productId = ?;
+    UPDATE CartItem SET status = ? WHERE userId = ? AND sellerId = ?;
   `;
 
-  const rows = await conn.execute(sql, [id, status, productId]);
+  const rows = await conn.execute(sql, [status, id, sellerId]);
 
   cart = rows;
 
@@ -120,9 +120,9 @@ router.post("/update", upload.none(), async (req, res) => {
 });
 
 router.post("/update-status", upload.none(), async (req, res) => {
-  const { userId, productId, status } = req.body;
+  const { userId, sellerId, status } = req.body;
 
-  const cart = await updateCartStatus(userId as string, productId as string, status as string);
+  const cart = await updateCartStatus(userId as string, sellerId as string, status as string);
 
   if (cart) {
     res.status(200).json({

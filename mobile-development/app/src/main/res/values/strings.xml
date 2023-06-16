@@ -1,36 +1,46 @@
 <resources>
     <string name="app_name">SiFresh</string>
+
     <string name="bottom_navBar_home">Home</string>
     <string name="bottom_navBar_cart">My Cart</string>
-    <string name="bottom_navBar_order">History</string>
+    <string name="bottom_navBar_history">History</string>
     <string name="bottom_navBar_profile">Profile</string>
-    <string name="button_login_toRegister">Don\'t have an account? <b>Sign up</b></string>
-    <string name="title_login">Hello, Welcome Back</string>
-    <string name="button_login_confirm">Login to your account</string>
+
+    <string name="title_login">Hello, \nWelcome Back</string>
+    <string name="title_register_info">Let\'s create your account!</string>
+    <string name="title_register_address">Let\'s enter your address!</string>
+    <string name="subtitle_register_info">Let\'s help you setup your account, it won\'t take long.</string>
+    <string name="subtitle_register_address">Nearly there, it\'s the last step to setup your account</string>
+
+    <string name="btn_login_to_register">Sign up</string>
+    <string name="btn_login_confirm">Login to your account</string>
+    <string name="btn_login_forgot_password">Forgot Password?</string>
+    <string name="btn_register_to_login">Sign in</string>
+    <string name="btn_log_out">Log Out</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_previous">Previous</string>
+    <string name="btn_register">Register</string>
+    <string name="btn_recheck">Re-check</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_return_home">Return to Home</string>
+
     <string name="input_email" translatable="false">Email</string>
     <string name="input_password" translatable="false">Password</string>
-    <string name="button_login_forgotPassword">Forgot Password?</string>
-    <string name="number_1" translatable="false">1</string>
-    <string name="number_2" translatable="false">2</string>
-    <string name="text_finish">Finish</string>
-    <string name="btn_register_toLogin">Already have an account? <b>Sign in</b></string>
-    <string name="title_register_info">Let\'s create your account!</string>
-    <string name="subtitle_register_info">Let\'s help you setup your account, it won\'t take long.</string>
     <string name="input_name">Full Name</string>
     <string name="input_phone">Phone Number</string>
-    <string name="btn_continue">Continue</string>
-    <string name="title_register_address">Let\'s enter your address!</string>
-    <string name="subtitle_register_address">Nearly there, it\'s the last step to setup your account</string>
     <string name="input_province">Province</string>
     <string name="input_city">City</string>
     <string name="input_district">District</string>
     <string name="input_postal">Postal Code</string>
     <string name="input_address">Address</string>
-    <string name="btn_previous">Previous</string>
-    <string name="btn_register">Register</string>
+    <string name="input_product_name">Product Name</string>
+    <string name="input_product_type">Type</string>
+    <string name="input_product_price">Price</string>
+
+    <string name="text_finish">Finish</string>
     <string name="text_nutrition">Nutrition:</string>
     <string name="text_tips">Tips to keep it fresh:</string>
-    <string name="btn_recheck">Re-check</string>
     <string name="text_add_to_cart">Add to Cart</string>
     <string name="text_product_description">Product Description</string>
     <string name="text_see_profile">See Profile</string>
@@ -38,8 +48,53 @@
     <string name="text_note_seller">Note for Seller</string>
     <string name="text_payment_detail">Payment Detail</string>
     <string name="text_confirm_payment">Confirm Payment</string>
-    <string name="text_return_home">Return to Home</string>
+    <string name="text_continue_payment">Continue Payment</string>
+    <string name="text_add_product">Add Product</string>
     <string name="text_add_product_image">Add Product Image</string>
+    <string name="text_edit_profile">Edit Profile</string>
+    <string name="text_total_price">Total Price</string>
+    <string name="text_dont_have_an_account">Don\'t have an account? </string>
+    <string name="text_already_have_an_account">Already have an account? </string>
+    <string name="text_detect">Detect</string>
+    <string name="text_order">Order</string>
+    <string name="text_order_success">Order Success!</string>
+    <string name="text_lets_started">Let\'s Started!</string>
+    <string name="text_iam_understand">I\'am Understand!</string>
+    <string name="text_search_product">Search Product</string>
+    <string name="text_setting">Setting</string>
+    <string name="text_language">Language</string>
+    <string name="text_dark_mode">Dark Mode</string>
+    <string name="text_category_all">All</string>
+    <string name="text_category_fruit">Fruit</string>
+    <string name="text_category_vegetable">Vegetable</string>
+    <string name="text_dialog_camera">Please use the app\'s scanning feature to detect and identify your fruits and vegetables. The application supports scanning for vegetables such as tomatoes, carrots, potatoes and cucumbers, as well as fruits such as mangoes, bananas, apples, strawberries and apples.</string>
+
+    <string name="content_description_image_result">Image Result</string>
+    <string name="content_description_back">Back</string>
+    <string name="content_description_freshness_detection">Freshness detection</string>
+    <string name="content_description_success">success</string>
+    <string name="content_description_image_history">Image history</string>
+    <string name="content_description_select_language">Select language</string>
+    <string name="content_description_product_image">Product image</string>
+
+    <string name="text_placeholder_number_1" translatable="false">1</string>
+    <string name="text_placeholder_number_2" translatable="false">2</string>
+    <string name="text_placeholder_seller_name" translatable="false">Toko Sukamaju</string>
+    <string name="text_placeholder_seller_email" translatable="false">tokosukamaju@email.com</string>
+    <string name="text_placeholder_seller_phone" translatable="false">0821 2345 6789</string>
+    <string name="text_placeholder_total_price" translatable="false">Rp 16.000</string>
+    <string name="text_placeholder_price" translatable="false">Rp 8.000</string>
+    <string name="text_placeholder_fruit_name" translatable="false">Apple</string>
+    <string name="text_placeholder_freshness_status" translatable="false">Fresh!</string>
+    <string name="text_placeholder_rating" translatable="false">5.0 (100)</string>
+    <string name="text_placeholder_order_id" translatable="false">M-1681289338-5147567</string>
+    <string name="text_placeholder_order_date" translatable="false">25 Mei 2023 15:50:44</string>
+    <string name="text_placeholder_order_status" translatable="false">On process</string>
+    <string name="text_placeholder_stock_available" translatable="false">Stock available</string>
+    <string name="text_placeholder_language" translatable="false">English</string>
+    <string name="text_placeholder_lorem_ipsum_1" translatable="false">Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</string>
+    <string name="text_placeholder_lorem_ipsum_2" translatable="false">Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit Lorem Ipsum Dolor Sit Amet Consectetur Adipiscing Elit</string>
+
     <string name="text_register_success">Register Success</string>
     <string name="text_update_success">Update Data Success</string>
     <string name="text_update_failed">Update Data Failed</string>
@@ -47,4 +102,5 @@
     <string name="text_forbidden">Failed to fetch data</string>
     <string name="text_timeout">Server timeout</string>
     <string name="text_error">Error</string>
+    <string name="text_cart">Successfully add items to cart</string>
 </resources>

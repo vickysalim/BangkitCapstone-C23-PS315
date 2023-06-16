@@ -38,10 +38,10 @@ async function getCartBySellerFromUserId(id: string) {
   let cart = null;
 
   const sql = `
-    SELECT c.sellerId, u.fullName FROM CartItem c JOIN user u ON c.sellerId = u.id WHERE c.userId = ? GROUP BY c.sellerId;
+    SELECT c.sellerId, u.fullName, SUM(p.price * c.amount) AS totalPrice FROM CartItem c JOIN user u ON c.sellerId = u.id JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.status <> ? GROUP BY c.sellerId;
   `;
 
-  const rows = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id, 'complete']);
 
   cart = rows;
 
@@ -50,10 +50,10 @@ async function getCartBySellerFromUserId(id: string) {
       const sellerId = item.sellerId;
 
       const itemSql = `
-        SELECT * FROM CartItem WHERE userId = ? AND sellerId = ?;
+        SELECT c.*, p.name AS productName, p.price AS productPrice FROM CartItem c JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.sellerId = ? AND c.status <> ?;
       `;
 
-      const [productRows] = await conn.execute(itemSql, [id, sellerId]);
+      const productRows = await conn.execute(itemSql, [id, sellerId, 'complete']);
 
       item.products = productRows;
     }
@@ -67,10 +67,10 @@ async function getCartFromUserIdAndSellerId(id: string, sellerId: string) {
   let cart = null;
 
   const sql = `
-    SELECT * FROM CartItem WHERE userId = ? AND sellerId = ?;
+    SELECT c.*, p.name AS productName, p.price AS productPrice FROM CartItem c JOIN product p ON c.productId = p.id WHERE c.userId = ? AND c.sellerId = ? AND c.status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [id, sellerId]);
+  const rows = await conn.execute(sql, [id, sellerId, 'complete']);
 
   cart = rows;
 
@@ -84,10 +84,10 @@ async function getCartFromUserId(id: string, productId: string) {
   let cart = null;
 
   const sql = `
-    SELECT * FROM CartItem WHERE userId = ? AND productId = ?;
+    SELECT * FROM CartItem WHERE userId = ? AND productId = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [id, productId]);
+  const rows = await conn.execute(sql, [id, productId, 'complete']);
 
   cart = rows;
 

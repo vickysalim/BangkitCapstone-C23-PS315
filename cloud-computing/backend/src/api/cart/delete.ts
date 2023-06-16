@@ -21,10 +21,10 @@ async function deleteCartItem(id: string) {
   let cart = null;
 
   const sql = `
-    DELETE FROM CartItem WHERE id = ?;
+    DELETE FROM CartItem WHERE id = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [id]);
+  const rows = await conn.execute(sql, [id, 'complete']);
 
   cart = rows;
 

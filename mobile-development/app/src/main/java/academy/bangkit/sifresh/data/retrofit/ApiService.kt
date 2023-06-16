@@ -5,7 +5,6 @@ import retrofit2.Call
 import retrofit2.http.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.*
 
 interface ApiService {
 
@@ -108,10 +107,76 @@ interface ApiService {
         @Path("name") name: String
     ) : Call<List<ProductItem>>
 
+    @Multipart
+    @POST("product/post/")
+    fun addProduct(
+        @Header("Authorization") token: String,
+        @Part("sellerId") sellerId: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("sellerName") sellerName: RequestBody,
+        @Part("type") type: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("isAvailable") isAvailable: RequestBody,
+        @Part("description") description: RequestBody,
+        // @Part productPics: MultipartBody.Part,
+        @Part("publishedAt") publishedAt: RequestBody,
+    ) : Call<ProductItem>
+
     @GET("cart/get/{id}/{productId}")
     fun getUserCartItemPerProduct(
         @Path("id") id: String,
         @Path("productId") productId: String
     ): Call<Cart>
 
+    @FormUrlEncoded
+    @POST("cart/post/update")
+    fun updateCartItem(
+        @Field("userId") userId: String,
+        @Field("productId") productId: String,
+        @Field("amount") amount: Int,
+    ): Call<Message>
+
+    @FormUrlEncoded
+    @POST("cart/del")
+    fun deleteCart(
+        @Header("Authorization") token: String,
+        @Field("id") id: String,
+        @Field("userId") userId: String,
+    ): Call<Message>
+
+    @FormUrlEncoded
+    @POST("cart/post")
+    fun addCartItem(
+        @Header("Authorization") token: String,
+        @Field("userId") userId: String,
+        @Field("sellerId") sellerId: String,
+        @Field("productId") productId: String,
+        @Field("amount") amount: Int = 1,
+    ): Call<Message>
+
+    @GET("cart/get/seller/{id}")
+    fun getAllCart(
+        @Path("id") id: String
+    ): Call<CartSeller>
+
+    @GET("cart/get/seller/{id}/{sellerId}")
+    fun getCartBySeller(
+        @Path("id") id: String,
+        @Path("sellerId") sellerId: String
+    ): Call<OrderList>
+
+    @FormUrlEncoded
+    @POST("history/post")
+    fun confirmOrder(
+        @Header("Authorization") token: String,
+        @Field("userId") userId: String,
+    ): Call<MessageWithCode>
+
+    @FormUrlEncoded
+    @POST("cart/post/update-status")
+    fun setOrderStatus(
+        @Field("userId") userId: String,
+        @Field("sellerId") sellerId: String,
+        @Field("status") status: String,
+    ): Call<Message>
 }

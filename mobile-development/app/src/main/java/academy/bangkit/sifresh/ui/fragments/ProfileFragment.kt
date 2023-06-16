@@ -61,35 +61,35 @@ class ProfileFragment : Fragment() {
 //            settingsGroup.switchNotification.setOnCheckedChangeListener { _, isChecked ->
 //                // Turn on/off notification
 //            }
-            val preferences = SettingPreferences.getInstance(requireContext().dataStore)
-            val preferencesViewModel =
-                ViewModelProvider(
-                    this@ProfileFragment,
-                    SettingViewModelFactory(preferences)
-                )[SettingViewModel::class.java]
-            preferencesViewModel.getThemeSetting()
-                .observe(viewLifecycleOwner) { isDarkMode: Boolean ->
-                    if (isDarkMode) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                        settingsGroup.switchDarkMode.isChecked = true
-//                        preferencesViewModel.saveThemeSetting(true)
-                    } else {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                        settingsGroup.switchDarkMode.isChecked = false
-//                        preferencesViewModel.saveThemeSetting(false)
-                    }
-                }
-            settingsGroup.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-                preferencesViewModel.saveThemeSetting(isChecked)
-                updateNightMode(isChecked)
-            }
+//            val preferences = SettingPreferences.getInstance(requireContext().dataStore)
+//            val preferencesViewModel =
+//                ViewModelProvider(
+//                    this@ProfileFragment,
+//                    SettingViewModelFactory(preferences)
+//                )[SettingViewModel::class.java]
+//            preferencesViewModel.getThemeSetting()
+//                .observe(viewLifecycleOwner) { isDarkMode: Boolean ->
+//                    if (isDarkMode) {
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                        settingsGroup.switchDarkMode.isChecked = true
+////                        preferencesViewModel.saveThemeSetting(true)
+//                    } else {
+//                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                        settingsGroup.switchDarkMode.isChecked = false
+////                        preferencesViewModel.saveThemeSetting(false)
+//                    }
+//                }
+//            settingsGroup.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+//                preferencesViewModel.saveThemeSetting(isChecked)
+//                updateNightMode(isChecked)
+//            }
 //            settingsGroup.btnHelpCenter.setOnClickListener {
 //                // Go to Help Center
 //            }
         }
     }
-    private fun updateNightMode(isDarkMode: Boolean) {
-        val nightMode = if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        AppCompatDelegate.setDefaultNightMode(nightMode)
-    }
+//    private fun updateNightMode(isDarkMode: Boolean) {
+//        val nightMode = if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+//        AppCompatDelegate.setDefaultNightMode(nightMode)
+//    }
 }

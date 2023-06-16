@@ -15,7 +15,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/manrope_medium"
-        android:text="Seller A"
+        android:text="@string/text_placeholder_seller_name"
         android:textColor="@color/dark_gray"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
-                android:text="Total Harga"
+                android:text="@string/text_total_price"
                 android:textColor="@color/dark_gray"
                 android:textSize="18sp"
                 android:textStyle="normal" />
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_medium"
-                android:text="Rp. 14.000"
+                android:text="@string/text_placeholder_total_price"
                 android:textColor="@color/dark_gray"
                 android:textSize="18sp"
                 android:textStyle="normal" />
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_medium"
             android:padding="8dp"
-            android:text="Lanjutkan Pembayaran"
+            android:text="@string/text_continue_payment"
             android:textAllCaps="false"
             android:textSize="12sp"
             android:textStyle="bold"

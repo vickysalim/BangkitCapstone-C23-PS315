@@ -27,18 +27,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/manrope_medium"
-        android:text="Apple"
+        android:text="@string/text_placeholder_fruit_name"
         android:textColor="@color/dark_gray"
         app:layout_constraintStart_toEndOf="@+id/iv_item_photo"
         app:layout_constraintTop_toTopOf="@+id/iv_item_photo" />
 
     <TextView
-        android:id="@+id/tv_item_total_price"
+        android:id="@+id/tv_item_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/manrope_medium"
-        android:text="Rp. 8.000"
+        android:text="@string/text_placeholder_price"
         android:textColor="@color/dark_gray"
         app:layout_constraintBottom_toBottomOf="@+id/iv_item_photo"
         app:layout_constraintStart_toEndOf="@+id/iv_item_photo" />
@@ -47,12 +47,12 @@
         android:id="@+id/tv_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rp. 8.000"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"
-        app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/text_placeholder_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+<!--    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:fontFamily="@font/manrope_medium"
             android:gravity="center"
             android:paddingHorizontal="10dp"
-            android:text="1"
+            android:text="@string/text_placeholder_number_1"
             android:textColor="@color/dark_gray" />
 
         <com.google.android.material.button.MaterialButton
@@ -95,5 +95,5 @@
             app:iconGravity="textEnd"
             app:iconSize="16dp"
             app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.RightRounded" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
