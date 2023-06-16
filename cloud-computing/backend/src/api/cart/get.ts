@@ -84,10 +84,10 @@ async function getCartFromUserId(id: string, productId: string) {
   let cart = null;
 
   const sql = `
-    SELECT * FROM CartItem WHERE userId = ? AND productId = ?;
+    SELECT * FROM CartItem WHERE userId = ? AND productId = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [id, productId]);
+  const rows = await conn.execute(sql, [id, productId, 'complete']);
 
   cart = rows;
 

@@ -40,10 +40,10 @@ async function updateCart(id: string, productId: string, amount: number) {
   let cart = null;
 
   const sql = `
-    UPDATE CartItem SET amount = ? WHERE userId = ? AND productId = ?;
+    UPDATE CartItem SET amount = ? WHERE userId = ? AND productId = ? AND status <> ?;
   `;
 
-  const rows = await conn.execute(sql, [amount, id, productId]);
+  const rows = await conn.execute(sql, [amount, id, productId, 'complete']);
 
   cart = rows;
 
