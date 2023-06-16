@@ -14,7 +14,7 @@ async function getAllOrderFromUserId(id: string) {
   let order = null;
 
   const sql = `
-    SELECT * FROM OrderHistory WHERE userId = ?;
+    SELECT * FROM OrderItem WHERE orderId = ?;
   `;
 
   const rows = await conn.execute(sql, [id]);
@@ -34,7 +34,7 @@ async function getOrderFromUserId(id: string, orderId: string) {
   let order = null;
 
   const sql = `
-    SELECT * FROM OrderHistory WHERE userId = ? AND id = ?;
+    SELECT * FROM OrderItem WHERE orderId = ? AND id = ?;
   `;
 
   const rows = await conn.execute(sql, [id, orderId]);
