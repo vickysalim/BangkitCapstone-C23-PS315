@@ -23,12 +23,15 @@ export async function predictFruitFreshness(img: Express.Multer.File) {
   // turn image into tensor
   const tensor = node.decodeImage(img.buffer);
 
-  const image = tensor.resizeNearestNeighbor([256, 256]).expandDims(0);
+  const image = tensor.resizeNearestNeighbor([150, 150]).expandDims(0);
+  let vegetableName = "";
 
   // turn to float
   const input = image.toFloat();
 
-  const predictions: Tensor<Rank> = model.predict(input) as Tensor<Rank>;
+  const predictions: Tensor<Rank> = model.predict(input, {
+    batchSize: 32,
+  }) as Tensor<Rank>;
 
   const predictionData = Array.from(await predictions.data()).map(
     (confidence) => {
@@ -39,10 +42,35 @@ export async function predictFruitFreshness(img: Express.Multer.File) {
     },
   );
 
+  const switchVegetable = [
+    "carrot",
+    "cucumber",
+    "potato",
+    "tomato",
+    "carrot",
+    "cucumber",
+    "potato",
+    "tomato",
+  ];
+
+  let indexTrap = 0;
+
+  for (let i = 0; i < predictionData.length; i++) {
+    if (predictionData[i].class === "fresh") {
+      vegetableName = switchVegetable[i];
+      indexTrap = i;
+      break;
+    }
+  }
+
   const output = {
     success: true,
     message: "Prediction successful",
-    predictions: predictionData[2],
+    predictions: {
+      name: vegetableName,
+      class: indexTrap > 3 ? "rotten" : "fresh",
+      confidence: predictionData[indexTrap].confidence,
+    },
   };
 
   return output;
@@ -51,10 +79,12 @@ export async function predictFruitFreshness(img: Express.Multer.File) {
 const router = express.Router();
 
 router.post("/", uploadMemory.single("image"), async (req, res) => {
-  const { userId, productId, name } = req.body;
+  const { userId, productId } = req.body;
   const image = req.file;
   const type = "vegetable";
   const id = uuidv4();
+
+  let name = "";
 
   const imageUrl = `https://storage.googleapis.com/${process.env.GCP_BUCKET_NAME}/uploads/${userId}/${id}.${image?.mimetype.split("/")[1]}`;
 
@@ -77,6 +107,10 @@ router.post("/", uploadMemory.single("image"), async (req, res) => {
   const nutritionDesc = "This feature is not yet implemented. Please check back later!";
   const prediction = await predictFruitFreshness(image as Express.Multer.File);
   const isFresh = prediction.predictions.class === "fresh" ? 1 : 0;
+  name = `${prediction.predictions.class} ${prediction.predictions.name} - ${prediction.predictions.confidence.toFixed(
+    2,
+  )}%`;
+  name = name.split(" ").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
   const sql = `
     INSERT INTO FreshnessDataset (id, userId, productId, name, type, isFresh, nutritionDesc, pictureUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
