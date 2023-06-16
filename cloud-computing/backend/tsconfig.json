@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "sourceMap": true,
-    "target": "esnext",
+    "target": "es5",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
