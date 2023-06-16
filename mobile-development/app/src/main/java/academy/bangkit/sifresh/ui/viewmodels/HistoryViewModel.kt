@@ -1,6 +1,9 @@
 package academy.bangkit.sifresh.ui.viewmodels
 
-import academy.bangkit.sifresh.data.response.*
+import academy.bangkit.sifresh.data.response.FreshHistory
+import academy.bangkit.sifresh.data.response.FreshHistoryData
+import academy.bangkit.sifresh.data.response.OrderHistory
+import academy.bangkit.sifresh.data.response.OrderHistoryData
 import academy.bangkit.sifresh.data.retrofit.ApiConfig
 import academy.bangkit.sifresh.utils.ResponseCode
 import android.util.Log

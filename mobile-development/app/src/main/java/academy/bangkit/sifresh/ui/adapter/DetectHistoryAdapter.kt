@@ -1,8 +1,6 @@
 package academy.bangkit.sifresh.ui.adapter
 
-import academy.bangkit.sifresh.data.response.FreshHistory
 import academy.bangkit.sifresh.data.response.FreshHistoryData
-import academy.bangkit.sifresh.data.response.ProductDummy
 import academy.bangkit.sifresh.databinding.DetectHistoryCardBinding
 import android.animation.ValueAnimator
 import android.content.Context
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.Transition
 import com.bumptech.glide.Glide
-import org.json.JSONArray
 
 class DetectHistoryAdapter(private val listDetect: List<FreshHistoryData>) :
     RecyclerView.Adapter<DetectHistoryAdapter.ViewHolder>() {
@@ -52,12 +49,13 @@ class DetectHistoryAdapter(private val listDetect: List<FreshHistoryData>) :
                     .load(order.pictureUrl)
                     .into(ivItemPhoto)
                 ivItemPhoto.layoutParams.height = if (isExpanded) expandedHeight else originalHeight
-                gradientEffect.layoutParams.height = if (isExpanded) expandedHeight else originalHeight
+                gradientEffect.layoutParams.height =
+                    if (isExpanded) expandedHeight else originalHeight
                 ivItemPhoto.requestLayout()
                 gradientEffect.requestLayout()
 
                 tvItemName.text = order.name
-                tvFreshStatus.text = if(order.isFresh == 1) "Fresh" else "Not Fresh"
+                tvFreshStatus.text = if (order.isFresh == 1) "Fresh" else "Not Fresh"
 
                 layout.visibility = if (isExpanded) View.VISIBLE else View.GONE
             }

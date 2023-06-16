@@ -21,12 +21,12 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             android:background="@drawable/searchbar_container"
-            app:queryHint="@string/text_search_product"
-            app:queryBackground="@null"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryBackground="@null"
+            app:queryHint="@string/text_search_product" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
@@ -64,9 +64,9 @@
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
+            android:fontFamily="@font/manrope_medium"
             android:gravity="center"
             android:text="@string/text_category_all"
-            android:fontFamily="@font/manrope_medium"
             android:textStyle="bold" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -77,9 +77,9 @@
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
+            android:fontFamily="@font/manrope_medium"
             android:gravity="center"
             android:text="@string/text_category_fruit"
-            android:fontFamily="@font/manrope_medium"
             android:textStyle="bold" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
@@ -90,8 +90,8 @@
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@android:color/transparent"
-            android:gravity="center"
             android:fontFamily="@font/manrope_medium"
+            android:gravity="center"
             android:text="@string/text_category_vegetable"
             android:textStyle="bold" />
     </RadioGroup>

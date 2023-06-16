@@ -48,52 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_placeholder_price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-<!--    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/linearLayoutCompat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_quantity_min"
-            style="?attr/materialIconButtonFilledStyle"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            app:icon="@drawable/ic_minus_24"
-            app:iconGravity="textEnd"
-            app:iconSize="16dp"
-            app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.LeftRounded" />
-
-        <TextView
-            android:id="@+id/tv_item_quantity"
-            android:layout_width="40dp"
-            android:layout_height="22.5dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="#E8E8E8"
-            android:fontFamily="@font/manrope_medium"
-            android:gravity="center"
-            android:paddingHorizontal="10dp"
-            android:text="@string/text_placeholder_number_1"
-            android:textColor="@color/dark_gray" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_quantity_plus"
-            style="?attr/materialIconButtonFilledStyle"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            app:icon="@drawable/ic_plus_24"
-            app:iconGravity="textEnd"
-            app:iconSize="16dp"
-            app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.RightRounded" />
-    </androidx.appcompat.widget.LinearLayoutCompat>-->
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

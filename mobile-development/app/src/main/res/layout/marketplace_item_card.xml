@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/marketplace_item_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="4dp"
     android:background="@drawable/marketplace_item_container"
-    android:paddingBottom="12dp"
-    android:layout_margin="4dp">
+    android:paddingBottom="12dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_item_photo"
@@ -28,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="8dp"
-        android:text="@string/text_placeholder_fruit_name"
         android:fontFamily="@font/manrope_medium"
+        android:text="@string/text_placeholder_fruit_name"
         android:textColor="@color/dark_gray"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -44,82 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="4dp"
+        android:fontFamily="@font/manrope_medium"
         android:text="@string/text_placeholder_price"
         android:textColor="@color/dark_gray"
         android:textSize="12sp"
-        android:fontFamily="@font/manrope_medium"
         app:layout_constraintEnd_toEndOf="@+id/tv_item_name"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
-
-<!--    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_to_cart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="4dp"
-        android:padding="8dp"
-        android:visibility="visible"
-        app:icon="@drawable/ic_shopping_cart_24"
-        app:cornerRadius="10dp"
-        app:iconGravity="textStart"
-        android:text="@string/text_add_to_cart"
-        android:fontFamily="@font/manrope_medium"
-        android:textAllCaps="false"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_price"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_price"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_price" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/view_quantity_count"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="4dp"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/tv_item_price"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_price"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_price">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_quantity_min"
-            style="?attr/materialIconButtonFilledStyle"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            app:iconGravity="textEnd"
-            app:iconSize="16dp"
-            app:icon="@drawable/ic_minus_24"
-            app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.LeftRounded" />
-
-        <TextView
-            android:id="@+id/tv_item_quantity"
-            android:layout_width="40dp"
-            android:layout_height="38dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:paddingHorizontal="10dp"
-            android:gravity="center"
-            android:background="#E8E8E8"
-            android:textSize="16sp"
-            android:text="@string/text_placeholder_number_1"
-            android:fontFamily="@font/manrope_medium"
-            android:textColor="#252525"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_quantity_plus"
-            style="?attr/materialIconButtonFilledStyle"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            app:iconGravity="textEnd"
-            app:iconSize="16dp"
-            app:icon="@drawable/ic_plus_24"
-            app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.RightRounded" />
-    </androidx.appcompat.widget.LinearLayoutCompat>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

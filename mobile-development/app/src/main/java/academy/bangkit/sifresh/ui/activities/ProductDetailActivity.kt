@@ -1,25 +1,20 @@
 package academy.bangkit.sifresh.ui.activities
 
 import academy.bangkit.sifresh.R
-import academy.bangkit.sifresh.data.ProductReviewDummy
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
-import academy.bangkit.sifresh.data.response.Review
 import academy.bangkit.sifresh.databinding.ActivityProductDetailBinding
-import academy.bangkit.sifresh.ui.adapter.ListProductReviewAdapter
 import academy.bangkit.sifresh.ui.viewmodels.CartViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.Helper
 import academy.bangkit.sifresh.utils.ResponseCode
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 
@@ -48,7 +43,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         cartViewModel.cartItem.observe(this) {
-            if(it != null) {
+            if (it != null) {
                 binding.apply {
                     btnAddToCart.visibility = View.GONE
                     viewQuantityCount.visibility = View.VISIBLE
@@ -58,7 +53,7 @@ class ProductDetailActivity : AppCompatActivity() {
         }
 
         cartViewModel.updateStatus.observe(this) {
-            when(it) {
+            when (it) {
                 ResponseCode.LOADING -> {
                     binding.apply {
                         btnAddToCart.isEnabled = false
@@ -68,18 +63,22 @@ class ProductDetailActivity : AppCompatActivity() {
                 }
                 ResponseCode.SUCCESS -> {
                     binding.apply {
-                        Toast.makeText(this@ProductDetailActivity, getString(R.string.text_cart), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@ProductDetailActivity,
+                            getString(R.string.text_cart),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
-            if(it != ResponseCode.LOADING) {
+            if (it != ResponseCode.LOADING) {
                 binding.apply {
                     btnAddToCart.isEnabled = true
                     btnQuantityMin.isEnabled = true
                     btnQuantityPlus.isEnabled = true
                 }
             }
-    }
+        }
 
         binding.apply {
             tvProductName.text = intent.getStringExtra(EXTRA_PRODUCT_NAME)
@@ -104,7 +103,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
             btnQuantityMin.setOnClickListener {
                 setQuantityMin()
-                if(viewQuantityCount.visibility == View.VISIBLE) {
+                if (viewQuantityCount.visibility == View.VISIBLE) {
                     Log.e("TAG", "onCreate: if")
                     cartViewModel.updateCartItem(productId, tvItemQuantity.text.toString().toInt())
                 } else {

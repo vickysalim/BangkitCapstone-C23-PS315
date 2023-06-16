@@ -117,11 +117,11 @@
         android:layout_height="36dp"
         android:layout_margin="16dp"
         android:background="@drawable/btn_round"
+        android:contentDescription="@string/content_description_back"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/content_description_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_recheck"

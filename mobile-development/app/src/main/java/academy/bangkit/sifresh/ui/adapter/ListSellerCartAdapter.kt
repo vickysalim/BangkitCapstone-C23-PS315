@@ -1,9 +1,6 @@
 package academy.bangkit.sifresh.ui.adapter
 
-import academy.bangkit.sifresh.data.response.CartItem
-import academy.bangkit.sifresh.data.response.CartItems
 import academy.bangkit.sifresh.data.response.CartSellerItem
-import academy.bangkit.sifresh.data.response.Seller
 import academy.bangkit.sifresh.databinding.CartSectionBinding
 import academy.bangkit.sifresh.ui.activities.ConfirmOrderActivity
 import academy.bangkit.sifresh.utils.Helper
@@ -39,11 +36,6 @@ class ListSellerCartAdapter(private val listSeller: List<CartSellerItem>) :
                 listItemCartAdapter = ListItemCartAdapter(seller.products)
                 rvCartItem.adapter = listItemCartAdapter
 
-/*                listItemCartAdapter?.setTotalPriceChangeListener {
-                    updateTotalPrice()
-                }
-                updateTotalPrice()*/
-
                 btnAddToCart.setOnClickListener {
                     val intent = Intent(root.context, ConfirmOrderActivity::class.java)
                     intent.putExtra(SELLER, seller.sellerId)
@@ -53,16 +45,11 @@ class ListSellerCartAdapter(private val listSeller: List<CartSellerItem>) :
                 }
             }
         }
-
-/*        private fun updateTotalPrice() {
-            val totalPrice = listItemCartAdapter?.getTotalPrice() ?: 0.0
-            binding.tvTotalPrice.text = Helper.formatCurrency(totalPrice)
-        }*/
     }
 
     companion object {
-        public const val SELLER = "seller"
-        public const val SELLER_NAME = "name"
-        public const val TOTAL_PRICE = "price"
+        const val SELLER = "seller"
+        const val SELLER_NAME = "name"
+        const val TOTAL_PRICE = "price"
     }
 }

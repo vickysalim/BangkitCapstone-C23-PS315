@@ -25,10 +25,10 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "API_BASEURL", "\"http://192.168.1.5:5000/api/v1/\"")
+            buildConfigField("String", "API_BASEURL", "\"https://sifresh.et.r.appspot.com/api/v1/\"")
         }
         release {
-            buildConfigField("String", "API_BASEURL", "\"http://192.168.1.5:5000/api/v1/\"")
+            buildConfigField("String", "API_BASEURL", "\"https://sifresh.et.r.appspot.com/api/v1/\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

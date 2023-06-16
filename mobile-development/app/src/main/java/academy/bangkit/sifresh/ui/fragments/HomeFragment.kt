@@ -10,15 +10,12 @@ import academy.bangkit.sifresh.ui.adapter.ListProductAdapter
 import academy.bangkit.sifresh.ui.viewmodels.ProductViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
-import academy.bangkit.sifresh.utils.ResponseCode
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -28,7 +25,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.denzcoskun.imageslider.constants.AnimationTypes
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -46,20 +42,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Example Image Banner Data (temporary)
         val imageList = ArrayList<SlideModel>()
         imageList.add(SlideModel("https://gust-production.s3.amazonaws.com/uploads/startup/panoramic_image/1007246/fruits-and-Vegetables-banner.jpg"))
         imageList.add(SlideModel("https://thumbs.dreamstime.com/b/background-food-fruits-vegetables-collection-fruit-vegetable-healthy-eating-diet-apples-oranges-banner-tomatoes-backgrounds-190445608.jpg"))
         imageList.add(SlideModel("https://warwick.ac.uk/fac/soc/economics/research/centres/cage/news/08-07-16-eating_more_fruit_and_vegetables_can_make_you_happier/banner.jpg"))
 
-        // Image Banner Slider
         binding.imageSliderBanner.setImageList(imageList, ScaleTypes.CENTER_CROP)
         binding.imageSliderBanner.setSlideAnimation(AnimationTypes.ZOOM_OUT)
 
-        // Category
         setUpProductList()
 
-        // SearchBar
         productViewModel.product.observe(viewLifecycleOwner) { product ->
             setProductSearchResult(product)
         }
@@ -106,7 +98,6 @@ class HomeFragment : Fragment() {
                 binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
                     when (checkedId) {
                         R.id.rb_category_all -> {
-                            // Display all product
                             binding.rbCategoryAll.setTextColor(resources.getColor(R.color.white))
                             binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.light_green))
                             binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.light_green))
@@ -116,7 +107,6 @@ class HomeFragment : Fragment() {
                             binding.rvMarketplaceItem.adapter = productAdapter
                         }
                         R.id.rb_category_fruit -> {
-                            // Display fruit product
                             binding.rbCategoryAll.setTextColor(resources.getColor(R.color.light_green))
                             binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.white))
                             binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.light_green))
@@ -127,7 +117,6 @@ class HomeFragment : Fragment() {
                             binding.searchBar.setQuery("", false)
                         }
                         R.id.rb_category_vegetable -> {
-                            // Display vegetable product
                             binding.rbCategoryAll.setTextColor(resources.getColor(R.color.light_green))
                             binding.rbCategoryFruit.setTextColor(resources.getColor(R.color.light_green))
                             binding.rbCategoryVegetable.setTextColor(resources.getColor(R.color.white))

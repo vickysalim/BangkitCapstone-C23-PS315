@@ -24,7 +24,8 @@ class ListItemOrderAdapter(private val listItem: List<OrderListItem>) :
 
     override fun getItemCount() = listItem.size
 
-    inner class ViewHolder(var binding: CartItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(var binding: CartItemCardBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: OrderListItem) {
             with(binding) {
                 tvItemName.text = item.productName
@@ -35,7 +36,5 @@ class ListItemOrderAdapter(private val listItem: List<OrderListItem>) :
                 tvItemQuantity.text = item.amount.toString()
             }
         }
-
     }
-
 }

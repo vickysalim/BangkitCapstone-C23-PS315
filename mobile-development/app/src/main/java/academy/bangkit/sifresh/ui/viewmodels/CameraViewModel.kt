@@ -2,7 +2,6 @@ package academy.bangkit.sifresh.ui.viewmodels
 
 import academy.bangkit.sifresh.data.response.Freshness
 import academy.bangkit.sifresh.data.response.FreshnessData
-import academy.bangkit.sifresh.data.response.OrderHistoryData
 import academy.bangkit.sifresh.data.response.Prediction
 import academy.bangkit.sifresh.data.retrofit.ApiConfig
 import academy.bangkit.sifresh.utils.ResponseCode

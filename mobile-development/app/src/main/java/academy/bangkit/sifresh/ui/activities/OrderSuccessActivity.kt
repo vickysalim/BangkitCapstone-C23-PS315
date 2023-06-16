@@ -1,8 +1,8 @@
 package academy.bangkit.sifresh.ui.activities
 
 import academy.bangkit.sifresh.databinding.ActivityOrderSuccessBinding
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class OrderSuccessActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrderSuccessBinding

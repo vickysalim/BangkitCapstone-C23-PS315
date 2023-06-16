@@ -6,7 +6,6 @@ import academy.bangkit.sifresh.data.response.ProductItem
 import academy.bangkit.sifresh.data.retrofit.ApiService
 import androidx.lifecycle.LiveData
 import androidx.paging.*
-import kotlinx.coroutines.flow.Flow
 
 class ProductRepository(
     private val productDatabase: ProductDatabase,

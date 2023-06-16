@@ -6,19 +6,19 @@ import academy.bangkit.sifresh.data.local.dataStore
 import academy.bangkit.sifresh.data.retrofit.ApiConfig
 import academy.bangkit.sifresh.databinding.ActivityMainBinding
 import academy.bangkit.sifresh.ui.fragments.CartFragment
-import academy.bangkit.sifresh.ui.fragments.HomeFragment
 import academy.bangkit.sifresh.ui.fragments.HistoryFragment
+import academy.bangkit.sifresh.ui.fragments.HomeFragment
 import academy.bangkit.sifresh.ui.fragments.ProfileFragment
 import academy.bangkit.sifresh.ui.viewmodels.*
 import academy.bangkit.sifresh.utils.Helper
 import android.Manifest
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         hideSystemUI()
 
         switchFragment(getCurrentFragment())
-//        switchFragment(HomeFragment())
 
         binding.apply {
             bottomNavigationView.apply {
@@ -99,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    fun getProductViewModel() : ProductPagerViewModel {
+    fun getProductViewModel(): ProductPagerViewModel {
         val viewModel: ProductPagerViewModel by viewModels {
             ProductViewModelFactory(
                 this,

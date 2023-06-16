@@ -5,8 +5,8 @@ import academy.bangkit.sifresh.utils.Helper
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import java.io.File
 
@@ -41,7 +41,6 @@ class DetectResultActivity : AppCompatActivity() {
             myFile.let { file ->
                 Helper.rotateFile(file, isBackCamera)
                 getFile = file
-//            binding.imgResult.setImageBitmap(BitmapFactory.decodeFile(file.path))
                 Glide.with(imgResult)
                     .load(BitmapFactory.decodeFile(file.path))
                     .into(imgResult)

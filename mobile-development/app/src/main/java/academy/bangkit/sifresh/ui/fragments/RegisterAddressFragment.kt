@@ -3,7 +3,6 @@ package academy.bangkit.sifresh.ui.fragments
 import academy.bangkit.sifresh.databinding.FragmentRegisterAddressBinding
 import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
 import academy.bangkit.sifresh.utils.ResponseCode
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +35,11 @@ class RegisterAddressFragment : Fragment() {
         viewModel.provincesList.observe(viewLifecycleOwner) {
             val provinceNames = it.map { province -> province.name }
             val adapter =
-                ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, provinceNames)
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    provinceNames
+                )
 
             binding.actvProvince.setAdapter(adapter)
             binding.actvProvince.keyListener = null
@@ -54,7 +57,11 @@ class RegisterAddressFragment : Fragment() {
         viewModel.citiesList.observe(viewLifecycleOwner) {
             val cityNames = it.map { city -> city.name }
             val adapter =
-                ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, cityNames)
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    cityNames
+                )
 
             binding.actvCity.setAdapter(adapter)
             binding.actvCity.keyListener = null
@@ -72,7 +79,11 @@ class RegisterAddressFragment : Fragment() {
         viewModel.districtsList.observe(viewLifecycleOwner) {
             val districtNames = it.map { district -> district.name }
             val adapter =
-                ArrayAdapter(requireContext(), R.layout.simple_dropdown_item_1line, districtNames)
+                ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_dropdown_item_1line,
+                    districtNames
+                )
 
             binding.actvDistrict.setAdapter(adapter)
             binding.actvDistrict.keyListener = null

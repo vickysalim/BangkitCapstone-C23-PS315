@@ -29,18 +29,18 @@
                 app:iss_placeholder="@drawable/placeholder_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:fontFamily="@font/manrope_medium"
-                android:textSize="28sp"
-                android:textColor="@color/dark_gray"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/manrope_medium"
                 android:text="@string/text_placeholder_fruit_name"
+                android:textColor="@color/dark_gray"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_banner" />
@@ -51,9 +51,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:fontFamily="@font/manrope_medium"
+                android:text="@string/text_placeholder_price"
                 android:textColor="@color/dark_gray"
                 android:textSize="24sp"
-                android:text="@string/text_placeholder_price"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
@@ -63,19 +63,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:fontFamily="@font/manrope_medium"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/card_outlined"
                 android:drawablePadding="8dp"
+                android:fontFamily="@font/manrope_medium"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:text="@string/text_placeholder_rating"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
                 app:drawableLeftCompat="@drawable/ic_star_24"
+                app:drawableTint="@color/yellow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_product_price"
-                app:drawableTint="@color/yellow" />
+                app:layout_constraintTop_toBottomOf="@id/tv_product_price" />
 
             <TextView
                 android:id="@+id/text_status"
@@ -85,16 +85,16 @@
                 android:background="@drawable/card_outlined"
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/manrope_medium"
-                android:textColor="@color/dark_gray"
-                android:textSize="14sp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
                 android:text="@string/text_placeholder_stock_available"
+                android:textColor="@color/dark_gray"
+                android:textSize="14sp"
                 app:drawableLeftCompat="@drawable/ic_inbox_24"
+                app:drawableTint="@color/light_green"
                 app:layout_constraintBottom_toBottomOf="@+id/text_rating"
                 app:layout_constraintStart_toEndOf="@+id/text_rating"
-                app:layout_constraintTop_toTopOf="@id/text_rating"
-                app:drawableTint="@color/light_green" />
+                app:layout_constraintTop_toTopOf="@id/text_rating" />
 
             <TextView
                 android:id="@+id/text_description_title"
@@ -102,9 +102,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:fontFamily="@font/manrope_medium"
+                android:text="@string/text_product_description"
                 android:textColor="@color/light_green"
                 android:textSize="14sp"
-                android:text="@string/text_product_description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_rating" />
 
@@ -114,9 +114,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:fontFamily="@font/manrope_medium"
+                android:text="@string/text_placeholder_lorem_ipsum_2"
                 android:textColor="@color/dark_gray"
                 android:textSize="14sp"
-                android:text="@string/text_placeholder_lorem_ipsum_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_description_title" />
 
@@ -142,12 +142,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:fontFamily="@font/manrope_medium"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"
                 android:ellipsize="end"
+                android:fontFamily="@font/manrope_medium"
                 android:maxLines="1"
                 android:text="@string/text_placeholder_seller_name"
+                android:textColor="@color/dark_gray"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/img_seller"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -163,11 +163,11 @@
         android:layout_height="36dp"
         android:layout_margin="16dp"
         android:background="@drawable/btn_round"
+        android:contentDescription="@string/content_description_back"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/content_description_back" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_add_to_cart"
@@ -175,10 +175,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:fontFamily="@font/manrope_medium"
+        android:text="@string/text_add_to_cart"
         android:textStyle="bold"
         android:visibility="visible"
         app:cornerRadius="10dp"
-        android:text="@string/text_add_to_cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -187,11 +187,11 @@
         android:id="@+id/view_quantity_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="16dp"
-        android:visibility="gone"
-        android:layout_gravity="center"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -202,24 +202,24 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:icon="@drawable/ic_minus_24"
             app:iconGravity="textEnd"
             app:iconSize="16dp"
-            app:icon="@drawable/ic_minus_24"
             app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.LeftRounded" />
 
         <TextView
             android:id="@+id/tv_item_quantity"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/manrope_medium"
-            android:textColor="@color/dark_gray"
             android:layout_gravity="center"
-            android:paddingHorizontal="10dp"
-            android:gravity="center"
+            android:layout_weight="1"
             android:background="#E8E8E8"
-            android:textSize="16sp"
-            android:text="@string/text_placeholder_number_1"/>
+            android:fontFamily="@font/manrope_medium"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:text="@string/text_placeholder_number_1"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_quantity_plus"
@@ -227,9 +227,9 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            app:icon="@drawable/ic_plus_24"
             app:iconGravity="textEnd"
             app:iconSize="16dp"
-            app:icon="@drawable/ic_plus_24"
             app:shapeAppearance="@style/ShapeAppearance.MyApp.MediumComponent.RightRounded" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 

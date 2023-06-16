@@ -74,36 +74,27 @@ class AddProductActivity : AppCompatActivity() {
             }
             btnSubmit.setOnClickListener {
                 Log.e("Get File", getFile.toString())
-                //if (getFile != null) {
-                    // val id = productViewModel.sellerId.value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
-
-                    // val file = getFile!!
-
-                    // val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    // val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file.name, requestFile)
-
-                    val name = inputName.editText?.text.toString()
-                    val type = inputType.editText?.text.toString()
-                    val price = inputPrice.editText?.text.toString()
-                    val description = tilDescription.editText?.text.toString()
-                    val publishedAt = SimpleDateFormat(
-                        "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                        Locale.getDefault()
-                    ).format(
-                        Date()
-                    ).toString()
+                val name = inputName.editText?.text.toString()
+                val type = inputType.editText?.text.toString()
+                val price = inputPrice.editText?.text.toString()
+                val description = tilDescription.editText?.text.toString()
+                val publishedAt = SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                    Locale.getDefault()
+                ).format(
+                    Date()
+                ).toString()
 
 
-                    productViewModel.addProduct(
-                        name,
-                        type,
-                        price.toDouble(),
-                        true,
-                        description,
-                        publishedAt
-                    )
-                    finish()
-                //}
+                productViewModel.addProduct(
+                    name,
+                    type,
+                    price.toDouble(),
+                    true,
+                    description,
+                    publishedAt
+                )
+                finish()
             }
         }
     }

@@ -1,41 +1,39 @@
 package academy.bangkit.sifresh.ui.activities
 
+import academy.bangkit.sifresh.R
+import academy.bangkit.sifresh.data.local.SettingPreferences
+import academy.bangkit.sifresh.data.local.dataStore
 import academy.bangkit.sifresh.databinding.ActivityCameraBinding
+import academy.bangkit.sifresh.ui.viewmodels.CameraViewModel
+import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
+import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.Helper
+import academy.bangkit.sifresh.utils.ResponseCode
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
 import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import academy.bangkit.sifresh.R
-import academy.bangkit.sifresh.data.local.SettingPreferences
-import academy.bangkit.sifresh.data.local.dataStore
-import academy.bangkit.sifresh.ui.viewmodels.CameraViewModel
-import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
-import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
-import academy.bangkit.sifresh.utils.ResponseCode
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
@@ -91,9 +89,9 @@ class CameraActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.dialog_camera_info)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val btnFruit : MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_fruit)
-        val btnVegetable : MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_vegetable)
-        val textDescription : TextView = dialog.findViewById(R.id.tv_dialog_camera_infoText)
+        val btnFruit: MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_fruit)
+        val btnVegetable: MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_vegetable)
+        val textDescription: TextView = dialog.findViewById(R.id.tv_dialog_camera_infoText)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             textDescription.justificationMode = JUSTIFICATION_MODE_INTER_WORD
         }
@@ -130,16 +128,23 @@ class CameraActivity : AppCompatActivity() {
 
                     viewModel.uploadPhoto(userId, imageMultipart)
                     viewModel.status.observe(this@CameraActivity) {
-                        if(it == ResponseCode.SUCCESS) {
+                        if (it == ResponseCode.SUCCESS) {
 
-                            val intent = Intent(this@CameraActivity, DetectResultActivity::class.java)
+                            val intent =
+                                Intent(this@CameraActivity, DetectResultActivity::class.java)
                             intent.putExtra(DetectResultActivity.EXTRA_PHOTO_RESULT, photoFile)
                             intent.putExtra(
                                 DetectResultActivity.EXTRA_CAMERA_MODE,
                                 cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                             )
-                            intent.putExtra(DetectResultActivity.PRODUCE_NAME, viewModel.prediction.value?.predictions?.name)
-                            intent.putExtra(DetectResultActivity.PRODUCE_RESULT, viewModel.prediction.value?.predictions?.status)
+                            intent.putExtra(
+                                DetectResultActivity.PRODUCE_NAME,
+                                viewModel.prediction.value?.predictions?.name
+                            )
+                            intent.putExtra(
+                                DetectResultActivity.PRODUCE_RESULT,
+                                viewModel.prediction.value?.predictions?.status
+                            )
                             val description = viewModel.data.value?.nutritionDesc
                             intent.putExtra(DetectResultActivity.PRODUCE_NUTRITION, description)
                             intent.putExtra(DetectResultActivity.PRODUCE_TIPS, description)

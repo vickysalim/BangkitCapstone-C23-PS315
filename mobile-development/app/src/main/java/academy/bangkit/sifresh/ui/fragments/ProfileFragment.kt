@@ -89,7 +89,7 @@ class ProfileFragment : Fragment() {
 
             preferencesViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserEmail.name)
                 .observe(viewLifecycleOwner) { email ->
-                    if (email != "") binding.tvProfileUserName.text = email
+                    if (email != "") binding.tvProfileUserEmail.text = email
                 }
 
             preferencesViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserName.name)

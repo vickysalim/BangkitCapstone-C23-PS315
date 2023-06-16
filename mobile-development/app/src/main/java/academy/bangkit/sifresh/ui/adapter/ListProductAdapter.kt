@@ -6,7 +6,6 @@ import academy.bangkit.sifresh.ui.activities.ProductDetailActivity
 import academy.bangkit.sifresh.utils.Helper
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -43,28 +42,6 @@ class ListProductAdapter :
                     .into(ivItemPhoto)
                 tvItemName.text = product.name
                 tvItemPrice.text = Helper.formatCurrency(product.price.toDouble())
-                /*btnAddToCart.setOnClickListener {
-                    btnAddToCart.visibility = View.GONE
-                    viewQuantityCount.visibility = View.VISIBLE
-                    tvItemQuantity.text = "1"
-
-                    btnQuantityMin.setOnClickListener {
-                        val quantity = tvItemQuantity.text.toString().toInt()
-                        val newQuantity = quantity - 1
-                        if (newQuantity > 1) {
-                            tvItemQuantity.text = newQuantity.toString()
-                        } else {
-                            btnAddToCart.visibility = View.VISIBLE
-                            viewQuantityCount.visibility = View.GONE
-                        }
-                    }
-
-                    btnQuantityPlus.setOnClickListener {
-                        val quantity = tvItemQuantity.text.toString().toInt()
-                        val newQuantity = quantity + 1
-                        tvItemQuantity.text = newQuantity.toString()
-                    }
-                }*/
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, ProductDetailActivity::class.java)
                     intent.putExtra(

@@ -1,11 +1,5 @@
 package academy.bangkit.sifresh.ui.fragments
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import academy.bangkit.sifresh.data.MyCartDataDummy
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
 import academy.bangkit.sifresh.databinding.FragmentCartBinding
@@ -13,6 +7,11 @@ import academy.bangkit.sifresh.ui.adapter.ListSellerCartAdapter
 import academy.bangkit.sifresh.ui.viewmodels.CartViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 

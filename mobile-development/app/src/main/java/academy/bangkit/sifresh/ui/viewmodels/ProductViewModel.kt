@@ -7,8 +7,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,32 +51,23 @@ class ProductViewModel : ViewModel() {
         price: Double,
         isAvailable: Boolean = true,
         description: String,
-        // image: MultipartBody.Part,
         publishedAt: String
     ) {
         val auth = "Bearer ${userToken.value.toString()}"
-        val productSellerId = sellerId.value.toString() //.toRequestBody("text/plain".toMediaType())
-        val productName = name //.toRequestBody("text/plain".toMediaType())
-        val productSellerName = sellerName.value.toString() //.toRequestBody("text/plain".toMediaType())
-        val productDescription = description //.toRequestBody("text/plain".toMediaType())
-        val productType = type //.toRequestBody("text/plain".toMediaType())
-        val productPrice = price.toInt() //.toRequestBody("text/plain".toMediaType())
-        val productPublishedAt = publishedAt //.toRequestBody("text/plain".toMediaType())
-        val productIsAvailable = isAvailable //.toRequestBody("text/plain".toMediaType())
-        // val reqImageFile = Helper.reduceFileImage(image).asRequestBody("image/jpeg".toMediaTypeOrNull())
-        // val imageMultiPart: MultipartBody.Part = MultipartBody.Part.createFormData("photo", image.name, reqImageFile)
+        val productSellerId = sellerId.value.toString()
+        val productSellerName = sellerName.value.toString()
+        val productPrice = price.toInt()
 
         val client = ApiConfig.getApiService().addProduct(
             auth,
             productSellerId,
-            productName,
+            name,
             productSellerName,
-            productType,
+            type,
             productPrice,
-            productIsAvailable,
-            productDescription,
-            // image,
-            productPublishedAt
+            isAvailable,
+            description,
+            publishedAt
         )
         client.enqueue(object : Callback<ProductItem> {
             override fun onResponse(call: Call<ProductItem>, response: Response<ProductItem>) {

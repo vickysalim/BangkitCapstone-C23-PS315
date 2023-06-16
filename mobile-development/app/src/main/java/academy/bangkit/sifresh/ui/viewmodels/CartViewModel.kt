@@ -84,7 +84,8 @@ class CartViewModel : ViewModel() {
         val id = cartItem.value?.id
         val token = "Bearer ${userToken.value}"
 
-        val client = ApiConfig.getApiService().deleteCart(token, id.toString(), userId.value.toString())
+        val client =
+            ApiConfig.getApiService().deleteCart(token, id.toString(), userId.value.toString())
 
         client.enqueue(object : Callback<Message> {
             override fun onResponse(
@@ -148,7 +149,7 @@ class CartViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     val body = response.body()
                     Log.e("Test", "onResponse: ${body?.data}")
-                    if(body?.data != null) {
+                    if (body?.data != null) {
                         cartList.value = body.data
                     }
                     status.value = ResponseCode.SUCCESS

@@ -1,14 +1,10 @@
 package academy.bangkit.sifresh.ui.activities
 
-import academy.bangkit.sifresh.data.MyCartDataDummy
-import academy.bangkit.sifresh.data.ProductReviewDummy
 import academy.bangkit.sifresh.data.local.SettingPreferences
 import academy.bangkit.sifresh.data.local.dataStore
-import academy.bangkit.sifresh.data.response.*
+import academy.bangkit.sifresh.data.response.OrderListItem
 import academy.bangkit.sifresh.databinding.ActivityConfirmOrderBinding
-import academy.bangkit.sifresh.ui.adapter.ListItemCartAdapter
 import academy.bangkit.sifresh.ui.adapter.ListItemOrderAdapter
-import academy.bangkit.sifresh.ui.adapter.ListProductReviewAdapter
 import academy.bangkit.sifresh.ui.adapter.ListSellerCartAdapter
 import academy.bangkit.sifresh.ui.viewmodels.OrderViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
@@ -16,8 +12,8 @@ import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
 import academy.bangkit.sifresh.utils.Helper
 import academy.bangkit.sifresh.utils.ResponseCode
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -63,12 +59,12 @@ class ConfirmOrderActivity : AppCompatActivity() {
             viewModel.updateOrderStatus(viewModel.userId.value.toString(), sellerId, "complete")
 
             viewModel.updateOrderStatus.observe(this) {
-                if(it == ResponseCode.SUCCESS)
+                if (it == ResponseCode.SUCCESS)
                     viewModel.insertOrderHistory(viewModel.userId.value.toString())
             }
 
             viewModel.insertStatus.observe(this) {
-                if(it == ResponseCode.SUCCESS) {
+                if (it == ResponseCode.SUCCESS) {
                     val intent = Intent(this, OrderSuccessActivity::class.java)
                     startActivity(intent)
                     finish()

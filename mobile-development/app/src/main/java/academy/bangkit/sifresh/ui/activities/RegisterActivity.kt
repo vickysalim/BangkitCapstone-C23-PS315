@@ -4,8 +4,8 @@ import academy.bangkit.sifresh.R
 import academy.bangkit.sifresh.databinding.ActivityRegisterBinding
 import academy.bangkit.sifresh.ui.fragments.RegisterAddressFragment
 import academy.bangkit.sifresh.ui.fragments.RegisterInfoFragment
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 
 class RegisterActivity : AppCompatActivity() {
@@ -19,7 +19,8 @@ class RegisterActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         val registerInfoFragment = RegisterInfoFragment()
-        val fragment = fragmentManager.findFragmentByTag(RegisterInfoFragment::class.java.simpleName)
+        val fragment =
+            fragmentManager.findFragmentByTag(RegisterInfoFragment::class.java.simpleName)
 
         fragmentManager.addOnBackStackChangedListener {
             val currentFragment = fragmentManager.findFragmentById(R.id.frame_container)
@@ -28,9 +29,13 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        if(fragment !is RegisterInfoFragment) {
+        if (fragment !is RegisterInfoFragment) {
             fragmentManager.beginTransaction()
-                .add(R.id.frame_container, registerInfoFragment, RegisterInfoFragment::class.java.simpleName)
+                .add(
+                    R.id.frame_container,
+                    registerInfoFragment,
+                    RegisterInfoFragment::class.java.simpleName
+                )
                 .commit()
         }
     }
@@ -43,7 +48,7 @@ class RegisterActivity : AppCompatActivity() {
         val stepper1 = binding.stepper1.layoutParams
         val stepper2 = binding.stepper2.layoutParams
 
-        when(fragment) {
+        when (fragment) {
             is RegisterInfoFragment -> {
                 binding.stepper1.background = getDrawable(R.drawable.stepper_active_container)
                 binding.stepper2.background = getDrawable(R.drawable.stepper_inactive_container)

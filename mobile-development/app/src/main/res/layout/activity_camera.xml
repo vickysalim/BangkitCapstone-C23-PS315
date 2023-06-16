@@ -10,20 +10,20 @@
         android:id="@+id/previewCamera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="18dp"
         android:background="#4F2A95C8"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -31,9 +31,9 @@
             android:layout_height="40dp"
             android:contentDescription=""
             android:src="@drawable/ic_arrow_back_24"
-            app:tint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/btn_info"
@@ -101,14 +101,14 @@
         android:id="@+id/tv_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/manrope_medium"
         android:gravity="center"
         android:text=""
-        android:fontFamily="@font/manrope_medium"
+        android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="21sp"
-        android:layout_marginTop="8dp"
         android:textStyle="bold"
-        android:textAllCaps="true"
-        app:layout_constraintTop_toBottomOf="@id/cl_top"/>
+        app:layout_constraintTop_toBottomOf="@id/cl_top" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

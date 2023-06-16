@@ -11,13 +11,13 @@ import academy.bangkit.sifresh.utils.uriToFile
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -53,7 +53,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         viewModel.userDataStatus.observe(this) {
-            when(it) {
+            when (it) {
                 ResponseCode.LOADING -> {
                     binding.apply {
                         inputName.editText?.setText("Loading...")
@@ -84,7 +84,11 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                 }
                 else -> {
-                    Toast.makeText(this, academy.bangkit.sifresh.R.string.text_forbidden, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        academy.bangkit.sifresh.R.string.text_forbidden,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                 }
             }
@@ -140,7 +144,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         viewModel.updateDataStatus.observe(this) {
-            when(it) {
+            when (it) {
                 ResponseCode.NOTHING -> {
                     binding.btnSave.isEnabled = true
                 }
@@ -148,11 +152,19 @@ class EditProfileActivity : AppCompatActivity() {
                     binding.btnSave.isEnabled = false
                 }
                 ResponseCode.SUCCESS -> {
-                    Toast.makeText(this, academy.bangkit.sifresh.R.string.text_update_success, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        academy.bangkit.sifresh.R.string.text_update_success,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     finish()
                 }
                 else -> {
-                    Toast.makeText(this, academy.bangkit.sifresh.R.string.text_update_failed, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        academy.bangkit.sifresh.R.string.text_update_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
                     binding.btnSave.isEnabled = true
                 }
             }
@@ -162,7 +174,8 @@ class EditProfileActivity : AppCompatActivity() {
 
         viewModel.file.observe(this) {
             getFile = it
-            Glide.with(binding.ivProfilePhoto).load(BitmapFactory.decodeFile(it.path)).into(binding.ivProfilePhoto)
+            Glide.with(binding.ivProfilePhoto).load(BitmapFactory.decodeFile(it.path))
+                .into(binding.ivProfilePhoto)
         }
 
         binding.apply {
@@ -175,13 +188,15 @@ class EditProfileActivity : AppCompatActivity() {
             }
             btnSave.setOnClickListener {
                 Log.e("Get File", getFile.toString())
-                if(getFile != null) {
-                    val id = viewModel.userId.value.toString().toRequestBody("text/plain".toMediaTypeOrNull())
+                if (getFile != null) {
+                    val id = viewModel.userId.value.toString()
+                        .toRequestBody("text/plain".toMediaTypeOrNull())
 
                     val file = getFile!!
 
                     val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
-                    val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData("photo", file.name, requestFile)
+                    val imageMultipart: MultipartBody.Part =
+                        MultipartBody.Part.createFormData("photo", file.name, requestFile)
 
                     viewModel.uploadPhoto(id, imageMultipart)
                 }
@@ -204,8 +219,8 @@ class EditProfileActivity : AppCompatActivity() {
         galleryLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == RESULT_OK) {
-                    //selectedImage = result.data?.data as Uri
-                    viewModel.file.value = uriToFile(result.data?.data as Uri, this@EditProfileActivity)
+                    viewModel.file.value =
+                        uriToFile(result.data?.data as Uri, this@EditProfileActivity)
                 }
             }
     }

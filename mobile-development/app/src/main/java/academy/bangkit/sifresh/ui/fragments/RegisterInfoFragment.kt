@@ -1,16 +1,16 @@
 package academy.bangkit.sifresh.ui.fragments
 
 import academy.bangkit.sifresh.R
-import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
 import academy.bangkit.sifresh.databinding.FragmentRegisterInfoBinding
+import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
 import academy.bangkit.sifresh.utils.ResponseCode
 import android.os.Bundle
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
 class RegisterInfoFragment : Fragment() {
