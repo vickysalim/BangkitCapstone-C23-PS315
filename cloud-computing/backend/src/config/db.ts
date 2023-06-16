@@ -1,18 +1,14 @@
 import mysql from "mariadb";
 
 async function connection() {
-  const conn = mysql.createPool({
+  const getConnection = await mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    connectionLimit: 10,
-    idleTimeout: 60000,
     socketPath: process.env.DB_SOCKET_PATH,
     socketTimeout: 100000,
   });
-
-  const getConnection = await conn.getConnection();
 
   return getConnection;
 }
