@@ -84,4 +84,6 @@
     <string name="text_timeout">Batas waktu server</string>
     <string name="text_error">Kesalahan</string>
     <string name="text_cart">Berhasil menambahkan item ke keranjang</string>
+    <string name="text_detect_fruit">Deteksi Buah saya</string>
+    <string name="text_detect_vegetable">Deteksi Sayuran saya</string>
 </resources>

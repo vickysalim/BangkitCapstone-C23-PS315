@@ -96,4 +96,19 @@
             app:srcCompat="@drawable/ic_cameraswitch_24"
             app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text=""
+        android:fontFamily="@font/manrope_medium"
+        android:textColor="@color/white"
+        android:textSize="21sp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        app:layout_constraintTop_toBottomOf="@id/cl_top"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

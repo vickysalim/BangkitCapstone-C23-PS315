@@ -20,11 +20,24 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import academy.bangkit.sifresh.R
+import academy.bangkit.sifresh.data.local.SettingPreferences
+import academy.bangkit.sifresh.data.local.dataStore
+import academy.bangkit.sifresh.ui.viewmodels.CameraViewModel
+import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
+import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
+import academy.bangkit.sifresh.utils.ResponseCode
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
@@ -33,10 +46,18 @@ class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
+    private var type: String? = null
+
+    private lateinit var viewModel: CameraViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this)[CameraViewModel::class.java]
+
+        setUserData()
 
         setDialogInfo()
         initGallery()
@@ -70,12 +91,21 @@ class CameraActivity : AppCompatActivity() {
         dialog.setContentView(R.layout.dialog_camera_info)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        val btnStart : MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_start)
+        val btnFruit : MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_fruit)
+        val btnVegetable : MaterialButton = dialog.findViewById(R.id.btn_dialog_camera_vegetable)
         val textDescription : TextView = dialog.findViewById(R.id.tv_dialog_camera_infoText)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             textDescription.justificationMode = JUSTIFICATION_MODE_INTER_WORD
         }
-        btnStart.setOnClickListener{
+
+        btnFruit.setOnClickListener {
+            type = "fruit"
+            binding.tvType.text = type
+            dialog.dismiss()
+        }
+        btnVegetable.setOnClickListener {
+            type = "vegetable"
+            binding.tvType.text = type
             dialog.dismiss()
         }
 
@@ -91,14 +121,34 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    val intent = Intent(this@CameraActivity, DetectResultActivity::class.java)
-                    intent.putExtra(DetectResultActivity.EXTRA_PHOTO_RESULT, photoFile)
-                    intent.putExtra(
-                        DetectResultActivity.EXTRA_CAMERA_MODE,
-                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
-                    )
-                    this@CameraActivity.finish()
-                    startActivity(intent)
+                    val userId = viewModel.userId.value.toString()
+                        .toRequestBody("text/plain".toMediaTypeOrNull())
+
+                    val requestFile = photoFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val imageMultipart: MultipartBody.Part =
+                        MultipartBody.Part.createFormData("image", photoFile.name, requestFile)
+
+                    viewModel.uploadPhoto(userId, imageMultipart)
+                    viewModel.status.observe(this@CameraActivity) {
+                        if(it == ResponseCode.SUCCESS) {
+
+                            val intent = Intent(this@CameraActivity, DetectResultActivity::class.java)
+                            intent.putExtra(DetectResultActivity.EXTRA_PHOTO_RESULT, photoFile)
+                            intent.putExtra(
+                                DetectResultActivity.EXTRA_CAMERA_MODE,
+                                cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                            )
+                            intent.putExtra(DetectResultActivity.PRODUCE_NAME, viewModel.prediction.value?.predictions?.name)
+                            intent.putExtra(DetectResultActivity.PRODUCE_RESULT, viewModel.prediction.value?.predictions?.status)
+                            val description = viewModel.data.value?.nutritionDesc
+                            intent.putExtra(DetectResultActivity.PRODUCE_NUTRITION, description)
+                            intent.putExtra(DetectResultActivity.PRODUCE_TIPS, description)
+
+                            this@CameraActivity.finish()
+                            startActivity(intent)
+                        }
+                    }
+
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -185,5 +235,18 @@ class CameraActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun setUserData() {
+        val settingPreferences = SettingPreferences.getInstance(applicationContext.dataStore)
+        val settingViewModel = ViewModelProvider(
+            this,
+            SettingViewModelFactory(settingPreferences)
+        )[SettingViewModel::class.java]
+
+        settingViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserID.name)
+            .observe(this) { id ->
+                if (id != "") viewModel.userId.value = id
+            }
     }
 }

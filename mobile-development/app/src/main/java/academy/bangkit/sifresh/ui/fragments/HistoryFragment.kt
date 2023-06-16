@@ -16,6 +16,7 @@ import academy.bangkit.sifresh.ui.viewmodels.HistoryViewModel
 import academy.bangkit.sifresh.ui.viewmodels.RegisterViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModel
 import academy.bangkit.sifresh.ui.viewmodels.SettingViewModelFactory
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -62,8 +63,14 @@ class HistoryFragment : Fragment() {
                 }
                 R.id.rb_detect -> {
                     // History Scan
+                    Log.e("Test", "Test")
                     binding.rbTransaction.setTextColor(resources.getColor(R.color.light_green))
                     binding.rbDetect.setTextColor(resources.getColor(R.color.white))
+                    viewModel.getFreshList(viewModel.userId.value!!)
+                    viewModel.freshnessList.observe(viewLifecycleOwner) {
+                        Log.e("Test 2", it.toString())
+                        binding.rvHistory.adapter = DetectHistoryAdapter(it)
+                    }
 //                    viewModel.detectList.observe(viewLifecycleOwner) {
 //                        binding.rvHistory.adapter = DetectHistoryAdapter(it)
 //                    }

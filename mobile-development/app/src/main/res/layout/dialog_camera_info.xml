@@ -41,13 +41,24 @@
         android:textStyle="normal" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_dialog_camera_start"
+        android:id="@+id/btn_dialog_camera_fruit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/manrope_medium"
         android:gravity="center"
-        android:text="@string/text_iam_understand"
+        android:text="@string/text_detect_fruit"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_dialog_camera_vegetable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/manrope_medium"
+        android:gravity="center"
+        android:text="@string/text_detect_vegetable"
         android:textSize="12sp"
         android:textStyle="bold"
         app:cornerRadius="10dp" />

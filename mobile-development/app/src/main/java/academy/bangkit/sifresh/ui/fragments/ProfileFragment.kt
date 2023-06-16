@@ -61,12 +61,12 @@ class ProfileFragment : Fragment() {
 //            settingsGroup.switchNotification.setOnCheckedChangeListener { _, isChecked ->
 //                // Turn on/off notification
 //            }
-//            val preferences = SettingPreferences.getInstance(requireContext().dataStore)
-//            val preferencesViewModel =
-//                ViewModelProvider(
-//                    this@ProfileFragment,
-//                    SettingViewModelFactory(preferences)
-//                )[SettingViewModel::class.java]
+            val preferences = SettingPreferences.getInstance(requireContext().dataStore)
+            val preferencesViewModel =
+                ViewModelProvider(
+                    this@ProfileFragment,
+                    SettingViewModelFactory(preferences)
+                )[SettingViewModel::class.java]
 //            preferencesViewModel.getThemeSetting()
 //                .observe(viewLifecycleOwner) { isDarkMode: Boolean ->
 //                    if (isDarkMode) {
@@ -86,6 +86,16 @@ class ProfileFragment : Fragment() {
 //            settingsGroup.btnHelpCenter.setOnClickListener {
 //                // Go to Help Center
 //            }
+
+            preferencesViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserEmail.name)
+                .observe(viewLifecycleOwner) { email ->
+                    if (email != "") binding.tvProfileUserName.text = email
+                }
+
+            preferencesViewModel.getUserPreferences(SettingPreferences.Companion.UserPreferences.UserName.name)
+                .observe(viewLifecycleOwner) { name ->
+                    if (name != "") binding.tvProfileUserName.text = name
+                }
         }
     }
 //    private fun updateNightMode(isDarkMode: Boolean) {

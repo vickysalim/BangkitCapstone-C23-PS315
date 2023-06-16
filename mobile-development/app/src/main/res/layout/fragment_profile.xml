@@ -75,19 +75,6 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_profile_user_name"
                 app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_name" />
 
-            <TextView
-                android:id="@+id/tv_profile_user_phone_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_medium"
-                android:gravity="center"
-                android:text="@string/text_placeholder_seller_phone"
-                android:textColor="@color/dark_gray"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/tv_profile_user_email"
-                app:layout_constraintStart_toStartOf="@+id/tv_profile_user_email"
-                app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_email" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_edit_profile"
                 android:layout_width="0dp"
@@ -102,7 +89,7 @@
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toStartOf="@+id/btn_add_product"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_phone_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_email" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_product"
@@ -118,7 +105,7 @@
                 app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btn_edit_profile"
-                app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_phone_number" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_profile_user_email" />
 
             <TextView
                 android:id="@+id/tv_setting_title"

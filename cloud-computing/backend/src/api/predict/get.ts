@@ -87,7 +87,9 @@ router.get("/:userId", async (req, res) => {
     res.status(200).json(paginatedData);
   }
 
-  res.status(200).json(data);
+  res.status(200).json({
+    message: "Freshness data found",
+    data});
 
 });
 

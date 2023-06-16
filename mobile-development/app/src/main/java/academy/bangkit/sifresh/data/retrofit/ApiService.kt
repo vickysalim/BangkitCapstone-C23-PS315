@@ -179,4 +179,16 @@ interface ApiService {
         @Field("sellerId") sellerId: String,
         @Field("status") status: String,
     ): Call<Message>
+
+    @Multipart
+    @POST("predict/vegetables")
+    fun predictVegetables(
+        @Part("userId") userId: RequestBody,
+        @Part image : MultipartBody.Part,
+    ): Call<Freshness>
+
+    @GET("predict/get/{userId}")
+    fun getUserFreshnessHistory(
+        @Path("userId") userId: String
+    ): Call<FreshHistory>
 }

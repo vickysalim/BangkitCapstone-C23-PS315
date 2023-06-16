@@ -103,4 +103,6 @@
     <string name="text_timeout">Server timeout</string>
     <string name="text_error">Error</string>
     <string name="text_cart">Successfully add items to cart</string>
+    <string name="text_detect_fruit">Detect my Fruit</string>
+    <string name="text_detect_vegetable">Detect my Vegetable</string>
 </resources>

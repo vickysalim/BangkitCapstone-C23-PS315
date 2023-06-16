@@ -1,5 +1,7 @@
 package academy.bangkit.sifresh.ui.adapter
 
+import academy.bangkit.sifresh.data.response.FreshHistory
+import academy.bangkit.sifresh.data.response.FreshHistoryData
 import academy.bangkit.sifresh.data.response.ProductDummy
 import academy.bangkit.sifresh.databinding.DetectHistoryCardBinding
 import android.animation.ValueAnimator
@@ -11,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.ChangeBounds
 import androidx.transition.Transition
 import com.bumptech.glide.Glide
+import org.json.JSONArray
 
-class DetectHistoryAdapter(private val listDetect: List<ProductDummy>) :
+class DetectHistoryAdapter(private val listDetect: List<FreshHistoryData>) :
     RecyclerView.Adapter<DetectHistoryAdapter.ViewHolder>() {
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding = DetectHistoryCardBinding.inflate(
@@ -43,19 +46,18 @@ class DetectHistoryAdapter(private val listDetect: List<ProductDummy>) :
             }
         }
 
-        fun bind(order: ProductDummy) {
+        fun bind(order: FreshHistoryData) {
             with(binding) {
                 Glide.with(itemView.context)
-                    .load(order.productImageUrl)
+                    .load(order.pictureUrl)
                     .into(ivItemPhoto)
-
                 ivItemPhoto.layoutParams.height = if (isExpanded) expandedHeight else originalHeight
                 gradientEffect.layoutParams.height = if (isExpanded) expandedHeight else originalHeight
                 ivItemPhoto.requestLayout()
                 gradientEffect.requestLayout()
 
-                tvItemName.text = order.productName
-                tvFreshStatus.text = "Fresh"
+                tvItemName.text = order.name
+                tvFreshStatus.text = if(order.isFresh == 1) "Fresh" else "Not Fresh"
 
                 layout.visibility = if (isExpanded) View.VISIBLE else View.GONE
             }

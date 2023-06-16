@@ -33,6 +33,11 @@ class DetectResultActivity : AppCompatActivity() {
         val isBackCamera = intent?.getBooleanExtra(EXTRA_CAMERA_MODE, true) as Boolean
 
         binding.apply {
+            textFruit.text = intent?.getStringExtra(PRODUCE_NAME)
+            textStatus.text = intent?.getStringExtra(PRODUCE_RESULT)
+            textNutrition.text = intent?.getStringExtra(PRODUCE_NUTRITION)
+            textTips.text = intent?.getStringExtra(PRODUCE_TIPS)
+
             myFile.let { file ->
                 Helper.rotateFile(file, isBackCamera)
                 getFile = file
@@ -57,5 +62,10 @@ class DetectResultActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_PHOTO_RESULT = "PHOTO_RESULT"
         const val EXTRA_CAMERA_MODE = "CAMERA_MODE"
+
+        const val PRODUCE_NAME = "PRODUCE_NAME"
+        const val PRODUCE_RESULT = "PRODUCE_RESULT"
+        const val PRODUCE_NUTRITION = "PRODUCE_NUTRITION"
+        const val PRODUCE_TIPS = "PRODUCE_TIPS"
     }
 }

@@ -50,7 +50,7 @@ export async function predictFruitFreshness(img: Express.Multer.File) {
 
 const router = express.Router();
 
-router.post("/", uploadMemory.single("image"), async (req, res) => {
+router.post("/", uploadMemory.any(), async (req, res) => {
   const { userId, productId, name } = req.body;
   const image = req.file;
   const type = "fruits";
