@@ -26,12 +26,13 @@ async function addProduct(
   price: number,
   isAvailable: boolean,
   description: string,
-//  productPics: Express.Multer.File[],
+  //  productPics: Express.Multer.File[],
   publishedAt: Date,
 ) {
   const conn = await connection();
   const id = uuidv4();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let productPicUrls: string[] = [];
 
   // for (let i = 0; i < productPics.length; i++) {
@@ -61,7 +62,7 @@ async function addProduct(
     isAvailable,
     description,
     ["https://storage.googleapis.com/sifresh-bucket-one/uploads/default.png"],
-//    JSON.stringify(productPicUrls),
+    //    JSON.stringify(productPicUrls),
     publishedAt,
   ]);
 
@@ -153,7 +154,7 @@ router.post("/", upload.array("productPics", 12), async (req: Request, res: Resp
     Number(price),
     isAvailable === "true" ? true : false,
     description as string,
-  //  productPics as Express.Multer.File[],
+    //  productPics as Express.Multer.File[],
     new Date(publishedAt as string),
   );
 
